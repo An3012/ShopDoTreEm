@@ -1,0 +1,40 @@
+﻿@model Web2.AppData.PaginationPLSPViewModel
+
+@{
+    int pageNumber = Model.PageNumber;
+    int numberRecords = Model.NumberRecords;
+    int IdDanhMuc = Model.IdDM;
+    int IdPloai = Model.IdPLoai;
+}
+
+<div class="col-lg-12 text-center">
+    <div class=" pagination__option">
+        <nav aria-label=" pagination__option">
+            @if (pageNumber > 1)
+            {
+                <a class="" href="javascript:;" tabindex="-1" onclick="Click_PaginationSpTheoLoaiSp(@IdDanhMuc, @IdPloai, 1)"><span aria-hidden="true">&laquo;</span></a>
+            }
+
+            @for (int position = 1; position <= numberRecords; position++)
+            {
+                if (position == pageNumber)
+                {
+                    <a class="a_action_mouse" href="javascript:;" id="PhanLoaiSp" onclick="Click_PaginationSpTheoLoaiSp(@IdDanhMuc, @IdPloai, @position)">@position</a>
+
+                    @*<a class="" href="@Url.Action(Model.ActionName, Model.ControllerName, new {id = Id, page = position })">@position</a>*@
+                }
+                else
+                {
+                    <a class="" href="javascript:;)" onclick="Click_PaginationSpTheoLoaiSp(@IdDanhMuc, @IdPloai, @position)">@position</a>
+                }
+            }
+
+            @if (pageNumber > 0 && pageNumber < numberRecords)
+            {
+                <a class="" href="javascript:;" tabindex="-1" onclick="Click_PaginationSpTheoLoaiSp(@IdDanhMuc, @IdPloai, numberRecords)"><span aria-hidden="true">&raquo;</span></a>
+
+            }
+        </nav>
+    </div>
+</div>
+

@@ -1,0 +1,11 @@
+﻿.pagination-list {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.pagination__option a.active {
+    background: #0d0d0d;
+    border-color: #0d0d0d;
+    color: #ffffff;
+}

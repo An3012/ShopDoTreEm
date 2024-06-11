@@ -1,0 +1,72 @@
+﻿@model Web2.AppData.PaginationViewModel
+
+@{
+    int pageNumber = Model.PageNumber;
+    int numberRecords = Model.NumberRecords;
+    var Controller = Model.ControllerName;
+    var Action = Model.ActionName;
+}
+
+<div class="col-lg-12 text-center">
+    <div class="pagination__option">
+        <nav aria-label=" pagination__option">
+            @if (pageNumber > 1)
+            {
+                <a class="" href="javascript:;" onclick="Click_Pagination(1)" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+            }
+
+            @for (int position = 1; position <= numberRecords; position++)
+            {
+                if (position == pageNumber)
+                {
+                    <a class="a_action_mouse" href="javascript:;" onclick="Click_Pagination(@position)">@position</a>
+                }
+                else
+                {
+                    <a class="a_action_mouse" href="javascript:;" onclick="Click_Pagination(@position)">@position</a>
+                }
+            }
+
+            @if (pageNumber > 0 && pageNumber < numberRecords)
+            {
+                <a class="" href="javascript:;" onclick="Click_Pagination(@numberRecords)" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
+
+            }
+        </nav>
+    </div>
+</div>
+
+<script>
+    function Click_Pagination(position) {
+        const url = '/User/TrangChu/ALLSP';
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: { page: position },
+            success: function (html) {
+                $('#GridView').html(html);
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
+    }
+
+    function Click_PaginationTrangChu(page) {
+         const url = '/User/@Controller/@Action';
+        $.ajax({
+            type: 'post',
+            url: '/User/@Controller/@Action' ,
+            data: { page },
+            success: function (html) {
+                console.log(html)
+                $('#GridView').html(html);
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
+    }
+
+</script>
+
