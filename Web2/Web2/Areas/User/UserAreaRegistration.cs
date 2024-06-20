@@ -20,5 +20,6 @@ namespace Web2.Areas.User
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }
+
     }
 }

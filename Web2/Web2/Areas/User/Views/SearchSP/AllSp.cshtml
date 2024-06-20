@@ -8,46 +8,7 @@
         ActionName = "ALLSP" // Thay đổi tên Action tùy theo trang
     };
 }
-
-<div class="row">
-
-    @if (lstSanPham != null)
-    {
-        foreach (var sanpham in lstSanPham)
-        {
-            <div class="col-lg-4 col-md-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp">
-                        @*<img src="@sanpham.AnhSp" alt="Alternate Text" />*@
-                        @*<div class="label new">New</div>*@
-                        <ul class="product__hover">
-                            <li><a href="@sanpham.AnhSp" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">@sanpham.TenSanPham</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">@sanpham.Gia VND</div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
-    else
-    {
-        <div>Shop đã hết mặt hàng này!!!</div>
-    }
-        @*@Html.Partial("_Pagination", paginationModel)*@
-</div>
-
+<script src="/Assest/User/js/jquery.min.js"></script>
 <script src="/Assest/User/js/bootstrap.min.js"></script>
 <script src="/Assest/User/js/jquery.magnific-popup.min.js"></script>
 <script src="/Assest/User/js/jquery-ui.min.js"></script>
@@ -57,3 +18,46 @@
 <script src="/Assest/User/js/owl.carousel.min.js"></script>
 <script src="/Assest/User/js/jquery.nicescroll.min.js"></script>
 <script src="/Assest/User/js/main.js"></script>
+
+<div class="row _AllSp">
+
+    @if (lstSanPham != null)
+    {
+        foreach (var sanpham in lstSanPham)
+        {
+                <div class="col-lg-3 col-md-4 col-sm-6 ">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp" href="javascript:;" onclick="Clicksp(@sanpham.Id)">
+                            @*<img src="@sanpham.AnhSp" alt="Alternate Text" />*@
+                            @*<div class="label new">New</div>*@
+                            @*<ul class="product__hover">
+                                <li><a href="@sanpham.AnhSp" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                            </ul>*@
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="javascript:;" onclick="Clicksp(@sanpham.Id)">@sanpham.TenSanPham </a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">@sanpham.Gia VND</div>
+                        </div>
+                    </div>
+                </div>
+
+        }
+    }
+    else
+    {
+        <div>Shop đã hết mặt hàng này!!!</div>
+    }
+    <div id="Pagination">@*@Html.Partial("_Pagination", paginationModel)*@</div>
+    
+</div>
+
+

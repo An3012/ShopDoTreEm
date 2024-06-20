@@ -2,27 +2,18 @@
 
 @{
     ViewBag.Title = "TrangChu";
-    Layout = "~/Areas/User/Views/Shared/LayoutPage.cshtml";
+    Layout = "~/Areas/User/Views/Shared/LayoutPageTrangChu.cshtml";
     Web2.Models.WebDoTreEmEntities2 DB = new Web2.Models.WebDoTreEmEntities2();
     var LoaiSP = DB.LoaiSp.ToList();
     var DanhMucSP = DB.DanhMucSp.ToList();
-    var TTThem = DB.Thongtinthem.ToList();
     var lstSanPham = ViewBag.LstSanPham as List<Web2.Models.SanPham>; // Ép kiểu ViewBag.LstSanPham sang kiểu List<SanPham>
 
-    var paginationModel = new Web2.AppData.PaginationViewModel
-    {
-        PageNumber = ViewBag.PageNumber,
-        NumberRecords = ViewBag.NumberRecords,
-        ControllerName = "TrangChu", // Thay đổi tên Controller tùy theo trang
-        ActionName = "TrangChu" // Thay đổi tên Action tùy theo trang
-    };
 }
 
 <!-- Categories Section Begin -->
-
 <!-- Categories Section End -->
 <!-- Product Section Begin -->
-<div >
+<div>
 
     <section class="product spad">
         <div class="container">
@@ -35,16 +26,14 @@
                 <div class="col-lg-9 col-md-9">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">All</li>
-                        @{
-                            foreach (var danhMucSp in DanhMucSP)
-                            {
-                                <li data-filter=".DM-@danhMucSp?.id">@danhMucSp.TagDM</li>
-                            }
+                        @foreach(var lstDM in DanhMucSP)
+                        { 
+                            <li data-filter=".DM-@lstDM.id">@lstDM.TagDM </li>
                         }
                     </ul>
                 </div>
             </div>
-            <div class="row property__gallery" id="GridView" > 
+            <div class="row property__gallery" id="GridView">
                 @{
                     foreach (var SanPham in Model)
                     {
@@ -52,19 +41,19 @@
                         {
                             if (SanPham.IdDanhMuc == danhMucSp.id && SanPham.HotSearch == 1)
                             {
-                                <div class="col-lg-3 col-md-4 col-sm-6 mix DM-@danhMucSp?.id">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="@SanPham.AnhSp">
+                                <div class="col-lg-3 col-md-4 col-sm-6 mix DM-@danhMucSp.id">
+                                    <div class="product__item ">
+                                        <div class="product__item__pic set-bg" data-setbg="@SanPham.AnhSp"href="javascript:;" onclick="Clicksp(@SanPham.Id)" >
                                             <div class="label new">New</div>
-                                            <ul class="product__hover">
+                                            @*<ul class="product__hover">
                                                 <li><a href="@SanPham.AnhSp" class="image-popup"><span class="arrow_expand"></span></a></li>
                                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                            </ul>
+                                                <li><a href="javascript:;" onclick="Clicksp(@SanPham.Id)"><span class="icon_bag_alt"></span></a></li>
+                                            </ul>*@
                                         </div>
                                         <div class="product__item__text @*product__item__text_new*@ ">
-                                            <h6><a href="#">@SanPham.TenSanPham</a></h6>
-                                            <div class="product__price">@SanPham.Gia</div>
+                                            <h6><a  href="javascript:;" onclick="Clicksp(@SanPham.Id)">@SanPham.TenSanPham</a></h6>
+                                            <div class="product__price">@(string.Format("{0:C3}", SanPham.Gia))</div>
                                         </div>
                                     </div>
 
@@ -75,7 +64,6 @@
 
                 }
             </div>
-            @Html.Partial("_Pagination", paginationModel)
         </div>
     </section>
     <!-- Discount Section Begin -->
@@ -131,27 +119,7 @@
                             <h4>Hot Trend</h4>
                         </div>
                         @{
-                            foreach (var sanPham in Model)
-                            {
-                                foreach (var thongtinthem in TTThem)
-                                {
-                                    if (sanPham.Id == thongtinthem.IDSp)
-                                    {
-                                        if (thongtinthem.HotTrend == 1)
-                                        {
-                                            <div class="trend__item">
-                                                <div class="trend__item__pic">
-                                                    <img src="@sanPham.AnhSp" alt="" style="max-height:120px; max-width:100px">
-                                                </div>
-                                                <div class="trend__item__text">
-                                                    <h6>@sanPham.TenSanPham</h6>
-                                                    <div class="product__price">@sanPham.Gia</div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-                                }
-                            }
+                            
                         }
                     </div>
                 </div>
@@ -162,27 +130,7 @@
                         <div class="section-title">
                             <h4>Best seller</h4>
                         </div>
-                        @{
-                            foreach (var sanpham in Model)
-                            {
-                                foreach (var thongtinthem in TTThem)
-                                {
-                                    if (sanpham.Id == thongtinthem.IDSp)
-                                    {
-
-                                        <div class="trend__item">
-                                            <div class="trend__item__pic">
-                                                <img src="@sanpham.AnhSp" alt="" style="max-height:120px; max-width:100px">
-                                            </div>
-                                            <div class="trend__item__text">
-                                                <h6>@sanpham.TenSanPham</h6>
-                                                <div class="product__price">@sanpham.Gia</div>
-                                            </div>
-                                        </div>
-                                    }
-                                }
-                            }
-                        }
+                        
                     </div>
                 </div>
 

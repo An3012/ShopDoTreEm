@@ -1,0 +1,135 @@
+﻿@model List<Web2.AppData.CartItem>
+@{
+    Web2.Models.WebDoTreEmEntities2 db = new Web2.Models.WebDoTreEmEntities2();
+    var sizes = db.Size.ToList();
+    int totalPrice = Model != null ? Model.Sum(item => item.DonGia * item.SoLuong) : 0;
+    int totalItems = Model != null ? Model.Sum(item => item.SoLuong) : 0;
+
+}
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Areas/User/Views/Shared/LayoutPageGioHang.cshtml";
+
+}
+<div id="toast"></div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="shop__cart__table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th></th>
+                        <th>Size</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        
+                        <tr>
+                            <td class="cart__product__item cart__product__item__image ">
+                                <img class="img" src="@item.SanPham.AnhSp" alt="">
+
+                            </td>
+                            <td class="cart__product__item">
+                                <div class="cart__product__item__title">
+                                    <h6>@item.SanPham.TenSanPham</h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart__quantity"> @sizes.Find(x => x.id == item.SanPham.Size).TagSize</td>
+                            <td class="cart__price">@string.Format("{0:C3}", item.DonGia)</td>
+                            <td class="cart__quantity">
+                                <div class="pro-qty SoLuongProduct">
+                                    <input type="text" data-id="@item.SanPham.Id" value="@item.SoLuong">
+                                </div>
+                            </td>
+                            <td class="cart__total" >@string.Format("{0:C3}", item.DonGia * item.SoLuong)</td>
+                            <td class="cart__close"><span class="icon_close"></span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="cart__btn">
+            <a href="/User/TrangChu/TrangChu">Tiếp tục mua sắm</a>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="cart__btn update__btn">
+            <a href="javascript:;" onclick="ClickUpdateproduct()"><span class="icon_loading"></span> Cập nhật</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-4 offset-lg-2" id="cart__total__procced">
+        <div class="cart__total__procced">
+            <h6>Giỏ hàng của bạn</h6>
+            <ul>
+                <li>Số sản phẩm<span>@totalItems</span></li>
+                <li>Tổng đơn <span> @string.Format("{0:C3}", totalPrice)</span></li>
+            </ul>
+            <a href="#" class="primary-btn">checkout</a>
+        </div>
+    </div>
+    <script>
+        $(".img").each(function () {
+            var $img = $(this);
+            $img.width($img.width() * .5);
+        });
+
+        function ClickUpdateproduct() {
+            var CartList = [];
+            $('.SoLuongProduct input').each(function () {
+                var productID = parseInt($(this).data('id'));
+                var quantity = parseInt($(this).val());
+                CartList.push({
+                    SanPham: { Id: productID },
+                    SoLuong: quantity,
+                });
+
+            });
+            console.log(CartList)
+            $.ajax({
+                url: '/User/GioHang/UpdateGioHang',
+                type: 'POST',
+                data: { CartList},
+                success: function (response) {
+                    $("#cart__total__procced").load(location.href + " .cart__total__procced");
+                    toast({
+                        title: "Thành công!",
+                        message: response.message,
+                        type: "success",
+                        duration: 5000
+                    });
+                },
+                error: function (xhr, status, error) {
+                    toast({
+                        title: "Thất bại!",
+                        message: response.message,
+                        type: "success",
+                        duration: 5000
+                    });
+                }
+            });
+        }
+    </script>
+</div>

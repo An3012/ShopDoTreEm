@@ -12,18 +12,13 @@ namespace Web2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Quyen
+    public partial class DacDiemSP
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quyen()
-        {
-            this.NhomQuyen = new HashSet<NhomQuyen>();
-        }
-    
         public int id { get; set; }
-        public string Quyen1 { get; set; }
+        public Nullable<int> IDSp { get; set; }
+        public string DacDiemSanPham { get; set; }
+        public string NameDacDiem { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhomQuyen> NhomQuyen { get; set; }
+        public virtual SanPham SanPham { get; set; }
     }
 }

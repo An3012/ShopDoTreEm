@@ -4,199 +4,198 @@
     <EntitySetMapping Name="Account">
       <EntityTypeMapping TypeName="WebDoTreEmModel.Account">
         <MappingFragment StoreEntitySet="Account">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
-          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
-          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-          <ScalarProperty Name="EmailDangNhap" ColumnName="EmailDangNhap" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="idRole" ColumnName="idRole" />
-          <ScalarProperty Name="idTinhThanh" ColumnName="idTinhThanh" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="idQuanHuyen" ColumnName="idQuanHuyen" />
-          <ScalarProperty Name="idPhuongXa" ColumnName="idPhuongXa" />
           <ScalarProperty Name="HoatDong" ColumnName="HoatDong" />
+          <ScalarProperty Name="idPhuongXa" ColumnName="idPhuongXa" />
+          <ScalarProperty Name="idQuanHuyen" ColumnName="idQuanHuyen" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="idTinhThanh" ColumnName="idTinhThanh" />
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="EmailDangNhap" ColumnName="EmailDangNhap" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+          <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ChiTietDonHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.ChiTietDonHang">
         <MappingFragment StoreEntitySet="ChiTietDonHang">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
-          <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
-          <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
           <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
+          <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+          <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DacDiemSP">
+      <EntityTypeMapping TypeName="WebDoTreEmModel.DacDiemSP">
+        <MappingFragment StoreEntitySet="DacDiemSP">
+          <ScalarProperty Name="NameDacDiem" ColumnName="NameDacDiem" />
+          <ScalarProperty Name="DacDiemSanPham" ColumnName="DacDiemSanPham" />
+          <ScalarProperty Name="IDSp" ColumnName="IDSp" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DanhMucSp">
       <EntityTypeMapping TypeName="WebDoTreEmModel.DanhMucSp">
         <MappingFragment StoreEntitySet="DanhMucSp">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
-          <ScalarProperty Name="TagDM" ColumnName="TagDM" />
-          <ScalarProperty Name="MotaDM" ColumnName="MotaDM" />
           <ScalarProperty Name="HinhAnhDanhMuc" ColumnName="HinhAnhDanhMuc" />
+          <ScalarProperty Name="MotaDM" ColumnName="MotaDM" />
+          <ScalarProperty Name="TagDM" ColumnName="TagDM" />
+          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DonHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.DonHang">
         <MappingFragment StoreEntitySet="DonHang">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idNguoiMua" ColumnName="idNguoiMua" />
-          <ScalarProperty Name="TongSoLuongSp" ColumnName="TongSoLuongSp" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
           <ScalarProperty Name="idTinhTrang" ColumnName="idTinhTrang" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="TongSoLuongSp" ColumnName="TongSoLuongSp" />
+          <ScalarProperty Name="idNguoiMua" ColumnName="idNguoiMua" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GioHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.GioHang">
         <MappingFragment StoreEntitySet="GioHang">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idSp" ColumnName="idSp" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="IdTinhtrang" ColumnName="IdTinhtrang" />
-          <ScalarProperty Name="KieuGiaoHang" ColumnName="KieuGiaoHang" />
           <ScalarProperty Name="KieuThanhToan" ColumnName="KieuThanhToan" />
+          <ScalarProperty Name="KieuGiaoHang" ColumnName="KieuGiaoHang" />
+          <ScalarProperty Name="IdTinhtrang" ColumnName="IdTinhtrang" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="idSp" ColumnName="idSp" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HinhAnhChiTietSp">
+      <EntityTypeMapping TypeName="WebDoTreEmModel.HinhAnhChiTietSp">
+        <MappingFragment StoreEntitySet="HinhAnhChiTietSp">
+          <ScalarProperty Name="IdSanPham" ColumnName="IdSanPham" />
+          <ScalarProperty Name="FileAnhChiTiet" ColumnName="FileAnhChiTiet" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LoaiSp">
       <EntityTypeMapping TypeName="WebDoTreEmModel.LoaiSp">
         <MappingFragment StoreEntitySet="LoaiSp">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="IdDM" ColumnName="IdDM" />
-          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
           <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+          <ScalarProperty Name="IdDM" ColumnName="IdDM" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NhomQuyen">
       <EntityTypeMapping TypeName="WebDoTreEmModel.NhomQuyen">
         <MappingFragment StoreEntitySet="NhomQuyen">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idQuyen" ColumnName="idQuyen" />
           <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="idQuyen" ColumnName="idQuyen" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PhuongXa">
       <EntityTypeMapping TypeName="WebDoTreEmModel.PhuongXa">
         <MappingFragment StoreEntitySet="PhuongXa">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="TenPhuongXa" ColumnName="TenPhuongXa" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="QuanHuyen">
       <EntityTypeMapping TypeName="WebDoTreEmModel.QuanHuyen">
         <MappingFragment StoreEntitySet="QuanHuyen">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="TenQuanHuyen" ColumnName="TenQuanHuyen" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Quyen">
       <EntityTypeMapping TypeName="WebDoTreEmModel.Quyen">
         <MappingFragment StoreEntitySet="Quyen">
+          <ScalarProperty Name="Quyen1" ColumnName="Quyen" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="RoleAccount">
       <EntityTypeMapping TypeName="WebDoTreEmModel.RoleAccount">
         <MappingFragment StoreEntitySet="RoleAccount">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="VaiTro" ColumnName="VaiTro" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SanPham">
       <EntityTypeMapping TypeName="WebDoTreEmModel.SanPham">
         <MappingFragment StoreEntitySet="SanPham">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
-          <ScalarProperty Name="MotaSp" ColumnName="MotaSp" />
-          <ScalarProperty Name="AnhSp" ColumnName="AnhSp" />
-          <ScalarProperty Name="Size" ColumnName="Size" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="Gia" ColumnName="Gia" />
-          <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
-          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-          <ScalarProperty Name="HotSearch" ColumnName="HotSearch" />
-          <ScalarProperty Name="IdLoai" ColumnName="IdLoai" />
-          <ScalarProperty Name="IdDanhMuc" ColumnName="IdDanhMuc" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="MauSP" ColumnName="MauSP" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
           <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="IdDanhMuc" ColumnName="IdDanhMuc" />
+          <ScalarProperty Name="IdLoai" ColumnName="IdLoai" />
+          <ScalarProperty Name="HotSearch" ColumnName="HotSearch" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="AnhSp" ColumnName="AnhSp" />
+          <ScalarProperty Name="MotaSp" ColumnName="MotaSp" />
+          <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+          <ScalarProperty Name="Masp" ColumnName="Masp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Size">
       <EntityTypeMapping TypeName="WebDoTreEmModel.Size">
         <MappingFragment StoreEntitySet="Size">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="TagSize" ColumnName="TagSize" />
-          <ScalarProperty Name="DoDai" ColumnName="DoDai" />
           <ScalarProperty Name="CanNang" ColumnName="CanNang" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="WebDoTreEmModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="DoDai" ColumnName="DoDai" />
+          <ScalarProperty Name="TagSize" ColumnName="TagSize" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TinhThanh">
       <EntityTypeMapping TypeName="WebDoTreEmModel.TinhThanh">
         <MappingFragment StoreEntitySet="TinhThanh">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="TenTinhThanh" ColumnName="TenTinhThanh" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TinhTrangDonHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.TinhTrangDonHang">
         <MappingFragment StoreEntitySet="TinhTrangDonHang">
-          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ThongTinGiaoHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.ThongTinGiaoHang">
         <MappingFragment StoreEntitySet="ThongTinGiaoHang">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idUser" ColumnName="idUser" />
-          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="idTinhThanh" ColumnName="idTinhThanh" />
-          <ScalarProperty Name="idQuanHuyen" ColumnName="idQuanHuyen" />
           <ScalarProperty Name="idPhuongXa" ColumnName="idPhuongXa" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Thongtinthem">
-      <EntityTypeMapping TypeName="WebDoTreEmModel.Thongtinthem">
-        <MappingFragment StoreEntitySet="Thongtinthem">
+          <ScalarProperty Name="idQuanHuyen" ColumnName="idQuanHuyen" />
+          <ScalarProperty Name="idTinhThanh" ColumnName="idTinhThanh" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="IDSp" ColumnName="IDSp" />
-          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
-          <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
-          <ScalarProperty Name="SoLuongBanDuoc" ColumnName="SoLuongBanDuoc" />
-          <ScalarProperty Name="HotTrend" ColumnName="HotTrend" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

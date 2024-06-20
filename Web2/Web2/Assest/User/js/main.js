@@ -1,4 +1,4 @@
-/*  ---------------------------------------------------
+﻿/*  ---------------------------------------------------
 Template Name: Ashion
 Description: Ashion ecommerce template
 Author: Colorib

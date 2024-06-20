@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "TrangPhanLoai";
-    Layout = "~/Areas/User/Views/Shared/LayoutPage.cshtml";
+    Layout = "~/Areas/User/Views/Shared/LayoutPageSanPham.cshtml";
     Web2.Models.WebDoTreEmEntities2 DB = new Web2.Models.WebDoTreEmEntities2();
     var DM = DB.DanhMucSp.ToList();
     var PLoai = DB.LoaiSp.ToList();
@@ -18,6 +18,7 @@
         ControllerName = "TrangChu", // Thay đổi tên Controller tùy theo trang
         ActionName = "TrangSPTheoPLoai" // Thay đổi tên Action tùy theo trang
     };
+
 }
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
@@ -26,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="/User/TrangChu/TrangChu"><i class="fa fa-home"></i> Home</a>
-                    <a href=""><i class="fa "></i> @(DM.Where(m => m.id == ViewBag.IdDanhMuc)?.FirstOrDefault(m => m.id == ViewBag.IdDanhMuc).ChiTiet ?? "All" )  </a>
+                    <a href=""><i class="fa "></i> @( ViewBag.IdDanhMuc != 0 ? DM.Where(m => m.id == ViewBag.IdDanhMuc).FirstOrDefault(m => m.id == ViewBag.IdDanhMuc).ChiTiet : "All" )  </a>
                 </div>
             </div>
         </div>
@@ -36,98 +37,26 @@
 <!-- Shop Section Begin -->
 <section class="shop spad">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3">
-                <div class="shop__sidebar">
-                    <div class="sidebar__categories">
-                        <div class="section-title">
-                            <h4>Categories</h4>
-                        </div>
-                        <div class="categories__accordion">
-
-                            <div class="accordion" id="accordionExample">
-                                <div class="card">
-                                    <a style="color: black;" class="a_action_mouse" href="javascript:;" id="PhanLoaiSp" onclick="Click_ALLSP()">ALL</a>
-                                </div>
-                                @foreach (var danhmucsp in DM)
-                                {
-                                    <div class="card">
-                                        <div class=" @(danhmucsp.id == ViewBag.IdDanhMuc ? "active" : "")  @(PLoai.Where(m => m.IdDM == danhmucsp.id).FirstOrDefault() != null ? "card-heading" : "card-heading-two" )">
-                                            <a data-toggle="collapse" data-target="#collapse-@danhmucsp.id">@danhmucsp.TagDM</a>
-                                        </div>
-                                        <div id="collapse-@danhmucsp.id" class=" collapse @(danhmucsp.id == ViewBag.IdDanhMuc ? "show" : "" )" data-parent="#accordionExample">
-                                            @{ if (PLoai.Where(m => m.IdDM == danhmucsp.id).FirstOrDefault() != null)
-                                                {
-                                                    <div class="card-body">
-                                                        <ul>
-                                                            @foreach (var phanloaisp in PLoai.Where(m => m.IdDM == danhmucsp.id))
-                                                            {
-                                                                <li><a class="a_action_mouse" href="javascript:;" id="PhanLoaiSp" onclick="Click_LoaiSp(@phanloaisp.id)">@phanloaisp.ChiTiet</a></li>
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                }
-                                            }
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="sidebar__filter">
-                            <div class="section-title">
-                                <h4>Shop by price</h4>
-                            </div>
-                            <div class="filter-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                     data-min="33" data-max="99"></div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <p>Price:</p>
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">Filter</a>
-                        </div>*@
-                    <div class="sidebar__sizes">
-                        <div class="section-title">
-                            <h4>Sản phẩm theo size</h4>
-                        </div>
-                        <div class="size__list">
-                            @{foreach (var size in SizeSP)
-                                {
-                                    <label for="@size.id">
-                                        @size.TagSize
-                                        <input type="checkbox" id="@size.id">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                }
-                            }
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-lg-9 col-md-9" id="GridView">
-                <div class="row">
-                    @if (lstSanPham.Count != 0)
+        <div id="GridView">
+            <div class="col-12 row" >
+                @if (ViewBag.IdDanhMuc != 0)
+                {
+                    if (lstSanPham.Count != 0)
                     {
                         foreach (var sanpham in lstSanPham)
                         {
                             <div class="col-lg-4 col-md-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp">
+                                    <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp" href="javascript:;" onclick="Clicksp(@sanpham.Id)">
                                         <div class="label new">New</div>
-                                        <ul class="product__hover">
+                                        @*<ul class="product__hover">
                                             <li><a href="@sanpham.AnhSp" class="image-popup"><span class="arrow_expand"></span></a></li>
                                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                             <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                        </ul>
+                                        </ul>*@
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a href="#">@sanpham.TenSanPham</a></h6>
+                                        <h6><a href="javascript:;" onclick="Clicksp(@sanpham.Id)">@sanpham.TenSanPham</a></h6>
                                         <div class="rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -135,7 +64,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <div class="product__price">@sanpham.Gia VND</div>
+                                        <div class="product__price">@(string.Format("{0:C3}", sanpham.Gia))</div>
                                     </div>
                                 </div>
                             </div>
@@ -145,30 +74,40 @@
                     {
                         <div>Shop đã hết mặt hàng này!!!</div>
                     }
-                </div>
+                }
+                else
+                {
+                    foreach (var sanpham in lstSanPham)
+                    {
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp">
+                                    <div class="label new">New</div>
+                                    <ul class="product__hover">
+                                        <li><a href="@sanpham.AnhSp" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#" onclick="Clicksp(@sanpham.Id)" >@sanpham.TenSanPham</a></h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">@(string.Format("{0:C3}", sanpham.Gia))</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
                 @Html.Partial("_Pagination_PLSP", paginationModel)
             </div>
         </div>
     </div>
 </section>
-<script>
-    $(document).ready(function () {
 
-    })
-    function Click_ALLSP() {
-        console.log("1234")
-        $.ajax({
-            type: 'post',
-            url: '/User/TrangChu/ALLSP',
-            data: {},
-            success: function (html) {
-                console.log(html)
-                $('#GridView').html(html);
-            },
-            error: function () {
-                console.log("error");
-            }
-        });
-    }
-</script>
 <!-- Shop Section End -->

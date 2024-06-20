@@ -1,0 +1,386 @@
+﻿@{
+    Web2.Models.WebDoTreEmEntities2 db = new Web2.Models.WebDoTreEmEntities2();
+    var LoaiSP = db.LoaiSp.ToList();
+    var DanhMucSp = db.DanhMucSp.ToList();
+    var sanpham = db.SanPham.ToList();
+    var LstSize = db.Size.ToList();
+    var Cart = Session["CartSession"] as List<Web2.AppData.CartItem>;
+    int totalItems = Cart != null ? Cart.Sum(item => item.SoLuong) : 0;
+    var paginationModel = new Web2.AppData.PaginationViewModel();
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/Assest/User/css/bootstrap1.min.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/Assest/User/css/customize.css" type="text/css">
+    <script src="/Assest/User/js/jquery.min.js"></script>
+    <title>@ViewBag.Title</title>
+    <style>
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 0 0 2px 8px;
+        }
+
+        .custom-link {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <ul class="offcanvas__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li>
+                <a href="#">
+                    <span class="icon_heart_alt"></span>
+                    <div class="tip"></div>
+                </a>
+            </li>
+            <li>
+                <a href="/User/GioHang/GioHang">
+                    <span class="icon_bag_alt"></span>
+                    <div class="tip">@totalItems</div>
+                </a>
+            </li>
+        </ul>
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__auth">
+            <a href="#">Đăng Nhập</a>
+            <a href="#">Đăng Ký</a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 col-lg-1">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="@( ViewBag.IdDanhMuc != null ? "" : "active")"><a href="/User/TrangChu/TrangChu">Trang chủ</a></li>
+                            @{
+                                foreach (var danhmucsp in DanhMucSp)
+                                {
+                                    <li class="@(danhmucsp.id == ViewBag.IdDanhMuc ? "active" : "")">
+                                        @{ if (LoaiSP.Where(m => m.IdDM == danhmucsp.id).FirstOrDefault() != null)
+                                            {
+                                                <div header__menu="" style="flex-direction:row;display:flex">
+                                                    <div>
+                                                        <a href="#" class="trangsptheodm" onclick="ClickTrangSanPhamTheoDM(@danhmucsp.id)" data-id="@danhmucsp.id">@danhmucsp.TagDM</a>
+                                                        @*@Html.ActionLink(danhmucsp.TagDM, "TrangSPTheoDM", new { id = danhmucsp.id })*@
+                                                    </div>
+                                                    <div>
+                                                        <i class="arrow down"></i>
+                                                    </div>
+                                                </div>
+                                                <div class=" col-sm-12 dropdown">
+                                                    <ul>
+                                                        @foreach (var LoaiSanPham in LoaiSP.Where(m => m.IdDM == danhmucsp.id))
+                                                        {
+                                                            <li><a href="#" class="trangsptheopl" onclick="ClickTrangSanPhamTheoPL(@LoaiSanPham.id)" data-id="@LoaiSanPham.id">@LoaiSanPham.ChiTiet</a></li>
+                                                            @*<li>@Html.ActionLink(LoaiSanPham.ChiTiet, "TrangSPTheoPLoai", new { id = LoaiSanPham.id })</li>*@
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div header__menu style="flex-direction:row;display:flex">
+                                                    <div>
+                                                        <a href="#" class="trangsptheodm" data-id="@danhmucsp.id" onclick="ClickTrangSanPhamTheoDM(@danhmucsp.id)">@danhmucsp.TagDM</a>
+                                                        @*@Html.ActionLink(danhmucsp.TagDM, "TrangSPTheoDM", new { id = danhmucsp.id })*@
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </li>
+
+                                }
+                            }
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-2">
+                    <div class="header__right">
+                        <div style="margin-right: 60px">
+                            <ul class="header__right__widget">
+                                <li><span class="icon_search search-switch"></span></li>
+                                <li>
+                                    <a href="#">
+                                        <span class="icon_heart_alt"></span>
+                                        <div class="tip"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="icon_bag_alt"></span>
+                                        <div class="tip">@totalItems</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="header__right__auth">
+                            <a href="#">Đăng Nhập</a>
+                            <a href="#">Đăng Ký</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="/User/TrangChu/TrangChu"><i class="fa fa-home"></i> Home</a>
+                        <a href=""><i class="fa "></i>Giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="shop-cart spad">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            cilisis.
+                        </p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Orders Tracking</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>NEWSLETTER</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text">
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </p>
+                    </div>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    <!-- Js Plugins -->
+
+    <script>
+        var idDm = 0;
+        var idPhanLoai = 0;
+
+
+        function ClickTrangSanPhamTheoDM(idDanhMuc) {
+            location.href = "/User/TrangChu/TrangSPTheoDM?idDanhMuc=" + idDanhMuc;
+            idDm = idDanhMuc;
+            console.log(idDm)
+        }
+        function ClickTrangSanPhamTheoPL(idPhanloai) {
+            idDanhMuc = getQueryParams().idDanhMuc;
+            location.href = "/User/TrangChu/TrangSPTheoPLoai?idPhanLoai=" + idPhanloai + "&idDanhMuc=" + idDanhMuc;
+            idPhanLoai = idPhanloai;
+            console.log(idPhanLoai)
+        }
+
+        function Click_PaginationSpTheoLoaiSp(idDM, idPloai, position) {
+            idDm = idDM;
+            idPhanLoai = idPloai;
+            $.ajax({
+                type: 'post',
+                url: '/User/TrangChu/PhanLoaiSp',
+                data: { idDM, idPloai, page: Number(position) },
+                success: function (html) {
+                    console.log(html)
+                    $('#GridView').html(html);
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        }
+
+
+        function ChangeInput() {
+            let lstSize = [];
+            $("input.size_sanPham:checked").each(function (item) {
+                lstSize.push($(this).val());
+            })
+            console.log(lstSize)
+            //console.log(idPhanLoai)
+            console.log(getQueryParams().idDanhMuc)
+            console.log(getQueryParams().idPhanLoai)
+            idDm = getQueryParams().idDanhMuc
+            idPhanLoai = getQueryParams().idPhanLoai
+            $.ajax({
+                url: '/User/PhanLoaiSp/FilterProduct',
+                type: 'POST',
+                data: { lstSize, idDM: Number(idDm), idPloai: Number(idPhanLoai), page: Number(1) },
+                success: function (data) {
+                    console.log(data)
+                    $('#GridView').html(data)
+                },
+                error: function () {
+                    console.log('error')
+                }
+            })
+        }
+
+
+        function Click_Filter() {
+            console.log(lstSize)
+
+        }
+        //function Click_ALLSP() {
+        //    $.ajax({
+        //        type: 'post',
+        //        url: '/User/TrangChu/ALLSP',
+        //        data: {},
+        //        success: function (html) {
+        //            console.log(html)
+        //            $('#GridView').html(html);
+        //        },
+        //        error: function () {
+        //            console.log("error");
+        //        }
+        //    });
+        //}
+
+        //function Click_DMSP(id) {
+        //    $.ajax({
+        //        type: 'post',
+        //        url: '/User/TrangChu/TrangPL',
+        //        data: { id },
+        //        success: function (html) {
+        //            console.log(html)
+        //            $('#GridView').html(html);
+        //        },
+        //        error: function () {
+        //            console.log("error");
+        //        }
+        //    });
+        //}
+    </script>
+    <script src="/Assest/User/js/customize.js"></script>
+    <script src="/Assest/User/js/bootstrap.min.js"></script>
+    <script src="/Assest/User/js/jquery.magnific-popup.min.js"></script>
+    <script src="/Assest/User/js/jquery-ui.min.js"></script>
+    <script src="/Assest/User/js/mixitup.min.js"></script>
+    <script src="/Assest/User/js/jquery.countdown.min.js"></script>
+    <script src="/Assest/User/js/jquery.slicknav.js"></script>
+    <script src="/Assest/User/js/owl.carousel.min.js"></script>
+    <script src="/Assest/User/js/jquery.nicescroll.min.js"></script>
+    <script src="/Assest/User/js/main.js"></script>
+</body>
+</html>

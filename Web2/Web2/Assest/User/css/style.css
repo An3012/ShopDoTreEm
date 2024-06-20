@@ -1360,7 +1360,13 @@ ol {
 }
 
 .categories__accordion .card-heading a {
-	font-size: 14px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #111111;
+	display: block;
+
+}.categories__accordion .card-heading-two a {
+	font-size: 16px;
 	font-weight: 500;
 	color: #111111;
 	display: block;
@@ -1513,23 +1519,23 @@ ol {
 	border-radius: 0;
 }
 
-.sidebar__sizes,
-.sidebar__color {
+.sidebar_sizes,
+.sidebar_color {
 	margin-bottom: 40px;
 }
 
-.sidebar__sizes .section-title,
-.sidebar__color .section-title {
+.sidebar_sizes .section-title,
+.sidebar_color .section-title {
 	margin-bottom: 35px;
 }
 
-.sidebar__sizes .section-title h4,
-.sidebar__color .section-title h4 {
+.sidebar_sizes .section-title h4,
+.sidebar_color .section-title h4 {
 	font-size: 18px;
 }
 
-.sidebar__sizes .size__list label,
-.sidebar__color .size__list label {
+.sidebar_sizes .size_list label,
+.sidebar_color .size_list label {
 	display: block;
 	padding-left: 20px;
 	font-size: 14px;
@@ -1539,25 +1545,25 @@ ol {
 	cursor: pointer;
 }
 
-.sidebar__sizes .size__list label input,
-.sidebar__color .size__list label input {
-	position: absolute;
-	visibility: hidden;
+.sidebar_sizes .size_list label input,
+.sidebar_color .size_list label input {
+    position: absolute;
+    visibility: hidden;
 }
 
-.sidebar__sizes .size__list label input:checked~.checkmark,
-.sidebar__color .size__list label input:checked~.checkmark {
+.sidebar_sizes .size_list label input:checked~.checkmark,
+.sidebar_color .size_list label input:checked~.checkmark {
 	border-color: #ca1515;
 }
 
-.sidebar__sizes .size__list label input:checked~.checkmark:after,
-.sidebar__color .size__list label input:checked~.checkmark:after {
+.sidebar_sizes .size_list label input:checked~.checkmark:after,
+.sidebar_color .size_list label input:checked~.checkmark:after {
 	border-color: #ca1515;
 	opacity: 1;
 }
 
-.sidebar__sizes .size__list label .checkmark,
-.sidebar__color .size__list label .checkmark {
+.sidebar_sizes .size_list label .checkmark,
+.sidebar_color .size_list label .checkmark {
 	position: absolute;
 	left: 0;
 	top: 4px;
@@ -1567,8 +1573,8 @@ ol {
 	border-radius: 2px;
 }
 
-.sidebar__sizes .size__list label .checkmark:after,
-.sidebar__color .size__list label .checkmark:after {
+.sidebar_sizes .size_list label .checkmark:after,
+.sidebar_color .size_list label .checkmark:after {
 	position: absolute;
 	left: 0px;
 	top: -2px;
@@ -1583,7 +1589,7 @@ ol {
 	content: "";
 }
 
-.sidebar__color .color__list label {
+.sidebar_color .color__list label {
 	text-transform: capitalize;
 }
 
@@ -1623,7 +1629,7 @@ ol {
 -----------------------*/
 
 .product-details {
-	padding-top: 70px;
+	padding-top: 40px;
 	padding-bottom: 50px;
 }
 
@@ -1697,11 +1703,16 @@ ol {
 	right: 10px;
 }
 
+.product__details__text
+{
+    margin-left:38px
+}
+
 .product__details__text h3 {
-	color: #111111;
-	font-weight: 600;
-	text-transform: uppercase;
-	margin-bottom: 12px;
+    color: #111111;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .product__details__text h3 span {
@@ -1801,7 +1812,7 @@ ol {
 
 .product__details__button .cart-btn {
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	color: #ffffff;
 	background: #ca1515;
 	font-weight: 600;
@@ -1845,7 +1856,9 @@ ol {
 
 .product__details__widget {
 	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
 	padding-top: 35px;
+	padding-bottom: 35px;
 }
 
 .product__details__widget ul li {
@@ -1859,7 +1872,7 @@ ol {
 
 .product__details__widget ul li span {
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 600;
 	color: #111111;
 	width: 150px;
@@ -1873,7 +1886,7 @@ ol {
 .product__details__widget ul li .stock__checkbox label {
 	display: block;
 	padding-left: 20px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #666666;
 	position: relative;
 	cursor: pointer;
@@ -1979,7 +1992,7 @@ ol {
 }
 
 .product__details__widget ul li .size__btn label {
-	font-size: 14px;
+	font-size: 16px;
 	color: #666666;
 	text-transform: uppercase;
 	cursor: pointer;
@@ -2117,10 +2130,10 @@ ol {
 	padding: 30px 0;
 }
 
-.shop__cart__table tbody tr .cart__product__item {
-	overflow: hidden;
-	width: 585px;
-}
+    .shop__cart__table tbody tr .cart__product__item {
+        overflow: hidden;
+        width: 340px;
+    }
 
 .shop__cart__table tbody tr .cart__product__item img {
 	float: left;
@@ -2129,7 +2142,7 @@ ol {
 
 .shop__cart__table tbody tr .cart__product__item .cart__product__item__title {
 	overflow: hidden;
-	padding-top: 23px;
+	padding-top: 71px;
 }
 
 .shop__cart__table tbody tr .cart__product__item .cart__product__item__title h6 {
@@ -3178,7 +3191,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1170px;
+		max-width: 1300px;
 	}
 }
 

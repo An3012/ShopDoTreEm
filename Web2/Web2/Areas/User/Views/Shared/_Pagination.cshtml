@@ -19,7 +19,7 @@
             {
                 if (position == pageNumber)
                 {
-                    <a class="a_action_mouse" href="javascript:;" onclick="Click_Pagination(@position)">@position</a>
+                    <a class="a_action_mouse active" href="javascript:;" onclick="Click_Pagination(@position)">@position</a>
                 }
                 else
                 {
@@ -42,24 +42,8 @@
         $.ajax({
             type: 'post',
             url: url,
-            data: { page: position },
+            data: { page: Number(position) },
             success: function (html) {
-                $('#GridView').html(html);
-            },
-            error: function () {
-                console.log("error");
-            }
-        });
-    }
-
-    function Click_PaginationTrangChu(page) {
-         const url = '/User/@Controller/@Action';
-        $.ajax({
-            type: 'post',
-            url: '/User/@Controller/@Action' ,
-            data: { page },
-            success: function (html) {
-                console.log(html)
                 $('#GridView').html(html);
             },
             error: function () {

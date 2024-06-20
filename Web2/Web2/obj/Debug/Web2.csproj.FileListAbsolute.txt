@@ -78,7 +78,6 @@ E:\Web2\Web2\bin\System.Web.WebPages.Deployment.xml
 E:\Web2\Web2\bin\System.Web.WebPages.Razor.xml
 E:\Web2\Web2\bin\Antlr3.Runtime.pdb
 E:\Web2\Web2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Web2\Web2\obj\Debug\Web2.csproj.CopyComplete
 E:\Web2\Web2\obj\Debug\Web2.dll
 E:\Web2\Web2\obj\Debug\Web2.pdb
 E:\Web2\Web2\bin\PagedList.dll
@@ -87,3 +86,4 @@ E:\Web2\Web2\bin\PagedList.pdb
 E:\Web2\Web2\bin\PagedList.xml
 E:\Web2\Web2\bin\PagedList.Mvc.pdb
 E:\Web2\Web2\bin\PagedList.Mvc.xml
+E:\Web2\Web2\obj\Debug\Web2.csproj.Up2Date

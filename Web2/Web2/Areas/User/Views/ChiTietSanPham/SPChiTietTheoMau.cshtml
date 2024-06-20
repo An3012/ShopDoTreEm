@@ -1,0 +1,173 @@
+﻿@{
+    Web2.Models.WebDoTreEmEntities2 db = new Web2.Models.WebDoTreEmEntities2();
+    int idSp = ViewBag.IdSp;
+    var SanPham = db.SanPham.FirstOrDefault(sp => sp.Id == idSp);
+    var SpTuongTu = ViewBag.SpTuongTu as List<Web2.Models.SanPham>;
+    var LstSize = db.Size.ToList();
+    var LstDanhMuc = db.DanhMucSp.ToList();
+    var LstPhanLoai = db.LoaiSp.ToList();
+    var LstAnhChiTietSP = db.HinhAnhChiTietSp.ToList();
+    var LstDacDiemSP = db.DacDiemSP.ToList();
+    var LstDacDiemNoiBat = db.DacDiemSP.ToList();
+    //var ListAnhChiTiet = db.HinhAnhChiTietSp.ToList();
+    var LstSanPhamKhacSize = SpTuongTu.Where(x => x.AnhSp == SanPham.AnhSp).ToList();
+}
+<style>
+    .color__SanPhamCheckBoxP {
+        margin-top: 25px;
+        position: relative;
+    }
+
+        .color__SanPhamCheckBoxP .MauSP_Option {
+            width: 48px !important;
+            height: 64px !important;
+            margin: 15px 0 0;
+        }
+
+    .a_action_mouse .active {
+        border: 1px solid #474747;
+    }
+</style>
+<div class="row " style="border-bottom: 1px solid #ebebeb">
+    <div class="col-lg-6">
+        <div class="product__details__pic">
+            <div class="product__details__pic__left product__thumb nice-scroll">
+                <a class="pt active" href="#product-1">
+                    <img src="@SanPham.AnhSp" alt="">
+                </a>
+                @{
+                    int i = 2;
+                }
+
+                @foreach (var hinhanh in LstAnhChiTietSP.Where(x => x.IdSanPham == SanPham.Id).ToList())
+                {
+                    <a class="pt" href="#product-@i">
+                        <img src="@hinhanh.FileAnhChiTiet" alt="">
+                    </a>
+                    i++;
+                }
+
+            </div>
+            <div class="product__details__slider__content">
+                <div class="product__details__pic__slider owl-carousel">
+                    <img data-hash="product-1" class="product__big__img" src="@SanPham.AnhSp" alt="">
+                    @{
+                        int y = 2;
+                    }
+                    @foreach (var hinhanh in LstAnhChiTietSP.Where(x => x.IdSanPham == SanPham.Id).ToList())
+                    {
+                        <img data-hash="product-@y" ; class="product__big__img" src="@hinhanh.FileAnhChiTiet" alt="">
+                        y++;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="product__details__text">
+            <h3>@SanPham.TenSanPham<span style="font-size: 16px">Brad: @SanPham.Brand </span></h3>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <span>( 138 reviews )</span>
+            </div>
+            @if (SanPham.GiamGia != 0)
+            {
+                var gianew = SanPham.Gia * SanPham.GiamGia / 100;
+                <div class="product__details__price">@string.Format("{0:C3}", gianew) <span>@string.Format("{0:C3}", SanPham.Gia)</span></div>
+            }
+            else
+            {
+                <div class="product__details__price">@string.Format("{0:C3}", SanPham.Gia) <span></span></div>
+            }
+
+            <div class="product__details__widget" style="border-bottom: 1px solid #ebebeb; padding-bottom: 35px;">
+                <ul>
+                    <li>
+                        <span style="font-size: 16px">Tình Trạng:</span>
+                        <div class="stock__checkbox">
+                            <label for="stockin">
+                                @(SanPham.TinhTrang == true ? "Còn hàng" : "Hết hàng" )
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div><span style="font-size: 16px">Màu sản phẩm:</span>  @SanPham.MauSP</div>
+                        <div class="color__SanPhamCheckBox row">
+                            @foreach (var sp in SpTuongTu.GroupBy(x => x.AnhSp).Select(g => g.First()).ToList())
+                            {
+                                <div class="MauSP_Option" role="option" title="@sp.MauSP" style=" background-size: initial;width:54px; height:78px; margin-top: 15px;margin-left: 20px;">
+                                    <a class="a_action_mouse" href="javascript:;" title="@sp.MauSP">
+                                        <img class="image_selected @(sp.AnhSp == SanPham.AnhSp ? "active" : "" )" onclick="ClickSptheoMau(@sp.Id)" src="@sp.AnhSp" />
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                    <li>
+                        <span style="font-size: 16px">Size:</span>
+                        <div class="size__btn">
+                            @foreach (var Sp in LstSanPhamKhacSize)
+                            {
+                                string cannang = LstSize.FirstOrDefault(x => x.id == Sp.Size).CanNang;
+                                string chieudai = LstSize.FirstOrDefault(x => x.id == Sp.Size).DoDai;
+                                <label class="Selected_Size" value="@Sp.Id" for="@Sp.Size-btn" style="font-size: 16px" title="Cân nặng: @cannang Chiều dài: @chieudai">
+                                    <input type="checkbox" id="@Sp.Size-btn" value="@Sp.Id" onclick="toggleSize(this)">
+                                    @LstSize.FirstOrDefault(x => x.id == Sp.Size).TagSize
+                                </label>
+
+                            }
+                        </div>
+                        <div id="error-message" style="color: red;"></div>
+                    </li>
+                    <li>
+                        <span style="font-size: 16px">Đặc điểm nổi bật:</span>
+                        <p> </p>
+                        @foreach (var DacDiem in LstDacDiemNoiBat)
+                        {
+                            if (DacDiem.IDSp == SanPham.Id)
+                            {
+                                <span style="font-size: 16px"> @DacDiem.NameDacDiem: </span>
+                            }
+                            <p>@DacDiem.DacDiemSanPham</p>
+                        }
+                    </li>
+                </ul>
+            </div>
+            <div class="product__details__button">
+                <div class="quantity">
+                    <span style="font-size: 16px">Số lượng:</span>
+                    <div class="pro-qty">
+                        <input class="SoLuongProDuct" type="text" value="1">
+                    </div>
+                </div>
+                <a href="javascript:;" class="cart-btn" onclick="AddProducttoCart()"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</a>
+                <ul>
+                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                </ul>
+            </div>
+            <div></div>
+            <div class=" product-custom-review-header">
+                <div class="block-actions">
+                    <button class="action" id="open_module">
+                        Đánh giá sản phẩm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Assest/User/js/jquery.magnific-popup.min.js"></script>
+<script src="/Assest/User/js/jquery-ui.min.js"></script>
+<script src="/Assest/User/js/mixitup.min.js"></script>
+<script src="/Assest/User/js/jquery.countdown.min.js"></script>
+<script src="/Assest/User/js/jquery.slicknav.js"></script>
+<script src="/Assest/User/js/owl.carousel.min.js"></script>
+<script src="/Assest/User/js/jquery.nicescroll.min.js"></script>
+<script src="/Assest/User/js/main.js"></script>
+<script src="/Assest/User/js/bootstrap1.min.js"></script>
+

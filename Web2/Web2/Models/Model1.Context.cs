@@ -27,9 +27,11 @@ namespace Web2.Models
     
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<ChiTietDonHang> ChiTietDonHang { get; set; }
+        public virtual DbSet<DacDiemSP> DacDiemSP { get; set; }
         public virtual DbSet<DanhMucSp> DanhMucSp { get; set; }
         public virtual DbSet<DonHang> DonHang { get; set; }
         public virtual DbSet<GioHang> GioHang { get; set; }
+        public virtual DbSet<HinhAnhChiTietSp> HinhAnhChiTietSp { get; set; }
         public virtual DbSet<LoaiSp> LoaiSp { get; set; }
         public virtual DbSet<NhomQuyen> NhomQuyen { get; set; }
         public virtual DbSet<PhuongXa> PhuongXa { get; set; }
@@ -38,10 +40,8 @@ namespace Web2.Models
         public virtual DbSet<RoleAccount> RoleAccount { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<Size> Size { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TinhThanh> TinhThanh { get; set; }
         public virtual DbSet<TinhTrangDonHang> TinhTrangDonHang { get; set; }
         public virtual DbSet<ThongTinGiaoHang> ThongTinGiaoHang { get; set; }
-        public virtual DbSet<Thongtinthem> Thongtinthem { get; set; }
     }
 }

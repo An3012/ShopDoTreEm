@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Web2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\areas\\user\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\areas\\user\\views\\shared\\layoutpagesanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\shared\\layoutpagesanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\areas\\user\\controllers\\phanloaispcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\controllers\\phanloaispcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\areas\\user\\views\\shared\\layoutpagechitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\shared\\layoutpagechitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|e:\\web2\\web2\\appdata\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\appdata\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LayoutPageChiTietSanPham.cshtml",
+              "DocumentMoniker": "E:\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "ToolTip": "E:\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "ViewState": "AQIAAKIBAAAAAAAAAAAAAAQCAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-20T03:16:08.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GioHangController.cs",
+              "DocumentMoniker": "E:\\Web2\\Web2\\Areas\\User\\Controllers\\GioHangController.cs",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Controllers\\GioHangController.cs",
+              "ToolTip": "E:\\Web2\\Web2\\Areas\\User\\Controllers\\GioHangController.cs",
+              "RelativeToolTip": "Web2\\Areas\\User\\Controllers\\GioHangController.cs",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAuwGsAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-20T02:39:38.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "E:\\Web2\\Web2\\AppData\\CartItem.cs",
+              "RelativeDocumentMoniker": "Web2\\AppData\\CartItem.cs",
+              "ToolTip": "E:\\Web2\\Web2\\AppData\\CartItem.cs",
+              "RelativeToolTip": "Web2\\AppData\\CartItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-20T02:45:00.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PhanLoaiSpController.cs",
+              "DocumentMoniker": "E:\\Web2\\Web2\\Areas\\User\\Controllers\\PhanLoaiSpController.cs",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Controllers\\PhanLoaiSpController.cs",
+              "ToolTip": "E:\\Web2\\Web2\\Areas\\User\\Controllers\\PhanLoaiSpController.cs",
+              "RelativeToolTip": "Web2\\Areas\\User\\Controllers\\PhanLoaiSpController.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAYwCMAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-20T02:39:57.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LayoutPageSanPham.cshtml",
+              "DocumentMoniker": "E:\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageSanPham.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageSanPham.cshtml",
+              "ToolTip": "E:\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageSanPham.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageSanPham.cshtml",
+              "ViewState": "AQIAAMYBAAAAAAAAAAAswNIBAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-20T02:20:58.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GioHang.cshtml",
+              "DocumentMoniker": "E:\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "ToolTip": "E:\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "ViewState": "AQIAADYAAAAAAAAAAAAAAEkAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-20T02:07:25.336Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

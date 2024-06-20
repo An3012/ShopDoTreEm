@@ -135,16 +135,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppData\CartItem.cs" />
     <Compile Include="AppData\HangSo.cs" />
     <Compile Include="AppData\PaginationPLSPViewModel.cs" />
     <Compile Include="AppData\PaginationViewModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\User\Controllers\ChiTietSanPhamController.cs" />
+    <Compile Include="Areas\User\Controllers\GioHangController.cs" />
     <Compile Include="Areas\User\Controllers\PhanLoaiSpController.cs" />
     <Compile Include="Areas\User\Controllers\TrangChuController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,6 +156,9 @@
     <Compile Include="Models\ChiTietDonHang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DacDiemSP.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DanhMucSp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -161,6 +166,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GioHang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HinhAnhChiTietSp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoaiSp.cs">
@@ -203,13 +211,7 @@
     <Compile Include="Models\Size.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ThongTinGiaoHang.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Thongtinthem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TinhThanh.cs">
@@ -219,9 +221,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrangchuController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppData\IdSpFilter.cs" />
     <Content Include="Assest\User\css\bootstrap.min.css" />
     <Content Include="Assest\User\css\customize.css" />
     <Content Include="Assest\User\css\elegant-icons.css" />
@@ -354,14 +356,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.esm.js" />
-    <Content Include="Scripts\bootstrap.esm.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\User\Views\web.config" />
-    <Content Include="Areas\User\Views\TrangChu\TrangChu.cshtml" />
     <Content Include="Assest\User\fonts\ElegantIcons.eot" />
     <Content Include="Assest\User\fonts\ElegantIcons.ttf" />
     <Content Include="Assest\User\fonts\ElegantIcons.woff" />
@@ -403,25 +398,22 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\User\Views\Shared\LayoutPage.cshtml" />
-    <Content Include="Areas\User\Views\TrangChu\TrangSPTheoDM.cshtml" />
+    <Content Include="Areas\User\Views\Shared\LayoutPageTrangChu.cshtml" />
     <Content Include="Areas\User\Views\SearchSP\FilterSp.cshtml" />
     <Content Include="Areas\User\Views\TrangChu\TrangSPTheoPLoai.cshtml" />
     <Content Include="Assest\User\css\.editorconfig" />
     <Content Include="Areas\User\Views\Shared\_Pagination.cshtml" />
     <Content Include="Areas\User\Views\Shared\_Pagination_PLSP.cshtml" />
     <Content Include="Areas\User\Views\SearchSP\AllSp.cshtml" />
-    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.7.1.js" />
-    <Content Include="Scripts\jquery-3.7.1.min.js" />
-    <Content Include="Scripts\jquery-3.7.1.slim.js" />
-    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.7.1.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Areas\User\Views\PhanLoaiSp\FilterProduct.cshtml" />
+    <Content Include="Areas\User\Views\Shared\LayoutPageSanPham.cshtml" />
+    <Content Include="Areas\User\Views\TrangChu\TrangChu.cshtml" />
+    <Content Include="Areas\User\Views\Shared\LayoutPageChiTietSanPham.cshtml" />
+    <Content Include="Areas\User\Views\Shared\LayoutPageGioHang.cshtml" />
+    <Content Include="Areas\User\Views\GioHang\GioHang.cshtml" />
+    <Content Include="Areas\User\Views\TrangChu\TrangSPTheoDM.cshtml" />
+    <Content Include="Areas\User\Views\ChiTietSanPham\ChiTietSanPham.cshtml" />
+    <Content Include="Areas\User\Views\ChiTietSanPham\SPChiTietTheoMau.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -429,19 +421,10 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\User\Data\" />
-    <Folder Include="Areas\User\Views\PhanLoaiSp\" />
-    <Folder Include="Views\Trangchu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -461,12 +444,6 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

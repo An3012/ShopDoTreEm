@@ -4,39 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c6e64fa993e5495099a23593c38aa515" Name="Diagram1">
-        <EntityTypeShape EntityType="WebDoTreEmModel.Account" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.ChiTietDonHang" Width="1.5" PointX="11" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.DanhMucSp" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.DonHang" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.GioHang" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.LoaiSp" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.NhomQuyen" Width="1.5" PointX="6" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.PhuongXa" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.QuanHuyen" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.Quyen" Width="1.5" PointX="3.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.RoleAccount" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.SanPham" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.Size" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.TinhThanh" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.TinhTrangDonHang" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.ThongTinGiaoHang" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.Thongtinthem" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_Account_PhuongXa" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_Account_QuanHuyen" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_Account_RoleAccount" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_Account_TinhThanh" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_ThongTinGiaoHang_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_LoaiSp_DanhMucSp" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_DanhMucSp" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_GioHang_SanPham" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_LoaiSp" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_Quyen" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_RoleAccount" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_Size" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_Thongtinthem_SanPham" ManuallyRouted="false" />
+      <Diagram DiagramId="c6e64fa993e5495099a23593c38aa515" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="WebDoTreEmModel.Account" Width="1.5" PointX="15" PointY="2.75" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.ChiTietDonHang" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DacDiemSP" Width="1.5" PointX="7.5" PointY="4.5" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DanhMucSp" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DonHang" Width="1.5" PointX="0.75" PointY="9.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.GioHang" Width="1.5" PointX="7.5" PointY="1.375" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.HinhAnhChiTietSp" Width="1.5" PointX="7.5" PointY="7.25" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.LoaiSp" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.NhomQuyen" Width="1.5" PointX="12" PointY="3.875" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.PhuongXa" Width="1.5" PointX="12.75" PointY="7.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.QuanHuyen" Width="1.5" PointX="12.75" PointY="9.5" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.Quyen" Width="1.5" PointX="9.75" PointY="1.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.RoleAccount" Width="1.5" PointX="9.75" PointY="4" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.SanPham" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.Size" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.TinhThanh" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.TinhTrangDonHang" Width="1.5" PointX="5.75" PointY="10" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.ThongTinGiaoHang" Width="1.5" PointX="17.25" PointY="3.375" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_Account_PhuongXa" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_Account_QuanHuyen" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_Account_RoleAccount" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_Account_TinhThanh" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_ThongTinGiaoHang_Account" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_Thongtinthem_SanPham" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_LoaiSp_DanhMucSp" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_DanhMucSp" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_GioHang_SanPham" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_LoaiSp" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_Quyen" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_RoleAccount" />
+        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_Size" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

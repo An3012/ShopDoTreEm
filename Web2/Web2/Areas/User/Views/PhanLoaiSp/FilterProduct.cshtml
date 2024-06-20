@@ -1,0 +1,44 @@
+﻿@{
+    var lstSanPham = ViewBag.LstSanPhamFilter as List<Web2.Models.SanPham>;
+}
+<script src="/Assest/User/js/jquery.min.js"></script>
+<script src="/Assest/User/js/bootstrap.min.js"></script>
+<script src="/Assest/User/js/jquery.magnific-popup.min.js"></script>
+<script src="/Assest/User/js/jquery-ui.min.js"></script>
+<script src="/Assest/User/js/mixitup.min.js"></script>
+<script src="/Assest/User/js/jquery.countdown.min.js"></script>
+<script src="/Assest/User/js/jquery.slicknav.js"></script>
+<script src="/Assest/User/js/owl.carousel.min.js"></script>
+<script src="/Assest/User/js/jquery.nicescroll.min.js"></script>
+<script src="/Assest/User/js/main.js"></script>
+
+<div class="row">
+    @if (lstSanPham != null)
+    {
+        foreach (var sanpham in lstSanPham)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="@sanpham.AnhSp" href="javascript:;" onclick="Clicksp(@SanPham.Id)"> 
+                        
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="javascript:;" onclick="Clicksp(@SanPham.Id)">@sanpham.TenSanPham </a></h6>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product__price">@sanpham.Gia VND</div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>Shop đã hết mặt hàng này!!!</div>
+    }
+</div>
