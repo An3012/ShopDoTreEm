@@ -10,7 +10,7 @@
     var LstDacDiemSP = db.DacDiemSP.ToList();
     var LstDacDiemNoiBat = db.DacDiemSP.ToList();
     var LstSanPhamKhacSize = SpTuongTu.Where(x => x.Masp == SanPham.Masp).ToList();
-    
+
 
     var paginationModel = new Web2.AppData.PaginationViewModel();
 }
@@ -134,7 +134,7 @@
                 <div class="product__details__button">
                     <div class="quantity">
                         <span style="font-size: 16px">Số lượng:</span>
-                        <div class="pro-qty">
+                        <div class="pro-qty product__detail">
                             <input class="SoLuongProDuct" type="text" value="1">
                         </div>
                     </div>

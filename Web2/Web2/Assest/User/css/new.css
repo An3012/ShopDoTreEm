@@ -1,0 +1,115 @@
+﻿.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+    margin: 0 0 2px 8px;
+}
+
+.custom-link {
+    color: black;
+}
+
+.bs-canvas-overlay {
+    opacity: 0.85;
+    z-index: 1100;
+}
+
+.bs-canvas {
+    top: 0;
+    z-index: 1110;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 420px;
+    transition: margin .4s ease-out;
+    -webkit-transition: margin .4s ease-out;
+    -moz-transition: margin .4s ease-out;
+    -ms-transition: margin .4s ease-out;
+}
+
+.bs-canvas-right {
+    right: 0;
+    margin-right: -420px;
+}
+
+.text__MiniCart {
+    font-weight: 600;
+    margin-top: 5px;
+    font-size: 17px
+}
+
+.icon__MiniCart {
+    padding-top: 3px;
+    margin-top: 4px;
+    padding-right: 5px;
+    font-weight: 600;
+    font-size: 17px
+}
+/* Only for demo */
+body {
+    min-height: 100vh;
+}
+
+.SoLuongProduct_Cart_mini {
+}
+
+.table__cavas .cart__product__item__title {
+    overflow: hidden;
+    padding-top: 0px;
+    padding-left: 20px;
+}
+
+    .table__cavas .cart__product__item__title h6 {
+        color: #111111;
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .table__cavas .cart__product__item__title .rating i {
+        font-size: 10px;
+        color: #e3c01c;
+        margin-right: -4px;
+    }
+
+.header__Canvas__Cartmini {
+    background-color: white;
+    color: black;
+    height: 77px
+}
+
+.Size__Cartmini {
+    float: none;
+    display: inline;
+    margin: 0;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 19px;
+    color: #6f6f6f;
+    text-transform: none;
+}
+
+.MauSpham__Cartmini {
+    float: none;
+    display: inline;
+    margin: 0;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 19px;
+    color: #6f6f6f;
+    text-transform: none;
+}
+
+.shop__cart__mini__table {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.item_MiniCart {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 55%;
+    max-width: 55%;
+    padding-left: 5px;
+}

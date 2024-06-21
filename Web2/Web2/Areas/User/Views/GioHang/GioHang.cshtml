@@ -30,7 +30,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        
+
                         <tr>
                             <td class="cart__product__item cart__product__item__image ">
                                 <img class="img" src="@item.SanPham.AnhSp" alt="">
@@ -55,7 +55,7 @@
                                     <input type="text" data-id="@item.SanPham.Id" value="@item.SoLuong">
                                 </div>
                             </td>
-                            <td class="cart__total" >@string.Format("{0:C3}", item.DonGia * item.SoLuong)</td>
+                            <td class="cart__total">@string.Format("{0:C3}", item.DonGia * item.SoLuong)</td>
                             <td class="cart__close"><span class="icon_close"></span></td>
                         </tr>
                     }

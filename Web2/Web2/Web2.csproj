@@ -224,7 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppData\IdSpFilter.cs" />
+    <Compile Include="AppData\FavoriteItem.cs" />
     <Content Include="Assest\User\css\bootstrap.min.css" />
+    <Content Include="Assest\User\css\bootstrap1.min.css" />
     <Content Include="Assest\User\css\customize.css" />
     <Content Include="Assest\User\css\elegant-icons.css" />
     <Content Include="Assest\User\css\font-awesome.min.css" />
@@ -316,6 +318,7 @@
     <Content Include="Assest\User\img\trend\ht-2.jpg" />
     <Content Include="Assest\User\img\trend\ht-3.jpg" />
     <Content Include="Assest\User\js\bootstrap.min.js" />
+    <Content Include="Assest\User\js\Canvas__CartItem.js" />
     <Content Include="Assest\User\js\customize.js" />
     <Content Include="Assest\User\js\jquery.min.js" />
     <Content Include="Assest\User\js\jquery-ui.min.js" />
@@ -325,6 +328,7 @@
     <Content Include="Assest\User\js\jquery.slicknav.js" />
     <Content Include="Assest\User\js\main.js" />
     <Content Include="Assest\User\js\mixitup.min.js" />
+    <Content Include="Assest\User\css\new.css" />
     <Content Include="Assest\User\js\owl.carousel.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

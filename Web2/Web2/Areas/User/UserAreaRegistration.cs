@@ -11,13 +11,12 @@ namespace Web2.Areas.User
                 return "User";
             }
         }
-
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
                 "User_default",
                 "User/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "TrangChu", id = UrlParameter.Optional }
             );
         }
 

@@ -1776,34 +1776,36 @@ ol {
 }
 
 .pro-qty {
-	height: 50px;
-	width: 150px;
-	border: 1px solid #ebebeb;
-	border-radius: 50px;
-	padding: 0 20px;
-	overflow: hidden;
-	display: inline-block;
+    width: 80px;
+    height: 35px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 5px;
+    border: 1px solid #bfbfbf;
 }
 
-.pro-qty .qtybtn {
-	font-size: 14px;
-	color: #666666;
-	cursor: pointer;
-	float: left;
-	width: 12px;
-	line-height: 46px;
-}
+    .pro-qty input {
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+        font-weight: 650;
+        color: #000;
+        width: 20px;
+        border: none;
+        background: #fff;
+        text-align: center;
+    }
 
-.pro-qty input {
-	font-size: 14px;
-	color: #666666;
-	font-weight: 500;
-	border: none;
-	float: left;
-	width: 84px;
-	text-align: center;
-	height: 48px;
-}
+    .pro-qty .qtybtn {
+        width: 20px;
+        font-size: 18px;
+        font-weight: 650;
+        color: #000;
+        cursor: pointer;
+        display: inline-block;
+    }
 
 .product__details__button {
 	overflow: hidden;
@@ -2142,7 +2144,7 @@ ol {
 
 .shop__cart__table tbody tr .cart__product__item .cart__product__item__title {
 	overflow: hidden;
-	padding-top: 71px;
+	padding-top: 20px;
 }
 
 .shop__cart__table tbody tr .cart__product__item .cart__product__item__title h6 {
@@ -2167,20 +2169,18 @@ ol {
 	width: 190px;
 }
 
-.shop__cart__table tbody tr .cart__quantity .pro-qty {
-	border: none;
-	padding: 0;
-	width: 110px;
-	border-radius: 0;
+.shoping__cart__table table tbody tr td.shoping__cart__quantity .pro-qty input {
+    
+    color: #000;
 }
 
-.shop__cart__table tbody tr .cart__quantity .pro-qty input {
-	color: #444444;
-}
+    .shoping__cart__table table tbody tr td.shoping__cart__quantity .pro-qty input::placeholder {
+        
+        color: #000;
+    }
 
-.shop__cart__table tbody tr .cart__quantity .pro-qty .qtybtn {
-	font-size: 16px;
-	color: #444444;
+.shoping__cart__table table tbody tr td.shoping__cart__quantity .pro-qty .qtybtn {
+    width: 25px;
 }
 
 .shop__cart__table tbody tr .cart__total {
@@ -2217,13 +2217,14 @@ ol {
 }
 
 .cart__btn a {
-	font-size: 14px;
-	color: #111111;
-	font-weight: 600;
-	text-transform: uppercase;
-	display: inline-block;
-	padding: 14px 30px 12px;
-	background: #f5f5f5;
+    font-size: 15px;
+    color: #111111;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 14px 30px 12px;
+    background: #f5f5f5;
+    text-decoration: none;
 }
 
 .cart__btn a span {
