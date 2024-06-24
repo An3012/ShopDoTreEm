@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Web2.Models.SanPham>
+@{ 
+    Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    var LstDanhMuc = Db.DanhMucSp.ToList();
+    var LstPhanLoai = Db.LoaiSp.ToList();
+}
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Hi, welcome back!</h4>
+            <span class="ml-1">Datatable</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Basic Datatable</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="display" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Phân loại</th>
+                                <th>Tình trạng</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Giảm giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><img src="@item.AnhSp" /></td>
+                                    <td>@item.TenSanPham</td>
+                                    <td>@LstDanhMuc.FirstOrDefault(x => x.id == item.IdDanhMuc).TagDM</td>
+                                    <td>@LstPhanLoai.FirstOrDefault(x => x.id == item.IdLoai).ChiTiet</td>
+                                    <td>@item.TinhTrang</td>
+                                    <td>32</td>
+                                    <td>@string.Format("{0:C3}", item.Gia)</td>
+                                    <td style="color:#ca1515">@string.Format("{0:C3}", item.Gia * item.GiamGia/100)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Phân loại</th>
+                                <th>Tình trạng</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Giảm giá</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

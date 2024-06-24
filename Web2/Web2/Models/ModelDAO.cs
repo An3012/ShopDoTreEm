@@ -14,6 +14,18 @@ namespace Web2.Models
         {
             return Db.SanPham.ToPagedList(page, pageSize);
         }
+        public Account account(string Username)
+        {
+            try
+            {
+                var model = Db.Account.SingleOrDefault(acc => acc.TenDangNhap == Username.ToLower() || acc.EmailDangNhap == Username.ToLower());
+                return model;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
     }
 }
