@@ -7,20 +7,16 @@
       "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\sanpham\\sanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\shared\\layoutpagegiohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\shared\\layoutpagegiohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\assest\\admin\\scss\\components\\charts\\_chart-morris.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\assest\\admin\\scss\\components\\charts\\_chart-morris.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\assest\\admin\\scss\\components\\app\\_email.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\assest\\admin\\scss\\components\\app\\_email.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\assest\\admin\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\assest\\admin\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,60 +26,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_chart-morris.scss",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\scss\\components\\charts\\_chart-morris.scss",
-              "RelativeDocumentMoniker": "Web2\\Assest\\Admin\\scss\\components\\charts\\_chart-morris.scss",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\scss\\components\\charts\\_chart-morris.scss",
-              "RelativeToolTip": "Web2\\Assest\\Admin\\scss\\components\\charts\\_chart-morris.scss",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
-              "WhenOpened": "2024-06-24T07:05:04.274Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "_email.scss",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\scss\\components\\app\\_email.scss",
-              "RelativeDocumentMoniker": "Web2\\Assest\\Admin\\scss\\components\\app\\_email.scss",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\scss\\components\\app\\_email.scss",
-              "RelativeToolTip": "Web2\\Assest\\Admin\\scss\\components\\app\\_email.scss",
-              "ViewState": "AQIAAOMBAAAAAAAAAAAMwO0BAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
-              "WhenOpened": "2024-06-24T07:05:00.207Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "style.css",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\css\\style.css",
-              "RelativeDocumentMoniker": "Web2\\Assest\\Admin\\css\\style.css",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\Admin\\css\\style.css",
-              "RelativeToolTip": "Web2\\Assest\\Admin\\css\\style.css",
-              "ViewState": "AQIAALxfAAAAAAAAAAAcwM9fAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-06-24T07:01:29.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LayoutPageGioHang.cshtml",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "ViewState": "AQIAAGAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T04:45:42.795Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -92,9 +36,48 @@
               "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
               "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
               "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "ViewState": "AQIAADMAAAAAAAAAAAAcwEYAAAA1AAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAAACgAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T04:44:29.884Z",
+              "WhenOpened": "2024-06-24T07:46:38.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GioHang.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAACMAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-24T07:41:23.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LayoutPageGioHang.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
+              "ViewState": "AQIAAKwBAAAAAAAAAAAiwMsBAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-24T07:38:41.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_LayoutAdmin.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
+              "ViewState": "AQIAABwAAAAAAAAAAAAiwN4AAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-24T07:35:54.526Z",
               "EditorCaption": ""
             }
           ]

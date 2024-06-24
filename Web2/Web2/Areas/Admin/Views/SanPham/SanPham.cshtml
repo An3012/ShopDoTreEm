@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Web2.Models.SanPham>
-@{ 
+@{
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoai = Db.LoaiSp.ToList();
@@ -29,9 +29,6 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Basic Datatable</h4>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="display" style="min-width: 845px">
@@ -51,14 +48,14 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td><img src="@item.AnhSp" /></td>
+                                    <td> <img style="width: 35%" src="@item.AnhSp" /></td>
                                     <td>@item.TenSanPham</td>
                                     <td>@LstDanhMuc.FirstOrDefault(x => x.id == item.IdDanhMuc).TagDM</td>
                                     <td>@LstPhanLoai.FirstOrDefault(x => x.id == item.IdLoai).ChiTiet</td>
                                     <td>@item.TinhTrang</td>
                                     <td>32</td>
                                     <td>@string.Format("{0:C3}", item.Gia)</td>
-                                    <td style="color:#ca1515">@string.Format("{0:C3}", item.Gia * item.GiamGia/100)</td>
+                                    <td style="color:#ca1515">@string.Format("{0:C3}", item.Gia * item.GiamGia / 100)</td>
                                 </tr>
                             }
                         </tbody>
@@ -79,5 +76,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>
