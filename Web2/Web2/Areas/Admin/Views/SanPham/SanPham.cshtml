@@ -1,33 +1,21 @@
-﻿@model IEnumerable<Web2.Models.SanPham>
+﻿
 @{
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoai = Db.LoaiSp.ToList();
+    var model = ViewBag.listsp as List<Web2.Models.SanPham>;
 }
 
 @{
     ViewBag.Title = "SanPham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="row page-titles mx-0">
-    <div class="col-sm-6 p-md-0">
-        <div class="welcome-text">
-            <h4>Hi, welcome back!</h4>
-            <span class="ml-1">Datatable</span>
-        </div>
-    </div>
-    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
-        </ol>
-    </div>
-</div>
+
 <!-- row -->
 
 
-<div class="row">
-    <div class="col-12">
+
+    <div class="col-12" id="table__product">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -39,13 +27,13 @@
                                 <th>Danh mục</th>
                                 <th>Phân loại</th>
                                 <th>Tình trạng</th>
-                                <th>Số lượng</th>
                                 <th>Giá</th>
                                 <th>Giảm giá</th>
+                                <td>Tương tác</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in model)
                             {
                                 <tr>
                                     <td> <img style="width: 35%" src="@item.AnhSp" /></td>
@@ -53,9 +41,13 @@
                                     <td>@LstDanhMuc.FirstOrDefault(x => x.id == item.IdDanhMuc).TagDM</td>
                                     <td>@LstPhanLoai.FirstOrDefault(x => x.id == item.IdLoai).ChiTiet</td>
                                     <td>@item.TinhTrang</td>
-                                    <td>32</td>
                                     <td>@string.Format("{0:C3}", item.Gia)</td>
                                     <td style="color:#ca1515">@string.Format("{0:C3}", item.Gia * item.GiamGia / 100)</td>
+                                    <td>
+                                        <a href="javascript:;" onclick="ClickProduct(@item.Id )" style="color: #593bdb; font-size: 22px"><i class="fa fa-exclamation-circle"></i></a>
+                                        <a style="color: #7ED321; font-size: 22px"><i class="mdi mdi-file-document-box"></i></a>
+                                        <a style="color: #FF1616; font-size: 22px"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -66,9 +58,9 @@
                                 <th>Danh mục</th>
                                 <th>Phân loại</th>
                                 <th>Tình trạng</th>
-                                <th>Số lượng</th>
                                 <th>Giá</th>
                                 <th>Giảm giá</th>
+                                <td>Tương tác</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -76,5 +68,3 @@
             </div>
         </div>
     </div>
-
-</div>

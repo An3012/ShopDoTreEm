@@ -14,7 +14,15 @@ namespace Web2.Areas.Admin.Controllers
         public ActionResult SanPham()
         {
             var listsp = DB.SanPham.ToList();
-            return View(listsp);
+            ViewBag.listsp = listsp;
+            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
+        }
+        
+        public ActionResult DetailProduct(int IdProduct)
+        {
+            var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
+            ViewBag.IdProduct = IdProduct;
+            return View("~/Areas/Admin/Views/Shared/Product.cshtml");
         }
     }
 }

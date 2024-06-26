@@ -47,10 +47,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Identity.Client, Version=4.2.1.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
@@ -4002,6 +4004,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\User\Data\" />
+    <Folder Include="DLL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -4460,6 +4463,7 @@
     <Content Include="Assest\Admin\vendor\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Assest\Admin\vendor\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\SanPham\SanPham.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Product.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\shared\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\shared\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\trangchu\\trangchu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\trangchu\\trangchu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\assest\\user\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\assest\\user\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\chitietsanpham\\chitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\chitietsanpham\\chitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\assest\\user\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\assest\\user\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\chitietsanpham\\spchitiettheomau.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\chitietsanpham\\spchitiettheomau.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\sanpham\\sanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\sanpham\\sanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\giohang\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\shared\\layoutpagegiohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\shared\\layoutpagegiohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -31,53 +51,119 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SanPham.cshtml",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "ViewState": "AQIAABYAAAAAAAAAAAAAACgAAAA1AAAA",
+              "Title": "Product.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\Product.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\Shared\\Product.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\Product.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\Shared\\Product.cshtml",
+              "ViewState": "AQIAAJkAAAAAAAAAAAAIwLYAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T07:46:38.766Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GioHang.cshtml",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
-              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
-              "RelativeToolTip": "Web2\\Areas\\User\\Views\\GioHang\\GioHang.cshtml",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAACMAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T07:41:23.037Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LayoutPageGioHang.cshtml",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageGioHang.cshtml",
-              "ViewState": "AQIAAKwBAAAAAAAAAAAiwMsBAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T07:38:41.865Z",
+              "WhenOpened": "2024-06-25T09:12:21.202Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "style.css",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\User\\css\\style.css",
+              "RelativeDocumentMoniker": "Web2\\Assest\\User\\css\\style.css",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\User\\css\\style.css",
+              "RelativeToolTip": "Web2\\Assest\\User\\css\\style.css",
+              "ViewState": "AQIAAF4GAAAAAAAAAAAIwHAGAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-06-25T10:49:40.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "main.js",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\User\\js\\main.js",
+              "RelativeDocumentMoniker": "Web2\\Assest\\User\\js\\main.js",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Assest\\User\\js\\main.js",
+              "RelativeToolTip": "Web2\\Assest\\User\\js\\main.js",
+              "ViewState": "AQIAAGoAAAAAAAAAAAArwHQAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-25T10:47:34.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SPChiTietTheoMau.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\ChiTietSanPham\\SPChiTietTheoMau.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\ChiTietSanPham\\SPChiTietTheoMau.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\ChiTietSanPham\\SPChiTietTheoMau.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\ChiTietSanPham\\SPChiTietTheoMau.cshtml",
+              "ViewState": "AQIAABcAAAAAAAAAAAAIwCEAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-25T10:47:33.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ChiTietSanPham.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\ChiTietSanPham\\ChiTietSanPham.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\ChiTietSanPham\\ChiTietSanPham.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\ChiTietSanPham\\ChiTietSanPham.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\ChiTietSanPham\\ChiTietSanPham.cshtml",
+              "ViewState": "AQIAABEAAAAAAAAAAAAIwBsAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-25T10:44:54.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TrangChu.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\TrangChu\\TrangChu.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\TrangChu\\TrangChu.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\TrangChu\\TrangChu.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\TrangChu\\TrangChu.cshtml",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAYwBQAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-25T10:35:40.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SanPhamController.cs",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "RelativeToolTip": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-25T10:24:38.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "_LayoutAdmin.cshtml",
               "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
-              "ViewState": "AQIAABwAAAAAAAAAAAAiwN4AAAAEAAAA",
+              "ViewState": "AQIAAOEAAAAAAAAAAAAAAO0AAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-24T07:35:54.526Z",
+              "WhenOpened": "2024-06-25T10:12:36.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SanPham.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-24T07:46:38.766Z",
               "EditorCaption": ""
             }
           ]

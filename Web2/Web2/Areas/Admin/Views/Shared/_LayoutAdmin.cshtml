@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/Assest/Admin/images/favicon.png">
     <link href="/Assest/Admin/css/style.css" rel="stylesheet" />
     <link href="/Assest/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <style>
         .ul_backgroud {
             background-color: #f8f9fe;
@@ -204,7 +205,18 @@
         </div>
         <div class="content-body">
             <div class="container-fluid">
-                @RenderBody()
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0"></div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:;" onclick="Database()"> Bảng sản phẩm</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row" id="GridViewProduct">
+                    @RenderBody()
+                </div>
             </div>
         </div>
         <div class="footer">
@@ -220,7 +232,40 @@
     <!-- Datatable -->
     <script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
-    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+    function ClickProduct(id)
+    {
+        var IdProduct = id;
+        console.log(IdProduct)
+        $.ajax({
+            type: 'post',
+            url: '/Admin/SanPham/DetailProduct',
+            data: { IdProduct },
+            success: function (html) {
+                console.log(html)
+                $('#GridViewProduct').html(html);
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+    }
+
+    function Database() {
+        $.ajax({
+        type: 'post',
+        url: '/Admin/SanPham/SanPham',
+        data: { },
+        success: function () {
+            location.reload()
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+    }</script>
 </body>
 
 </html>
