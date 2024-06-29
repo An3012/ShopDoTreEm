@@ -36,7 +36,7 @@
         <MappingFragment StoreEntitySet="DacDiemSP">
           <ScalarProperty Name="NameDacDiem" ColumnName="NameDacDiem" />
           <ScalarProperty Name="DacDiemSanPham" ColumnName="DacDiemSanPham" />
-          <ScalarProperty Name="IDSp" ColumnName="IDSp" />
+          <ScalarProperty Name="MaSp" ColumnName="MaSp" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -196,6 +196,16 @@
           <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
           <ScalarProperty Name="idUser" ColumnName="idUser" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPham_Size">
+      <EntityTypeMapping TypeName="WebDoTreEmModel.SanPham_Size">
+        <MappingFragment StoreEntitySet="SanPham_Size">
+          <ScalarProperty Name="IdSize" ColumnName="IdSize" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="IdSanPham" ColumnName="IdSanPham" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

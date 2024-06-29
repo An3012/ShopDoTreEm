@@ -219,6 +219,9 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SanPham_Size.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Size.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -471,7 +474,6 @@
     <Content Include="Assest\Admin\js\plugins-init\sweetalert.init.js" />
     <Content Include="Assest\Admin\js\plugins-init\switchery-init.js" />
     <Content Include="Assest\Admin\js\plugins-init\timepicki-init.js" />
-    <Content Include="Assest\Admin\js\plugins-init\toastr-init.js" />
     <Content Include="Assest\Admin\js\plugins-init\typehead.js-init.js" />
     <Content Include="Assest\Admin\js\plugins-init\ui-slider-init.js" />
     <Content Include="Assest\Admin\js\plugins-init\webticker-init.js" />
@@ -4463,7 +4465,8 @@
     <Content Include="Assest\Admin\vendor\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Assest\Admin\vendor\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\SanPham\SanPham.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\Product.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ProductDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Edit_Product.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

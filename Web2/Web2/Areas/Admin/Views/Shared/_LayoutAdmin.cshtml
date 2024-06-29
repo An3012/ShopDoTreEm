@@ -13,7 +13,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/Assest/Admin/images/favicon.png">
     <link href="/Assest/Admin/css/style.css" rel="stylesheet" />
     <link href="/Assest/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-
+    <link href="/Assest/Admin/vendor/toastr/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/toastr/css/toastr.min.css">
     <style>
         .ul_backgroud {
             background-color: #f8f9fe;
@@ -232,9 +233,15 @@
     <!-- Datatable -->
     <script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
+    <script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+    function Edit_Product(id){
+        var Idproduct = id;
+        var Idproduct = $('.SelectDanhMuc').val()
+        console.log(id)
+        }
     function ClickProduct(id)
     {
         var IdProduct = id;
@@ -252,8 +259,7 @@
             }
         })
     }
-
-    function Database() {
+     function Database() {
         $.ajax({
         type: 'post',
         url: '/Admin/SanPham/SanPham',
@@ -265,7 +271,9 @@
             console.log("error");
         }
     })
-    }</script>
+    }
+
+    </script>
 </body>
 
 </html>

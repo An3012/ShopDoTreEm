@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Web2",
+    "\\Web2\\Web2",
+    "\\Web2\\Web2\\Areas",
+    "\\Web2\\Web2\\Areas\\Admin",
+    "\\Web2\\Web2\\Areas\\Admin\\Controllers"
   ],
-  "SelectedNode": "\\Web2.sln",
+  "SelectedNode": "\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
   "PreviewInSolutionExplorer": false
 }

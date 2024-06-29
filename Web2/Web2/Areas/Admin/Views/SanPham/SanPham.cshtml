@@ -1,70 +1,419 @@
-﻿
-@{
+﻿@{
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    //int Idsp = ViewBag.IdProduct;
+    var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == 19);
+    var HinhAnhCT = Db.HinhAnhChiTietSp.Where(ha => ha.IdSanPham == sanpham.Id).ToList();
+    var SizeSp = Db.SanPham_Size.Where(sp => sp.IdSanPham == sanpham.Id).ToList();
+    var LstSp = Db.SanPham.Where(sp => sp.Masp == sanpham.Masp).ToList();
     var LstDanhMuc = Db.DanhMucSp.ToList();
-    var LstPhanLoai = Db.LoaiSp.ToList();
-    var model = ViewBag.listsp as List<Web2.Models.SanPham>;
+    var LstPhanLoaiSP = Db.LoaiSp.ToList();
+    var IdDanhMuc = sanpham.IdDanhMuc;
 }
 
 @{
     ViewBag.Title = "SanPham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+    var soluong = $('.SanPhamTheoSize_' + @SizeSp.FirstOrDefault().Id).attr('id')
+    console.log(soluong)
+    $('.SanPhamTheoSize_' + @SizeSp.FirstOrDefault().Id).addClass('active')
+    $('#val-SoLuongSP').val(soluong)
+});
+</script>
 
-<!-- row -->
+<style>
+    .img-thumbnail {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .img-thumbnail-nice-scroll {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .nice-scroll {
+        height: 295px;
+        overflow: scroll;
+        margin-top: calc(0.375rem + 1px);
+    }
+
+    .form_control-SizeSp {
+        width: 52px;
+        display: block;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        margin: 0.15rem 0.25rem;
+        font-size: 0.975rem;
+        font-weight: 450;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #eaeaea;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .form_control {
+        width: 100%;
+        display: block;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        margin: 0.15rem 0.25rem;
+        font-size: 0.975rem;
+        font-weight: 450;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        position: relative;
+        overflow: hidden;
+    }
 
 
+    .form_control-SizeSp:hover, .form_control-SizeSp:focus, .form_control-SizeSp.active {
+        box-shadow: none;
+        background: #fff;
+        color: #ff5050;
+        position: relative;
+        border: 1px solid #8d9196;
+    }
 
-    <div class="col-12" id="table__product">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="example" class="display" style="min-width: 845px">
-                        <thead>
-                            <tr>
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Danh mục</th>
-                                <th>Phân loại</th>
-                                <th>Tình trạng</th>
-                                <th>Giá</th>
-                                <th>Giảm giá</th>
-                                <td>Tương tác</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in model)
+    .form_control_SizeSp::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 8px;
+        width: 200%;
+        height: 200%;
+        border: 1px solid transparent;
+    }
+
+    .form_control-SizeSp::after {
+        border-bottom: 1px solid #8d9196;
+        border-left: 1px solid #8d9196;
+        transform: rotate(145deg);
+        transform-origin: center;
+    }
+
+    .form_control-SizeSp.hide-after::after {
+        content: none; /* This will hide the ::after pseudo-element */
+    }
+</style>
+
+<div class="card-body">
+    <div class="form-validation">
+        <form class="form-valide" method="post">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="form-group row form-group-img">
+                        <label class="col-lg-5 col-form-label" for="val-img">
+                            <img src="@sanpham.AnhSp" class="img-thumbnail">
+                        </label>
+                        <div class="col-lg-3 nice-scroll">
+                            @foreach (var item in HinhAnhCT)
                             {
-                                <tr>
-                                    <td> <img style="width: 35%" src="@item.AnhSp" /></td>
-                                    <td>@item.TenSanPham</td>
-                                    <td>@LstDanhMuc.FirstOrDefault(x => x.id == item.IdDanhMuc).TagDM</td>
-                                    <td>@LstPhanLoai.FirstOrDefault(x => x.id == item.IdLoai).ChiTiet</td>
-                                    <td>@item.TinhTrang</td>
-                                    <td>@string.Format("{0:C3}", item.Gia)</td>
-                                    <td style="color:#ca1515">@string.Format("{0:C3}", item.Gia * item.GiamGia / 100)</td>
-                                    <td>
-                                        <a href="javascript:;" onclick="ClickProduct(@item.Id )" style="color: #593bdb; font-size: 22px"><i class="fa fa-exclamation-circle"></i></a>
-                                        <a style="color: #7ED321; font-size: 22px"><i class="mdi mdi-file-document-box"></i></a>
-                                        <a style="color: #FF1616; font-size: 22px"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                <img src="@sanpham.AnhSp" class="img-thumbnail-nice-scroll">
                             }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Danh mục</th>
-                                <th>Phân loại</th>
-                                <th>Tình trạng</th>
-                                <th>Giá</th>
-                                <th>Giảm giá</th>
-                                <td>Tương tác</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                        </div>
+                    </div>
+                    <span class="form-group">Chỉnh sửa ảnh sản phẩm</span>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-TenSanPham">
+                            Tên sản phẩm:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form-control" id="val-TenSanPham" name="val-TenSanPham" value="@sanpham.TenSanPham">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-DanhMuc">
+                            Danh mục:
+                        </label>
+                        <div class="col-lg-6 SelectDanhMuc">
+                            <select class="form-control val-DanhMuc" id="val-DanhMuc" href="javascript:;" onclick="ClickDanhMucPhanLoai()">
+                                <option value="@sanpham.IdDanhMuc">@LstDanhMuc.FirstOrDefault(x => x.id == sanpham.IdDanhMuc).TagDM</option>
+                                @foreach (var item in LstDanhMuc.Where(x => x.id != sanpham.IdDanhMuc))
+                                {
+                                    <option value="@item.id">@item.TagDM</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-PhanLoaiSanPham">
+                            Phân loại:
+                        </label>
+                        <div class="col-lg-6 SelctPhanLoai">
+                            <select class="form-control" id="val-PhanLoaiSanPham" name="val-PhanLoaiSanPham">
+                                <option value="@sanpham.IdLoai">@LstPhanLoaiSP.FirstOrDefault(x => x.id == sanpham.IdLoai).ChiTiet</option>
+                                @foreach (var item in LstPhanLoaiSP.Where(x => x.id != sanpham.IdLoai && x.IdDM == sanpham.IdDanhMuc))
+                                {
+                                    <option value="@item.id">@item.ChiTiet</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-Mota">
+                            Mô tả:
+                        </label>
+                        <div class="col-lg-6">
+                            <textarea rows="5" class="form-control" id="val-Mota" name="val-Mota">@sanpham.MotaSp</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-SizeSp">
+                            Size:
+                        </label>
+                        <div class="col-lg-6 row">
+                            <div class="row " style="margin-left: 10px;">
+                                @foreach (var item in SizeSp)
+                                {
+                                    <div class=" form_control-SizeSp FormSizeSP @(item.SoLuong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.Id" id="@item.SoLuong" data-id="@item.Id" href="javascript:;" onclick="ClickSizeSp(@item.Id)">
+                                        <span>@Db.Size.FirstOrDefault(s => s.id == item.IdSize).TagSize</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-SoLuongSP">
+                            Số lượng:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form_control" style="width: 52px;" id="val-SoLuongSP" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-MauSP">
+                            Màu:
+                        </label>
+                        <div class="col-lg-6 ">
+                            <div class="row" style="padding-left: 10px;">
+                                @foreach (var item in LstSp)
+                                {
+                                    <div class=" form_control-SizeSp hide-after">
+                                        <span id="val-MauSp" name="val-MauSp">@item.MauSP </span>
+                                    </div>
+                                }
+                                <span id="val-MauSp" name="val-MauSp"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-Gia">
+                            Giá:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form-control" id="val-Gia" name="val-Gia" title="Giá sản phẩm ban đầu nhập các số đầu" value=" @sanpham.Gia" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-GiamGia">
+                            Giảm giá:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form-control" id="val-GiamGia" name="val-GiamGia" title="Giảm giá theo %" value="@sanpham.GiamGia" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-TinhTrang">
+                            Tình trạng:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form-control" id="val-TinhTrang" name="val-TinhTrang" value="@sanpham.TinhTrang" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-Brand">
+                            Brand:
+                        </label>
+                        <div class="col-lg-6">
+                            <input class="form-control" id="val-Brand" name="val-Brand" value="@sanpham.Brand" title="Brand của sản phẩm" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-DdNb">
+                            Đặc điểm nổi bật:
+                        </label>
+                    </div>
+                    @foreach (var item in Db.DacDiemSP.Where(x => x.MaSp == sanpham.Masp))
+                    {
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                            <input class=" col-lg-3 form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" value="@item.NameDacDiem" />
+                            <div class="col-lg-6">
+                                <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value=" @item.DacDiemSanPham">
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </div>
+            <div class="form-group row">
+                <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
+                    <button type="button" href="javascript:;" onclick="EditProduct(@sanpham.Id)" class="btn btn-success" style="width: 95px;">Cập nhật</button>
+                    <button type="button" href="javascript:;" onclick="DeleteProduct(@sanpham.Id)" class="btn btn-danger" style="width: 95px;">Xóa</button>
+                    <button type="butt href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+<script>
+    function ClickDanhMucPhanLoai(){
+        var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
+        console.log(selectedDanhMuc);
+        $('#val-PhanLoaiSanPham').empty();
+        $.ajax({
+            url: '/Admin/SanPham/GetPhanLoaiByDanhMuc',
+            type: 'Post',
+            data: { danhMucId: selectedDanhMuc },
+            success: function(data) {
+                console.log("Data received:", data);
+            $.each(data, function(index, item) {
+                $('#val-PhanLoaiSanPham').append($('<option>', {
+                    value: item.id,
+                    text: item.ChiTiet
+                }));
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching Phan Loai:', status, error);
+            console.log('Response Text:', xhr.responseText);
+        }
+    });
+}
+function ClickSizeSp(idSize) {
+    var soluong = $('.SanPhamTheoSize_' + idSize).attr('id')
+    $('.FormSizeSP').removeClass('active')
+    $('.SanPhamTheoSize_' + idSize).addClass('active')
+    console.log(soluong)
+    $('#val-SoLuongSP').val(soluong);
+}
+
+</script>
+<script>
+    function EditProduct(ID){
+        let EditSp = []
+        var IdProduct = ID
+        var DMSp = $('.SelectDanhMuc').find(":selected").val();
+        var PlSp = $('.SelctPhanLoai').find(":selected").val();
+        var TenSanPham = $('#val-TenSanPham').val();
+        var Mota = $('#val-Mota').val();
+        var Size = $('.FormSizeSP.active').data('id');
+        var SoLuong = $('#val-SoLuongSP').val();
+        var GiaSP = $('#val-Gia').val();
+        var Giamgia = $('#val-GiamGia').val();
+        var TinhTrang = $('#val-TinhTrang').val();
+        var Brand = $('#val-Brand').val();
+
+        console.log(IdProduct)
+        console.log(TenSanPham)
+        console.log(PlSp)
+        console.log(DMSp)
+        console.log(Mota)
+        console.log(Size)
+        console.log(SoLuong)
+        console.log(GiaSP)
+        console.log(TinhTrang)
+        console.log(Brand)
+        EditSp.push({
+            Id: IdProduct,
+            IdDM: DMSp,
+            IdLoai: PlSp,
+            TenSanPham: TenSanPham,
+            MotaSp: Mota,
+            IdSize: Size,
+            SoLuongSanPham: SoLuong,
+            Gia: GiaSP,
+            GiamGia: Giamgia,
+            TinhTrang: TinhTrang,
+            Brand: Brand});
+
+        let EditSanPham = JSON.stringify(EditSp);
+        console.log(EditSanPham)
+
+        $.ajax({
+            type: 'post',
+            url: '/Admin/SanPham/EditProduct',
+            data: {EditSanPham},
+            success: function (response) {
+            toastr.info(response.message, "Thông báo", {
+                positionClass: "toast-top-right",
+                timeOut: 5e3,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            })
+        },
+        error: function (xhr, status, error) {
+            toastr.error("Thất bại", "Thông báo", {
+            positionClass: "toast-top-right",
+            timeOut: 5e3,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+        }
+        })
+    }
+
+</script>
+<script>
+    function DeleteProduct(id){
+    var IdProduct = id;
+    console.log(IdProduct)
+    $.ajax({
+        type: 'post',
+        url: '/Admin/SanPham/DeleteProduct',
+        data: { IdProduct },
+        success: function () {
+            location.reload()
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+}
+</script>
