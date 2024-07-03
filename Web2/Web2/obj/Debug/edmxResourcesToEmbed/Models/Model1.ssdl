@@ -143,17 +143,6 @@
     <Property Name="Size" Type="int" />
     <Property Name="SoLuong" Type="int" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'WebDoTreEm.dbo.SanPham_Size' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="SanPham_Size">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IdSanPham" Type="int" />
-    <Property Name="SoLuong" Type="int" />
-    <Property Name="IdSize" Type="int" />
-  </EntityType>
   <EntityType Name="Size">
     <Key>
       <PropertyRef Name="id" />
@@ -162,6 +151,15 @@ warning 6002: The table/view 'WebDoTreEm.dbo.SanPham_Size' does not have a prima
     <Property Name="TagSize" Type="varchar" MaxLength="3" />
     <Property Name="DoDai" Type="nvarchar" MaxLength="20" />
     <Property Name="CanNang" Type="nchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="SpBySize">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idsp" Type="int" />
+    <Property Name="idsize" Type="int" />
+    <Property Name="soluong" Type="int" />
   </EntityType>
   <EntityType Name="TinhThanh">
     <Key>
@@ -341,30 +339,6 @@ warning 6002: The table/view 'WebDoTreEm.dbo.SanPham_Size' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SanPham_Size_SanPham">
-    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
-    <End Role="SanPham_Size" Type="Self.SanPham_Size" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SanPham">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SanPham_Size">
-        <PropertyRef Name="IdSanPham" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SanPham_Size_Size">
-    <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
-    <End Role="SanPham_Size" Type="Self.SanPham_Size" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Size">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SanPham_Size">
-        <PropertyRef Name="IdSize" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ThongTinGiaoHang_Account">
     <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="ThongTinGiaoHang" Type="Self.ThongTinGiaoHang" Multiplicity="*" />
@@ -393,17 +367,10 @@ warning 6002: The table/view 'WebDoTreEm.dbo.SanPham_Size' does not have a prima
     <EntitySet Name="RoleAccount" EntityType="Self.RoleAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpBySize" EntityType="Self.SpBySize" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TinhTrangDonHang" EntityType="Self.TinhTrangDonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThongTinGiaoHang" EntityType="Self.ThongTinGiaoHang" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SanPham_Size" EntityType="Self.SanPham_Size" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [SanPham_Size].[Id] AS [Id], 
-    [SanPham_Size].[IdSanPham] AS [IdSanPham], 
-    [SanPham_Size].[SoLuong] AS [SoLuong], 
-    [SanPham_Size].[IdSize] AS [IdSize]
-    FROM [dbo].[SanPham_Size] AS [SanPham_Size]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_Account_PhuongXa" Association="Self.FK_Account_PhuongXa">
       <End Role="PhuongXa" EntitySet="PhuongXa" />
       <End Role="Account" EntitySet="Account" />
@@ -451,14 +418,6 @@ warning 6002: The table/view 'WebDoTreEm.dbo.SanPham_Size' does not have a prima
     <AssociationSet Name="FK_SanPham_LoaiSp" Association="Self.FK_SanPham_LoaiSp">
       <End Role="LoaiSp" EntitySet="LoaiSp" />
       <End Role="SanPham" EntitySet="SanPham" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SanPham_Size_SanPham" Association="Self.FK_SanPham_Size_SanPham">
-      <End Role="SanPham" EntitySet="SanPham" />
-      <End Role="SanPham_Size" EntitySet="SanPham_Size" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SanPham_Size_Size" Association="Self.FK_SanPham_Size_Size">
-      <End Role="Size" EntitySet="Size" />
-      <End Role="SanPham_Size" EntitySet="SanPham_Size" />
     </AssociationSet>
     <AssociationSet Name="FK_ThongTinGiaoHang_Account" Association="Self.FK_ThongTinGiaoHang_Account">
       <End Role="Account" EntitySet="Account" />

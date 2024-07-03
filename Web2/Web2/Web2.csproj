@@ -333,10 +333,10 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SanPham_Size.cs">
+    <Compile Include="Models\Size.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Size.cs">
+    <Compile Include="Models\SpBySize.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThongTinGiaoHang.cs">

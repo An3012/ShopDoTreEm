@@ -15,22 +15,16 @@ namespace Web2.Models
 using System;
     using System.Collections.Generic;
     
-public partial class SanPham_Size
+public partial class SpBySize
 {
 
-    public int Id { get; set; }
+    public int id { get; set; }
 
-    public Nullable<int> IdSanPham { get; set; }
+    public Nullable<int> idsp { get; set; }
 
-    public Nullable<int> SoLuong { get; set; }
+    public Nullable<int> idsize { get; set; }
 
-    public Nullable<int> IdSize { get; set; }
-
-
-
-    public virtual SanPham SanPham { get; set; }
-
-    public virtual Size Size { get; set; }
+    public Nullable<int> soluong { get; set; }
 
 }
 

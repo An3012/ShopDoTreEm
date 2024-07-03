@@ -51,7 +51,7 @@ namespace Web2.Areas.Admin.Controllers
             ViewBag.IdProduct = IdProduct;
             return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
         }
-        
+
         public ActionResult DetailProductEdit(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
@@ -62,33 +62,30 @@ namespace Web2.Areas.Admin.Controllers
         public ActionResult DeleteProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
-            var SizeSanPhams = DB.SanPham_Size.Where(sp => sp.IdSanPham == IdProduct);
+            var SizeSanPhams = DB.SpBySize.Where(sp => sp.idsp == IdProduct);
             foreach (var item in SizeSanPhams)
             {
-                DB.SanPham_Size.Remove(item);
+                DB.SpBySize.Remove(item);
             }
             DB.SanPham.Remove(sanpham);
             DB.SaveChanges();
             return RedirectToAction("SanPham");
         }
-        public class ListEditProDuct
-        {
-            public int Id { get; set; }
-            public int IdDM { get; set; }
-            public int IdLoai { get; set; }
-            public string TenSanPham { get; set; }
-            public string MotaSp { get; set; }
-            public int IdSize { get; set; }
-            public int SoLuongSanPham { get; set; }
-            public int Gia { get; set; }
-            public int GiamGia { get; set; }
-            public string TinhTrang { get; set; }
-            public string Brand { get; set; }
-
-        }
-        public ActionResult EditProduct(string EditSanPham)
+        
+        public ActionResult EditProduct(string EditSanPham, string ListEditDDNB)
         {
             List<ListEditProDuct> products = JsonConvert.DeserializeObject<List<ListEditProDuct>>(EditSanPham);
+            List<ListEditDacDiemNB> listEditDDNB = JsonConvert.DeserializeObject<List<ListEditDacDiemNB>>(ListEditDDNB);
+            foreach(var item in listEditDDNB)
+            {
+                var DDNBEdit = DB.DacDiemSP.FirstOrDefault(x => x.id == item.iddd);
+                if(DDNBEdit != null)
+                {
+                    DDNBEdit.DacDiemSanPham = item.DDNB;
+                    DDNBEdit.NameDacDiem = item.NameDD;
+                }    
+                DB.SaveChanges();
+            }    
             foreach (var item in products)
             {
                 var SanPhamUpdate = DB.SanPham.FirstOrDefault(x => x.Id == item.Id);
@@ -103,11 +100,11 @@ namespace Web2.Areas.Admin.Controllers
                     SanPhamUpdate.TinhTrang = item.TinhTrang;
                     SanPhamUpdate.Brand = item.Brand;
 
-                    var SanPham_SizeUpdate = DB.SanPham_Size.FirstOrDefault(x => x.Id == item.IdSize);
+                    var SanPham_SizeUpdate = DB.SpBySize.FirstOrDefault(x => x.id == item.IdSize);
                     if (SanPham_SizeUpdate != null)
                     {
-                        var sql = "UPDATE SanPham_Size SET SoLuong = @SoLuong WHERE Id = @Id";
-                        DB.Database.ExecuteSqlCommand(sql, new SqlParameter("@SoLuong", item.SoLuongSanPham), new SqlParameter("@Id", item.IdSize));
+                        var sql = "UPDATE SpBySize SET SoLuong = @soluong WHERE id = @id";
+                        DB.Database.ExecuteSqlCommand(sql, new SqlParameter("@soluong", item.SoLuongSanPham), new SqlParameter("@id", item.IdSize));
                     }
                     else
                     {
@@ -225,7 +222,7 @@ namespace Web2.Areas.Admin.Controllers
             }
             return Json(uploadResults);
         }
-        
+
         public JsonResult DeleteImgDetail(int id)
         {
             var uploadResults = new List<string>();
@@ -292,5 +289,96 @@ namespace Web2.Areas.Admin.Controllers
             return Json(uploadResults);
         }
 
+        public JsonResult AddDDNoiBat(string TagDD, string DDNB, int IdSp)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                DacDiemSP dacDiemSP = new DacDiemSP();
+                dacDiemSP.MaSp = DB.SanPham.Find(IdSp).Masp;
+                dacDiemSP.NameDacDiem = TagDD;
+                dacDiemSP.DacDiemSanPham = DDNB;
+                DB.DacDiemSP.Add(dacDiemSP);
+                DB.SaveChanges();
+                uploadResults.Add($"Thêm đặc điểm nổi bật thành công!");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+        public JsonResult DeleteDDNB(int Id)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                DacDiemSP dacDiemSP = new DacDiemSP();
+                dacDiemSP = DB.DacDiemSP.Find(Id);
+                DB.DacDiemSP.Remove(dacDiemSP);
+                DB.SaveChanges();
+                uploadResults.Add($"Xóa đặc điểm nổi bật thành công!");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+        public JsonResult AddSizeBySanPham(int Id, int IdS, int SoLuongSP)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                var SizeBySp = DB.SpBySize.FirstOrDefault(x => x.idsp == Id && x.idsize == IdS);
+                if (SizeBySp != null)
+                {
+                    SizeBySp.soluong += SoLuongSP;
+                    uploadResults.Add("Cập nhật số lượng size cho sản phẩm thành công!");
+                }
+                else
+                {
+                    SizeBySp = new SpBySize
+                    {
+                        idsp = Id,
+                        idsize = IdS,
+                        soluong = SoLuongSP
+                    };
+                    DB.SpBySize.Add(SizeBySp);
+                    uploadResults.Add("Thêm size cho sản phẩm thành công!");
+                }
+                DB.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+                return Json(uploadResults);
+            }
+            return Json(uploadResults);
+        }
+
+        public class ListEditProDuct
+        {
+            public int Id { get; set; }
+            public int IdDM { get; set; }
+            public int IdLoai { get; set; }
+            public string TenSanPham { get; set; }
+            public string MotaSp { get; set; }
+            public int IdSize { get; set; }
+            public int SoLuongSanPham { get; set; }
+            public int Gia { get; set; }
+            public int GiamGia { get; set; }
+            public string TinhTrang { get; set; }
+            public string Brand { get; set; }
+
+        }
+
+        public class ListEditDacDiemNB
+        {
+            public int iddd { get; set; }
+            public string NameDD { get; set; }
+            public string DDNB { get; set; }
+        }
     }
+    
 }

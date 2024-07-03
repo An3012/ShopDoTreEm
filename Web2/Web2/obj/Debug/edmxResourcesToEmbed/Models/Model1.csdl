@@ -16,10 +16,10 @@
     <EntitySet Name="RoleAccount" EntityType="WebDoTreEmModel.RoleAccount" />
     <EntitySet Name="SanPham" EntityType="WebDoTreEmModel.SanPham" />
     <EntitySet Name="Size" EntityType="WebDoTreEmModel.Size" />
+    <EntitySet Name="SpBySize" EntityType="WebDoTreEmModel.SpBySize" />
     <EntitySet Name="TinhThanh" EntityType="WebDoTreEmModel.TinhThanh" />
     <EntitySet Name="TinhTrangDonHang" EntityType="WebDoTreEmModel.TinhTrangDonHang" />
     <EntitySet Name="ThongTinGiaoHang" EntityType="WebDoTreEmModel.ThongTinGiaoHang" />
-    <EntitySet Name="SanPham_Size" EntityType="WebDoTreEmModel.SanPham_Size" />
     <AssociationSet Name="FK_Account_PhuongXa" Association="WebDoTreEmModel.FK_Account_PhuongXa">
       <End Role="PhuongXa" EntitySet="PhuongXa" />
       <End Role="Account" EntitySet="Account" />
@@ -71,14 +71,6 @@
     <AssociationSet Name="FK_NhomQuyen_RoleAccount" Association="WebDoTreEmModel.FK_NhomQuyen_RoleAccount">
       <End Role="RoleAccount" EntitySet="RoleAccount" />
       <End Role="NhomQuyen" EntitySet="NhomQuyen" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SanPham_Size_SanPham" Association="WebDoTreEmModel.FK_SanPham_Size_SanPham">
-      <End Role="SanPham" EntitySet="SanPham" />
-      <End Role="SanPham_Size" EntitySet="SanPham_Size" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SanPham_Size_Size" Association="WebDoTreEmModel.FK_SanPham_Size_Size">
-      <End Role="Size" EntitySet="Size" />
-      <End Role="SanPham_Size" EntitySet="SanPham_Size" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Account">
@@ -247,7 +239,6 @@
     <NavigationProperty Name="GioHang" Relationship="WebDoTreEmModel.FK_GioHang_SanPham" FromRole="SanPham" ToRole="GioHang" />
     <NavigationProperty Name="HinhAnhChiTietSp" Relationship="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham" FromRole="SanPham" ToRole="HinhAnhChiTietSp" />
     <NavigationProperty Name="LoaiSp" Relationship="WebDoTreEmModel.FK_SanPham_LoaiSp" FromRole="SanPham" ToRole="LoaiSp" />
-    <NavigationProperty Name="SanPham_Size" Relationship="WebDoTreEmModel.FK_SanPham_Size_SanPham" FromRole="SanPham" ToRole="SanPham_Size" />
   </EntityType>
   <EntityType Name="Size">
     <Key>
@@ -257,7 +248,15 @@
     <Property Name="TagSize" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="DoDai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="CanNang" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="SanPham_Size" Relationship="WebDoTreEmModel.FK_SanPham_Size_Size" FromRole="Size" ToRole="SanPham_Size" />
+  </EntityType>
+  <EntityType Name="SpBySize">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idsp" Type="Int32" />
+    <Property Name="idsize" Type="Int32" />
+    <Property Name="soluong" Type="Int32" />
   </EntityType>
   <EntityType Name="TinhThanh">
     <Key>
@@ -288,17 +287,6 @@
     <Property Name="idQuanHuyen" Type="Int32" />
     <Property Name="idPhuongXa" Type="Int32" />
     <NavigationProperty Name="Account" Relationship="WebDoTreEmModel.FK_ThongTinGiaoHang_Account" FromRole="ThongTinGiaoHang" ToRole="Account" />
-  </EntityType>
-  <EntityType Name="SanPham_Size">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdSanPham" Type="Int32" />
-    <Property Name="SoLuong" Type="Int32" />
-    <Property Name="IdSize" Type="Int32" />
-    <NavigationProperty Name="SanPham" Relationship="WebDoTreEmModel.FK_SanPham_Size_SanPham" FromRole="SanPham_Size" ToRole="SanPham" />
-    <NavigationProperty Name="Size" Relationship="WebDoTreEmModel.FK_SanPham_Size_Size" FromRole="SanPham_Size" ToRole="Size" />
   </EntityType>
   <Association Name="FK_Account_PhuongXa">
     <End Type="WebDoTreEmModel.PhuongXa" Role="PhuongXa" Multiplicity="0..1" />
@@ -459,30 +447,6 @@
       </Principal>
       <Dependent Role="NhomQuyen">
         <PropertyRef Name="idRole" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SanPham_Size_SanPham">
-    <End Type="WebDoTreEmModel.SanPham" Role="SanPham" Multiplicity="0..1" />
-    <End Type="WebDoTreEmModel.SanPham_Size" Role="SanPham_Size" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SanPham">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SanPham_Size">
-        <PropertyRef Name="IdSanPham" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SanPham_Size_Size">
-    <End Type="WebDoTreEmModel.Size" Role="Size" Multiplicity="0..1" />
-    <End Type="WebDoTreEmModel.SanPham_Size" Role="SanPham_Size" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Size">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SanPham_Size">
-        <PropertyRef Name="IdSize" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

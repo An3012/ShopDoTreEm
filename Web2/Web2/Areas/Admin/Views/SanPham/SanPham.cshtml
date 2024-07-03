@@ -3,7 +3,8 @@
     //int Idsp = ViewBag.IdProduct;
     var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == 19);
     var HinhAnhCT = Db.HinhAnhChiTietSp.Where(ha => ha.IdSanPham == sanpham.Id).ToList();
-    var SizeSp = Db.SanPham_Size.Where(sp => sp.IdSanPham == sanpham.Id).ToList();
+    var SizeSp = Db.SpBySize.Where(sp => sp.idsp == sanpham.Id).ToList();
+    var IdSizeSpFirt = SizeSp.FirstOrDefault().id;
     var LstSp = Db.SanPham.Where(sp => sp.Masp == sanpham.Masp).ToList();
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoaiSP = Db.LoaiSp.ToList();
@@ -38,11 +39,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-    var soluong = $('.SanPhamTheoSize_' + @SizeSp.FirstOrDefault().Id).attr('id')
-    console.log(soluong)
-    $('.SanPhamTheoSize_' + @SizeSp.FirstOrDefault().Id).addClass('active')
-    $('#val-SoLuongSP').val(soluong)
-
+        var IdSizeSpFirt = '@IdSizeSpFirt'
+        if(IdSizeSpFirt !== '')
+        {
+            var soluong = $('.SanPhamTheoSize_' + IdSizeSpFirt).attr('id')
+            console.log(soluong)
+            $('.SanPhamTheoSize_' + IdSizeSpFirt).addClass('active')
+            $('#val-SoLuongSP').val(soluong)
+        }
     $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
@@ -224,15 +228,20 @@
                         <label class="col-lg-4 col-form-label" for="val-SizeSp">
                             Size:
                         </label>
-                        <div class="col-lg-6 row">
-                            <div class="row " style="margin-left: 10px;">
+                        <div class="col-lg-6 List_SpBySize"  style="margin-left:15px">
+                            <div class="row" id="List_SpBySize">
                                 @foreach (var item in SizeSp)
                                 {
-                                    <div class=" form_control-SizeSp FormSizeSP @(item.SoLuong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.Id" id="@item.SoLuong" data-id="@item.Id" href="javascript:;" onclick="ClickSizeSp(@item.Id)">
-                                        @Db.Size.FirstOrDefault(s => s.id == item.IdSize).TagSize
+                                    <div class=" form_control-SizeSp FormSizeSP @(item.soluong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.id" id="@item.soluong" data-id="@item.id" href="javascript:;" onclick="ClickSizeSp(@item.id)">
+                                        @Db.Size.FirstOrDefault(s => s.id == item.idsize).TagSize
                                     </div>
                                 }
-                            </div>
+                                <div class="form_control-SizeSp FormSizeSP">
+                                    <a style="padding-left:5px" data-toggle="modal" data-target="#AddSize_SanPham">
+                                        <i class="ti-plus"></i>
+                                    </a>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="form-group row">
@@ -255,7 +264,7 @@
                                         <span id="val-MauSp" name="val-MauSp">@item.MauSP </span>
                                     </div>
                                 }
-                                <span id="val-MauSp" name="val-MauSp"></span>
+
                             </div>
                         </div>
                     </div>
@@ -295,23 +304,26 @@
                         <label class="col-lg-4 col-form-label" for="val-DdNb">
                             Đặc điểm nổi bật:
                         </label>
-
-                        <div class="col-lg-6">
+                    </div>
+                    <div id="DacDiemNoiBat" style="margin-bottom:10px">
+                        @foreach (var item in Db.DacDiemSP.Where(x => x.MaSp == sanpham.Masp))
+                        {
+                            <div class="form-group row">
+                                <div class="col-lg-1">
+                                    <a href="javascript:;" onclick="DeleteDDNB(@item.id)" class="fa fa-trash"></a>
+                                </div>
+                                <input class=" col-lg-3 form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" data-id="@item.id" value="@item.NameDacDiem" />
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value=" @item.DacDiemSanPham">
+                                </div>
+                            </div>
+                        }
+                        <div class="col-lg-1">
                             <a data-target="#AddDacDiemNoiBat" data-toggle="modal" class="btn btn-outline-dark btn-event">
                                 <span class="align-middle"><i class="ti-plus"></i></span>
                             </a>
                         </div>
                     </div>
-                    @foreach (var item in Db.DacDiemSP.Where(x => x.MaSp == sanpham.Masp))
-                    {
-                        <div class="form-group row">
-                            <div class="col-lg-1"></div>
-                            <input class=" col-lg-3 form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" value="@item.NameDacDiem" />
-                            <div class="col-lg-6">
-                                <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value=" @item.DacDiemSanPham">
-                            </div>
-                        </div>
-                    }
 
                 </div>
             </div>
@@ -393,6 +405,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="AddSize_SanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm Size cho sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <span>Tag Size:</span>
+                    </div>
+                    <div class="col-lg-6">
+                        <select class="form-control" id="val_SizeSP" name="val_SizeSP">
+                            <option value="">Size</option>
+                            @foreach (var item in Db.Size.ToList())
+                            {
+                                <option value="@item.id">@item.TagSize</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <span>Số lượng hàng:</span>
+                    </div>
+                    <div class="col-lg-6">
+                        <input class="form-control" id="AddSoluong" value="" placeholder="Số lượng hàng hóa">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6"><span style="color: red" id="Messenger_error"></span></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_save_SizeSp">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="AddDacDiemNoiBat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -408,9 +461,9 @@
                     <div class="col-lg-4">
                         <span>Tag:</span>
                     </div>
-                    
+
                     <div class="col-lg-6">
-                        <input class="form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" value=""  placeholder="Tag đặc điểm"/>
+                        <input class="form-control " for="val-DDNB" id="AddNameDacDiemNoiBat" value="" placeholder="Tag đặc điểm" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -418,13 +471,13 @@
                         <span>Đặc điểm nổi bật:</span>
                     </div>
                     <div class="col-lg-6">
-                        <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value="" placeholder="Đặc điểm nổi bật">
+                        <input class="form-control" id="AddDDNB" name="val-DacDiemNoiBat" value="" placeholder="Đặc điểm nổi bật">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-save" data-dismiss="modal" onclick="AddDacDiemNoiBat()">Lưu</button>
+                <button type="button" class="btn btn-primary" id="btn-save" data-dismiss="modal" onclick="AddDacDiemNoiBat(@sanpham.Id)">Lưu</button>
             </div>
         </div>
     </div>
@@ -451,13 +504,112 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-save" style="display:none" data-dismiss="modal" onclick="AddImgDetail(@sanpham.Id)">Lưu</button>
+                <button type="button" class="btn btn-primary" id="btn-save" style="display:none" onclick="AddImgDetail(@sanpham.Id)">Lưu</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-
+    $('#btn_save_SizeSp').on('click', function() {
+    var selectedSize = $('#val_SizeSP').find(":selected").val();
+    console.log(selectedSize);
+    var SoLuongSP = $('#AddSoluong').val();
+    console.log(SoLuongSP);
+    var idsanpham = @sanpham.Id;
+    console.log(idsanpham);
+    if (selectedSize === "" || SoLuongSP === null) {
+        $('#Messenger_error').text("Vui lòng nhập đủ thông tin");
+        event.preventDefault();
+    }
+    else{
+        $.ajax({
+            url: '/SanPham/AddSizeBySanPham',
+            type: 'POST',
+            data: {Id: Number(idsanpham), IdS: Number(selectedSize), SoLuongSP},
+            success: function(response){
+                $(".List_SpBySize").load(location.href + " #List_SpBySize")
+                $('#AddSize_SanPham').modal('hide');
+                toastr.info(response, "Thông báo", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5000,
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: true,
+                    progressBar: true,
+                    preventDuplicates: true,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: false
+                })
+            }
+        })
+    }
+});
+function DeleteDDNB(id)
+{
+    $.ajax({
+    url: '/SanPham/DeleteDDNB',
+    type: 'POST',
+    data: {Id: Number(id)},
+    success: function(response){
+        $("#DacDiemNoiBat").load(location.href + " #DacDiemNoiBat")
+        toastr.info(response, "Thông báo", {
+            positionClass: "toast-top-right",
+            timeOut: 5000,
+            closeButton: true,
+            debug: false,
+            newestOnTop: true,
+            progressBar: true,
+            preventDuplicates: true,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: false
+        })
+    }
+})
+}
+function AddDacDiemNoiBat(IdSp)
+{
+    var TagDD = $('#AddNameDacDiemNoiBat').val()
+    console.log(TagDD)
+    var DDNB = $('#AddDDNB').val()
+    console.log(DDNB)
+    $.ajax({
+        url: '/SanPham/AddDDNoiBat',
+        type: 'POST',
+        data: {TagDD, DDNB, IdSp: Number(IdSp)},
+        success: function(response){
+            $("#DacDiemNoiBat").load(location.href + " #DacDiemNoiBat")
+            toastr.info(response, "Thông báo", {
+                positionClass: "toast-top-right",
+                timeOut: 5000,
+                closeButton: true,
+                debug: false,
+                newestOnTop: true,
+                progressBar: true,
+                preventDuplicates: true,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: false
+            })
+        }
+    })
+}
 function AddImgDetail(Idsp){
     var formdata = new FormData();
     var fileInput = document.getElementById('Id_addImg');
@@ -465,7 +617,6 @@ function AddImgDetail(Idsp){
     formdata.append(fileInput.name, fileInput.files[0]);
     formdata.append('IdSp', Idsp);
     $.ajax({
-
         url: '/SanPham/AddImgDetail',
         type: 'POST',
         data: formdata,
@@ -691,8 +842,19 @@ function SaveImgDetail(inputId) {
 </script>
 <script>
     function EditProduct(ID){
-        let EditSp = []
-        var IdProduct = ID
+        let EditSp = [];
+
+        var ListEditDacDiemNoiBat = [];
+
+        $("#DacDiemNoiBat .form-group").each(function () {
+            ListEditDacDiemNoiBat.push({
+                iddd: $(this).find("#val-NameDacDiemNoiBat").data('id'),
+                NameDD: $(this).find("#val-NameDacDiemNoiBat").val(),
+                DDNB: $(this).find("#val-DacDiemNoiBat").val()
+            });
+        });
+
+        var IdProduct = ID;
         var DMSp = $('.SelectDanhMuc').find(":selected").val();
         var PlSp = $('.SelctPhanLoai').find(":selected").val();
         var TenSanPham = $('#val-TenSanPham').val();
@@ -704,16 +866,6 @@ function SaveImgDetail(inputId) {
         var TinhTrang = $('#val-TinhTrang').val();
         var Brand = $('#val-Brand').val();
 
-        console.log(IdProduct)
-        console.log(TenSanPham)
-        console.log(PlSp)
-        console.log(DMSp)
-        console.log(Mota)
-        console.log(Size)
-        console.log(SoLuong)
-        console.log(GiaSP)
-        console.log(TinhTrang)
-        console.log(Brand)
         EditSp.push({
             Id: IdProduct,
             IdDM: DMSp,
@@ -728,12 +880,13 @@ function SaveImgDetail(inputId) {
             Brand: Brand});
 
         let EditSanPham = JSON.stringify(EditSp);
-        console.log(EditSanPham)
-
+        let ListEditDDNB = JSON.stringify(ListEditDacDiemNoiBat);
+        console.log(ListEditDDNB);
+       
         $.ajax({
             type: 'post',
             url: '/Admin/SanPham/EditProduct',
-            data: {EditSanPham},
+            data: {EditSanPham, ListEditDDNB},
             success: function (response) {
             toastr.info(response.message, "Thông báo", {
                 positionClass: "toast-top-right",

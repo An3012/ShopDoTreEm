@@ -5,25 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c6e64fa993e5495099a23593c38aa515" Name="Diagram1" ZoomLevel="62">
-        <EntityTypeShape EntityType="WebDoTreEmModel.Account" Width="1.5" PointX="15" PointY="4.125" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.ChiTietDonHang" Width="1.5" PointX="3" PointY="10.5" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.DacDiemSP" Width="1.5" PointX="0.75" PointY="2.375" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.DanhMucSp" Width="1.5" PointX="0.75" PointY="5.5" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.DonHang" Width="1.5" PointX="0.75" PointY="10.5" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.GioHang" Width="1.5" PointX="7.5" PointY="7.25" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.HinhAnhChiTietSp" Width="1.5" PointX="7.5" PointY="10.375" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.LoaiSp" Width="1.5" PointX="3" PointY="5.625" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.NhomQuyen" Width="1.5" PointX="12" PointY="5.25" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.PhuongXa" Width="1.5" PointX="12.75" PointY="10.875" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.QuanHuyen" Width="1.5" PointX="12.75" PointY="2.125" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.Quyen" Width="1.5" PointX="9.75" PointY="2.5" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.RoleAccount" Width="1.5" PointX="9.75" PointY="5.375" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.SanPham" Width="1.5" PointX="5.25" PointY="4.25" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.Size" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.TinhThanh" Width="1.5" PointX="12.75" PointY="8.5" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.TinhTrangDonHang" Width="1.5" PointX="9.75" PointY="8.375" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.ThongTinGiaoHang" Width="1.5" PointX="17.25" PointY="4.875" />
-        <EntityTypeShape EntityType="WebDoTreEmModel.SanPham_Size" Width="1.5" PointX="7.5" PointY="3.625" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.Account" Width="1.5" PointX="6" PointY="2.75" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.ChiTietDonHang" Width="1.5" PointX="13" PointY="1.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DacDiemSP" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DanhMucSp" Width="1.5" PointX="5.75" PointY="9.5" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.DonHang" Width="1.5" PointX="10.75" PointY="1.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.GioHang" Width="1.5" PointX="12.5" PointY="8.25" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.HinhAnhChiTietSp" Width="1.5" PointX="12.5" PointY="11.375" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.LoaiSp" Width="1.5" PointX="8" PointY="9.625" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.NhomQuyen" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.PhuongXa" Width="1.5" PointX="3.75" PointY="9.5" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.QuanHuyen" Width="1.5" PointX="3.75" PointY="7.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.Quyen" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.RoleAccount" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.SanPham" Width="1.5" PointX="10.25" PointY="8.25" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.Size" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.SpBySize" Width="1.5" PointX="10.75" PointY="5" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.TinhThanh" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.TinhTrangDonHang" Width="1.5" PointX="2.75" PointY="12" />
+        <EntityTypeShape EntityType="WebDoTreEmModel.ThongTinGiaoHang" Width="1.5" PointX="8.25" PointY="3.375" />
         <AssociationConnector Association="WebDoTreEmModel.FK_Account_PhuongXa" />
         <AssociationConnector Association="WebDoTreEmModel.FK_Account_QuanHuyen" />
         <AssociationConnector Association="WebDoTreEmModel.FK_Account_RoleAccount" />
@@ -37,8 +37,6 @@
         <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_LoaiSp" />
         <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_Quyen" />
         <AssociationConnector Association="WebDoTreEmModel.FK_NhomQuyen_RoleAccount" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_Size_SanPham" />
-        <AssociationConnector Association="WebDoTreEmModel.FK_SanPham_Size_Size" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

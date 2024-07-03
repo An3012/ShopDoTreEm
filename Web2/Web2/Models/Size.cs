@@ -18,15 +18,6 @@ using System;
 public partial class Size
 {
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public Size()
-    {
-
-        this.SanPham_Size = new HashSet<SanPham_Size>();
-
-    }
-
-
     public int id { get; set; }
 
     public string TagSize { get; set; }
@@ -34,12 +25,6 @@ public partial class Size
     public string DoDai { get; set; }
 
     public string CanNang { get; set; }
-
-
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<SanPham_Size> SanPham_Size { get; set; }
 
 }
 

@@ -26,8 +26,6 @@ public partial class SanPham
 
         this.HinhAnhChiTietSp = new HashSet<HinhAnhChiTietSp>();
 
-        this.SanPham_Size = new HashSet<SanPham_Size>();
-
     }
 
 
@@ -76,10 +74,6 @@ public partial class SanPham
     public virtual ICollection<HinhAnhChiTietSp> HinhAnhChiTietSp { get; set; }
 
     public virtual LoaiSp LoaiSp { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<SanPham_Size> SanPham_Size { get; set; }
 
 }
 

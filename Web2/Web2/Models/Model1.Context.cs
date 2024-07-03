@@ -62,13 +62,13 @@ public partial class WebDoTreEmEntities2 : DbContext
 
     public virtual DbSet<Size> Size { get; set; }
 
+    public virtual DbSet<SpBySize> SpBySize { get; set; }
+
     public virtual DbSet<TinhThanh> TinhThanh { get; set; }
 
     public virtual DbSet<TinhTrangDonHang> TinhTrangDonHang { get; set; }
 
     public virtual DbSet<ThongTinGiaoHang> ThongTinGiaoHang { get; set; }
-
-    public virtual DbSet<SanPham_Size> SanPham_Size { get; set; }
 
 }
 
