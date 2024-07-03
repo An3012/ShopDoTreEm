@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\sanpham\\sanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\sanpham\\sanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\admin\\views\\shared\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|g:\\shopdotreem\\shopdotreem\\web2\\web2\\areas\\user\\views\\shared\\layoutpagechitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AF49A12B-6FB5-44F2-B26F-BACA25FC337A}|Web2\\Web2.csproj|solutionrelative:web2\\areas\\user\\views\\shared\\layoutpagechitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +26,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SanPhamController.cs",
-              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
-              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
-              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
-              "RelativeToolTip": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T01:33:03.634Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -45,20 +36,46 @@
               "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
-              "ViewState": "AQIAADwAAAAAAAAAAAAAABkAAAAlAAAA",
+              "ViewState": "AQIAAPQAAAAAAAAAAADwvwMBAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-28T09:47:34.818Z",
+              "WhenOpened": "2024-07-02T09:01:46.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LayoutPageChiTietSanPham.cshtml",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "RelativeDocumentMoniker": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "RelativeToolTip": "Web2\\Areas\\User\\Views\\Shared\\LayoutPageChiTietSanPham.cshtml",
+              "ViewState": "AQIAACoCAAAAAAAAAAAIwD4CAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-02T07:50:21.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "SanPhamController.cs",
+              "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "RelativeToolTip": "Web2\\Areas\\Admin\\Controllers\\SanPhamController.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAewBUAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T01:33:03.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "SanPham.cshtml",
               "DocumentMoniker": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
               "RelativeDocumentMoniker": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
               "ToolTip": "G:\\ShopDoTreEm\\ShopDoTreEm\\Web2\\Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
               "RelativeToolTip": "Web2\\Areas\\Admin\\Views\\SanPham\\SanPham.cshtml",
-              "ViewState": "AQIAAEsBAAAAAAAAAAAAAHsBAAAkAAAA",
+              "ViewState": "AQIAAJUBAAAAAAAAAAAIwKcBAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-06-28T01:05:29.67Z",
               "EditorCaption": ""

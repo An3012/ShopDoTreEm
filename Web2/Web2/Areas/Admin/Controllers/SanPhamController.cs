@@ -1,14 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Web2.AppData;
 using Web2.Models;
+using System.Configuration;
+using Microsoft.Identity.Client;
 
 namespace Web2.Areas.Admin.Controllers
 {
@@ -28,11 +32,11 @@ namespace Web2.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                        // Log the exception
-                        Console.WriteLine("Error: " + ex.Message);
-                        // Return an appropriate error response
-                        return Json(new { success = false, message = ex.Message });
-                    }
+                // Log the exception
+                Console.WriteLine("Error: " + ex.Message);
+                // Return an appropriate error response
+                return Json(new { success = false, message = ex.Message });
+            }
         }
         public ActionResult SanPham()
         {
@@ -40,22 +44,33 @@ namespace Web2.Areas.Admin.Controllers
             ViewBag.listsp = listsp;
             return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
         }
-        
+
         public ActionResult DetailProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
             ViewBag.IdProduct = IdProduct;
-            return View("~/Areas/Admin/Views/Shared/ProductDetail.cshtml");
+            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
+        }
+        
+        public ActionResult DetailProductEdit(int IdProduct)
+        {
+            var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
+            ViewBag.IdProduct = IdProduct;
+            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
         }
 
         public ActionResult DeleteProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
+            var SizeSanPhams = DB.SanPham_Size.Where(sp => sp.IdSanPham == IdProduct);
+            foreach (var item in SizeSanPhams)
+            {
+                DB.SanPham_Size.Remove(item);
+            }
             DB.SanPham.Remove(sanpham);
             DB.SaveChanges();
             return RedirectToAction("SanPham");
         }
-
         public class ListEditProDuct
         {
             public int Id { get; set; }
@@ -107,5 +122,175 @@ namespace Web2.Areas.Admin.Controllers
             DB.SaveChanges();
             return Json(new { success = true, message = "Cập nhật thành công!" });
         }
+
+        public class ImgEdit
+        {
+            public HttpPostedFileBase fileImage { get; set; }
+            public int IdSp { get; set; }
+
+        }
+
+        public JsonResult EditImage(ImgEdit formdata)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                int idSP = formdata.IdSp;
+                HttpPostedFileBase file = formdata.fileImage;
+                if (file == null || file.ContentLength == 0)
+                {
+                    return Json("Lỗi: Không có tập tin được tải lên");
+                }
+                var sanphamupdate = DB.SanPham.FirstOrDefault(sp => sp.Id == idSP);
+                var fileName = Path.GetFileName(file.FileName);
+                var urlfile = "/AppData/Image/Product/";
+                var urlServer = Server.MapPath(urlfile);
+                var savePath = urlfile + fileName;
+                string urlFile = urlServer + fileName;
+
+                if (System.IO.File.Exists(urlFile) == true)
+                {
+                    savePath = urlfile + Path.GetFileName(urlFile);
+                    sanphamupdate.AnhSp = savePath;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    file.SaveAs(urlFile);
+                    sanphamupdate.AnhSp = savePath;
+                    DB.SaveChanges();
+                }
+                uploadResults.Add($"Cập nhật hình ảnh thành công: {fileName}");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Lỗi cập nhật: {ex.Message}");
+            }
+
+            return Json(uploadResults);
+        }
+        public JsonResult EditImageDetail(ImgEdit formdata)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                int idSP = formdata.IdSp;
+                HttpPostedFileBase file = formdata.fileImage;
+                if (file == null || file.ContentLength == 0)
+                {
+                    return Json("Lỗi: Không có tập tin được tải lên");
+                }
+                var sanphamupdate = DB.HinhAnhChiTietSp.FirstOrDefault(sp => sp.Id == idSP);
+                var fileName = Path.GetFileName(file.FileName);
+                var urlfile = "/AppData/Image/Product/";
+                var urlServer = Server.MapPath(urlfile);
+                var savePath = urlfile + fileName;
+                string urlFile = urlServer + fileName;
+
+                if (System.IO.File.Exists(urlFile) == true)
+                {
+                    savePath = urlfile + Path.GetFileName(urlFile);
+                    sanphamupdate.FileAnhChiTiet = savePath;
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    file.SaveAs(urlFile);
+                    sanphamupdate.FileAnhChiTiet = savePath;
+                    DB.SaveChanges();
+                }
+                uploadResults.Add($"Cập nhật hình ảnh thành công: {fileName}");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Lỗi cập nhật: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+
+        public JsonResult DeleteImg(int id)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                int idSP = id;
+                var sanpham = DB.SanPham.Find(id);
+                sanpham.AnhSp = "";
+                DB.SaveChanges();
+                uploadResults.Add($"Xóa hình ảnh thành công!");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+        
+        public JsonResult DeleteImgDetail(int id)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                int idSP = id;
+                var hinhAnhCT = DB.HinhAnhChiTietSp.Find(id);
+
+                DB.HinhAnhChiTietSp.Remove(hinhAnhCT);
+                DB.SaveChanges();
+                uploadResults.Add($"Xóa hình ảnh thành công!");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+
+        public JsonResult AddImgDetail(ImgEdit formdata)
+        {
+            var uploadResults = new List<string>();
+            try
+            {
+                int idSP = formdata.IdSp;
+                HttpPostedFileBase file = formdata.fileImage;
+                if (file == null || file.ContentLength == 0)
+                {
+                    return Json("Lỗi: Không có tập tin được tải lên");
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                var urlfile = "/AppData/Image/Product/";
+                var urlServer = Server.MapPath(urlfile);
+                var savePath = urlfile + fileName;
+                string urlFile = urlServer + fileName;
+
+                if (System.IO.File.Exists(urlFile) == true)
+                {
+                    savePath = urlfile + Path.GetFileName(urlFile);
+                    var AddImgSanPham = new HinhAnhChiTietSp
+                    {
+                        IdSanPham = idSP,
+                        FileAnhChiTiet = savePath
+                    };
+                    DB.HinhAnhChiTietSp.Add(AddImgSanPham);
+                }
+                else
+                {
+                    file.SaveAs(urlFile);
+                    var AddImgSanPham = new HinhAnhChiTietSp
+                    {
+                        IdSanPham = idSP,
+                        FileAnhChiTiet = savePath
+                    };
+                    DB.HinhAnhChiTietSp.Add(AddImgSanPham);
+                }
+                DB.SaveChanges();
+                uploadResults.Add($"Thêm hình ảnh chi tiết thành công!");
+            }
+            catch (Exception ex)
+            {
+                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
+            }
+            return Json(uploadResults);
+        }
+
     }
 }

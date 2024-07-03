@@ -14,6 +14,27 @@
     ViewBag.Title = "SanPham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<head>
+    <script>
+        function ClickEditIMG(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        function displaySelectedImage(event) {
+            var input = event.target;
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var imgElement = document.getElementById(input.id + '-img');
+                imgElement.src = e.target.result;
+                document.getElementById(input.id + '-imageSaveButton').style.display = 'inline-block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+</head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -21,10 +42,21 @@
     console.log(soluong)
     $('.SanPhamTheoSize_' + @SizeSp.FirstOrDefault().Id).addClass('active')
     $('#val-SoLuongSP').val(soluong)
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 
 <style>
+    .img-thumbnail-small {
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
     .img-thumbnail {
         padding: .25rem;
         background-color: #fff;
@@ -115,25 +147,33 @@
     .form_control-SizeSp.hide-after::after {
         content: none; /* This will hide the ::after pseudo-element */
     }
+
+    .form-group-a {
+        color: #0e0e0e;
+    }
 </style>
 
 <div class="card-body">
     <div class="form-validation">
         <form class="form-valide" method="post">
             <div class="row">
-                <div class="col-xl-6">
-                    <div class="form-group row form-group-img">
-                        <label class="col-lg-5 col-form-label" for="val-img">
-                            <img src="@sanpham.AnhSp" class="img-thumbnail">
-                        </label>
-                        <div class="col-lg-3 nice-scroll">
-                            @foreach (var item in HinhAnhCT)
-                            {
-                                <img src="@sanpham.AnhSp" class="img-thumbnail-nice-scroll">
-                            }
+                <div class="col-xl-6 ">
+                    <div class="form-group  form-group-img AnhProduct">
+                        <div class="row" id="AnhProduct">
+                            <label class="col-lg-5 col-form-label" for="val-img">
+                                <img src="@sanpham.AnhSp" class="img-thumbnail">
+                            </label>
+                            <div class="col-lg-3 nice-scroll">
+                                @foreach (var item in HinhAnhCT)
+                                {
+                                    <img src="@item.FileAnhChiTiet" class="img-thumbnail-nice-scroll">
+                                }
+                            </div>
                         </div>
                     </div>
-                    <span class="form-group">Chỉnh sửa ảnh sản phẩm</span>
+                    <div class="form-group">
+                        <label class="col-lg-4 col-form-label"><a class="form-group-a" href="javascript:;" data-toggle="modal" data-target="#exampleModalScrollable"> Chỉnh sửa ảnh</a></label>
+                    </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-TenSanPham">
                             Tên sản phẩm:
@@ -189,7 +229,7 @@
                                 @foreach (var item in SizeSp)
                                 {
                                     <div class=" form_control-SizeSp FormSizeSP @(item.SoLuong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.Id" id="@item.SoLuong" data-id="@item.Id" href="javascript:;" onclick="ClickSizeSp(@item.Id)">
-                                        <span>@Db.Size.FirstOrDefault(s => s.id == item.IdSize).TagSize</span>
+                                        @Db.Size.FirstOrDefault(s => s.id == item.IdSize).TagSize
                                     </div>
                                 }
                             </div>
@@ -255,6 +295,12 @@
                         <label class="col-lg-4 col-form-label" for="val-DdNb">
                             Đặc điểm nổi bật:
                         </label>
+
+                        <div class="col-lg-6">
+                            <a data-target="#AddDacDiemNoiBat" data-toggle="modal" class="btn btn-outline-dark btn-event">
+                                <span class="align-middle"><i class="ti-plus"></i></span>
+                            </a>
+                        </div>
                     </div>
                     @foreach (var item in Db.DacDiemSP.Where(x => x.MaSp == sanpham.Masp))
                     {
@@ -266,18 +312,284 @@
                             </div>
                         </div>
                     }
+
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
                     <button type="button" href="javascript:;" onclick="EditProduct(@sanpham.Id)" class="btn btn-success" style="width: 95px;">Cập nhật</button>
                     <button type="button" href="javascript:;" onclick="DeleteProduct(@sanpham.Id)" class="btn btn-danger" style="width: 95px;">Xóa</button>
-                    <button type="butt href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
+                    <button type="button" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document" id="EditImg-content">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Chỉnh sửa hình ảnh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row form-group-img">
+                    <div class="col-lg-5 col-form-label" for="val-img">
+                        @using (Html.BeginForm("EditImage", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data", id = "Uploaded" }))
+                        {
+                            <input type="hidden" name="IdSp" value="@sanpham.Id" />
+                            <span class="col-lg-4 col-form-label">Hình ảnh hiển thị</span>
+                            <img src="@sanpham.AnhSp" class="img-thumbnail" id="@sanpham.Id-img">
+                            <input type="file" id="@sanpham.Id" name="fileImage" style="display: none;" onchange="displaySelectedImage(event)">
+                            <div class=" mb-1 text-center Img-Show" style="padding-top:3px">
+                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Chọn file ảnh" onclick="ClickEditIMG('@sanpham.Id')">
+                                    <i class="ti-clip"></i>
+                                </button>
+                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Xóa ảnh" onclick="DeleteImg('@sanpham.Id')">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Lưu ảnh" id="@sanpham.Id-imageSaveButton" style="display:none" onclick="SaveImg('@sanpham.Id')">
+                                    <i class="ti-bookmark"></i>
+                                </button>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-lg-7 exampleModalAddImg" style="margin-top: 7px;">
+                        <span class="col-lg-4 col-form-label">Hình ảnh chi tiết</span>
+                        <div class="row" id="content_exampleModalAddImg">
+                            @foreach (var item in HinhAnhCT)
+                            {
+                                <div class="col-5">
+                                    <input type="hidden" name="IdHinhAnhDetail" value="@item.Id" />
+                                    <input type="file" id="@item.Id" name="fileImage" style="display: none;" onchange="displaySelectedImage(event)" />
+                                    <img src="@item.FileAnhChiTiet" class="img-thumbnail-small" id="@item.Id-img">
+                                    <div class="mb-1 text-center" style="padding-top:3px">
+                                        <button onclick="ClickEditIMG('@item.Id')" type="button" class="btn btn-dark col-3 btn-group" data-toggle="tooltip" title="Chọn file ảnh">
+                                            <i class="ti-clip"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Xóa ảnh" onclick="DeleteImgDetail('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <button onclick="SaveImgDetail('@item.Id')" id="@item.Id-imageSaveButton" class="btn btn-dark btn-group" style="display:none" data-toggle="tooltip" title="Lưu ảnh">
+                                            <i class="ti-bookmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalAddImg">Thêm ảnh chi tiết</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="btnhoanthanh('@sanpham.Id')">Hoàn thành</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddDacDiemNoiBat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm đặc điểm nổi bật</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <span>Tag:</span>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <input class="form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" value=""  placeholder="Tag đặc điểm"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <span>Đặc điểm nổi bật:</span>
+                    </div>
+                    <div class="col-lg-6">
+                        <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value="" placeholder="Đặc điểm nổi bật">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-save" data-dismiss="modal" onclick="AddDacDiemNoiBat()">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalAddImg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm hình ảnh chi tiết</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="col-5"><img src="/" class="img-thumbnail-small" id="Add-imgDetail"></div>
+                <div style="margin-top:10px">
+                    <button onclick="ClickEditIMG('Id_addImg')" type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Chọn file ảnh">
+                        <i class="ti-clip"></i>
+                    </button>
+                    <input type="file" id="Id_addImg" name="fileImage" style="display: none;" onchange="displaySelectedAddImg(event)" />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-save" style="display:none" data-dismiss="modal" onclick="AddImgDetail(@sanpham.Id)">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+function AddImgDetail(Idsp){
+    var formdata = new FormData();
+    var fileInput = document.getElementById('Id_addImg');
+    console.log(fileInput.name, fileInput.files[0])
+    formdata.append(fileInput.name, fileInput.files[0]);
+    formdata.append('IdSp', Idsp);
+    $.ajax({
+
+        url: '/SanPham/AddImgDetail',
+        type: 'POST',
+        data: formdata,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            $(".exampleModalAddImg").load(location.href + " #content_exampleModalAddImg")
+            toastr.info(response, "Thông báo", {
+                positionClass: "toast-top-right",
+                timeOut: 5000,
+                closeButton: true,
+                debug: false,
+                newestOnTop: true,
+                progressBar: true,
+                preventDuplicates: true,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: false
+            });
+        },
+    });
+}
+    function btnhoanthanh(Idsp) {
+    $(".AnhProduct").load(location.href + " #AnhProduct")
+}
+function DeleteImg(Idsp){
+     console.log(Idsp)
+     $.ajax({
+         url: '/SanPham/DeleteImg',
+         type: 'POST',
+         data: {id: Number(Idsp)},
+         success: function(response){
+             $("#EditImg-content").load(location.href + " .modal-content");
+              toastr.info( response, "Thông báo",{
+                    positionClass: "toast-top-right",
+                    timeOut: 5000,
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: true,
+                    progressBar: true,
+                    preventDuplicates: true,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: false
+              })
+         }
+     })
+}
+function DeleteImgDetail(Idsp){
+     console.log(Idsp)
+     $.ajax({
+         url: '/SanPham/DeleteImgDetail',
+         type: 'POST',
+         data: {id: Number(Idsp)},
+         success: function(response){
+         $("#EditImg-content").load(location.href + " .modal-content");
+              toastr.info( response, "Thông báo",{
+                    positionClass: "toast-top-right",
+                    timeOut: 5000,
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: true,
+                    progressBar: true,
+                    preventDuplicates: true,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: false
+              })
+         }
+     })
+}
+</script>
+<script>
+
+function ClickEditIMG(id){
+    document.getElementById(id).click();
+    console.log(id)
+}
+function displaySelectedImage(event) {
+    var file = input.files[0];
+    if (file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var imgElement = document.getElementById(input.id + '-img');
+        imgElement.src = e.target.result;
+        document.getElementById(input.id+'-imageSaveButton').style.display = 'inline-flex';
+    }
+    reader.readAsDataURL(file);
+    }
+}
+function displaySelectedAddImg(event) {
+    var input = event.target;
+    var file = input.files[0];
+    if (file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var imgElement = document.getElementById('Add-imgDetail');
+        imgElement.src = e.target.result;
+        document.getElementById('btn-save').style.display = 'inline-flex';
+    }
+    reader.readAsDataURL(file);
+    }
+}
+</script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <script>
     function ClickDanhMucPhanLoai(){
         var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
@@ -310,6 +622,72 @@ function ClickSizeSp(idSize) {
     $('#val-SoLuongSP').val(soluong);
 }
 
+function SaveImg(inputId) {
+    var formdata = new FormData();
+    var fileInput = document.getElementById(inputId);
+    console.log(fileInput.name, fileInput.files[0])
+    formdata.append(fileInput.name, fileInput.files[0]);
+    formdata.append('IdSp', document.querySelector('input[name="IdSp"]').value);
+    $.ajax({
+        url: '/SanPham/EditImage',
+        type: 'POST',
+        data: formdata,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            toastr.info(response, "Thông báo", {
+                positionClass: "toast-top-right",
+                timeOut: 5000,
+                closeButton: true,
+                debug: false,
+                newestOnTop: true,
+                progressBar: true,
+                preventDuplicates: true,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: false
+            });
+        },
+    });
+}
+function SaveImgDetail(inputId) {
+    var formdata = new FormData();
+    var fileInput = document.getElementById(inputId);
+    formdata.append(fileInput.name, fileInput.files[0]);
+    formdata.append('IdSp', inputId);
+    console.log(formdata)
+    $.ajax({
+        url: '/SanPham/EditImageDetail',
+        type: 'POST',
+        data: formdata,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            toastr.info(response, "Thông báo", {
+                positionClass: "toast-top-right",
+                timeOut: 5000,
+                closeButton: true,
+                debug: false,
+                newestOnTop: true,
+                progressBar: true,
+                preventDuplicates: true,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: false
+            });
+        },
+    });
+}
 </script>
 <script>
     function EditProduct(ID){
@@ -416,4 +794,23 @@ function ClickSizeSp(idSize) {
         }
     })
 }
+</script>
+<script>
+    function EditImage(id)
+    {
+        var IdProduct = id;
+        console.log(IdProduct)
+        $.ajax({
+            type: 'post',
+            url: '/Admin/SanPham/ImageProduct',
+            data: { IdProduct },
+            success: function () {
+                location.reload()
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+    }
+
 </script>
