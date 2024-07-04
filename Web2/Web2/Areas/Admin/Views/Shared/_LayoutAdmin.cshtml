@@ -23,14 +23,14 @@
     </style>
 </head>
 <body>
-    <div id="preloader">
+    @*<div id="preloader">
         <div class="sk-three-bounce">
             <div class="sk-child sk-bounce1"></div>
             <div class="sk-child sk-bounce2"></div>
             <div class="sk-child sk-bounce3"></div>
         </div>
-    </div>
-    <div id="main-wrapper">
+    </div>*@
+    <div id="an">
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
@@ -216,8 +216,13 @@
                         </ol>
                     </div>
                 </div>
-                <div class="row" id="GridViewProduct">
-                    @RenderBody()
+                <div id="GridViewProduct">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Basic Datatable</h4>
+                        </div>
+                        @RenderBody()
+                    </div>
                 </div>
             </div>
         </div>
@@ -241,18 +246,15 @@
     function Edit_Product(id){
         var Idproduct = id;
         var Idproduct = $('.SelectDanhMuc').val()
-        console.log(id)
         }
     function ClickProduct(id)
     {
         var IdProduct = id;
-        console.log(IdProduct)
         $.ajax({
             type: 'post',
             url: '/Admin/SanPham/DetailProduct',
             data: { IdProduct },
             success: function (html) {
-                console.log(html)
                 $('#GridViewProduct').html(html);
             },
             error: function () {
@@ -272,6 +274,13 @@
             console.log("error");
         }
     })
+    }
+    function ClickSizeSp(value) {
+        console.log(value)
+        $('.FormSizeSP').removeClass('active')
+        $('.SanPhamTheoSize_' + value).addClass('active')
+        $('.val-SoLuongSP').val(value);
+        $('#val-SoLuongSP').text(value);
     }
 
     </script>

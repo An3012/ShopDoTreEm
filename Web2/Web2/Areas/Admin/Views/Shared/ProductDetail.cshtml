@@ -1,11 +1,13 @@
 ﻿@{
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
-    //int Idsp = ViewBag.IdProduct;
-    var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == 19);
+    int Idsp = ViewBag.IdProduct;
+    var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == Idsp);
     var HinhAnhCT = Db.HinhAnhChiTietSp.Where(ha => ha.IdSanPham == sanpham.Id).ToList();
-    var SizeSPFirt = Db.SanPham_Size.First(sp => sp.IdSanPham == sanpham.Id);
-    var SizeSp = Db.SanPham_Size.Where(sp => sp.IdSanPham == sanpham.Id && sp.Id != SizeSPFirt.Id).ToList();
-    var LstSp = Db.SanPham.Where(sp => sp.Masp == sanpham.Masp).ToList();
+    var SizeSp = Db.SpBySize.Where(sp => sp.idsp == sanpham.Id).ToList();
+    Web2.Models.SpBySize SizeSpFirt = SizeSp.FirstOrDefault() != null ? SizeSp.FirstOrDefault() : null;
+    var LstDanhMuc = Db.DanhMucSp.ToList();
+    var LstPhanLoaiSP = Db.LoaiSp.ToList();
+    var IdDanhMuc = sanpham.IdDanhMuc;
 }
 
 
@@ -102,7 +104,6 @@
         content: none; /* This will hide the ::after pseudo-element */
     }
 </style>
-
 <div class="card-body">
     <div class="form-validation">
         <form class="form-valide" action="#" method="post">
@@ -148,7 +149,7 @@
                             Mô tả:
                         </label>
                         <div class="col-lg-6">
-                            <textarea class="form_control" id="val-Mota" name="val-Mota">@sanpham.MotaSp</textarea>
+                            <textarea rows="5" class="form-control" id="val-Mota" name="val-Mota">@sanpham.MotaSp</textarea>
                         </div>
                     </div>
                 </div>
@@ -159,13 +160,10 @@
                         </label>
                         <div class="col-lg-6 row">
                             <div class="row" style="margin-left: 10px;">
-                                <div class=" form_control-SizeSp @(SizeSPFirt.SoLuong == 0 ? "" : "hide-after") active">
-                                    <span id="val-SizeSp" name="val-SizeSp">@Db.Size.FirstOrDefault(s => s.id == SizeSPFirt.IdSize).TagSize </span>
-                                </div>
                                 @foreach (var item in SizeSp)
                                 {
-                                    <div class=" form_control-SizeSp @(item.SoLuong == 0 ? "" : "hide-after") ">
-                                        <span id="val-SizeSp" name="val-SizeSp">@Db.Size.FirstOrDefault(s => s.id == item.IdSize).TagSize </span>
+                                    <div class=" form_control-SizeSp FormSizeSP @(item.soluong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.soluong" data-id="@item.id" href="javascript:;" onclick="ClickSizeSp(@item.soluong)">
+                                        @Db.Size.FirstOrDefault(s => s.id == item.idsize).TagSize
                                     </div>
                                 }
                             </div>
@@ -176,7 +174,7 @@
                             Số lượng:
                         </label>
                         <div class="col-lg-6">
-                            <span class="form_control" style="width: 52px;" id="val-SoLuongSP" name="val-SoLuongSP">@SizeSPFirt.SoLuong </span>
+                            <span class="form_control" style="width: 52px;" id="val-SoLuongSP" name="val-SoLuongSP"> </span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -185,12 +183,9 @@
                         </label>
                         <div class="col-lg-6 ">
                             <div class="row" style="padding-left: 10px;">
-                                @foreach (var item in LstSp)
-                                {
-                                    <div class=" form_control-SizeSp hide-after">
-                                        <span id="val-MauSp" name="val-MauSp">@item.MauSP </span>
-                                    </div>
-                                }
+                                <div class=" form_control-SizeSp hide-after">
+                                    <span id="val-MauSp" name="val-MauSp">@sanpham.MauSP </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -247,28 +242,33 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
-                    <button type="submit" class="btn btn-success" style="width: 95px;">Chỉnh sửa</button>
-                    <button type="submit" href="javascript:;" onclick="DeleteProduct(@sanpham.Id)" class="btn btn-danger" style="width: 95px;">Xóa</button>
-                    <button type="submit" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
+                    <button type="button" href="javascript:;" onclick="ClickEdit(@sanpham.Id)" class="btn btn-success" style="width: 95px;">Chỉnh sửa</button>
+                    <button type="button" href="javascript:;" onclick="DeleteProduct(@sanpham.Id)" class="btn btn-danger" style="width: 95px;">Xóa</button>
+                    <button type="button" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <script>
-    function DeleteProduct(id){
-        var IdProduct = id;
-        console.log(IdProduct)
+        function ClickEdit(Idsp)
+    {
         $.ajax({
             type: 'post',
-            url: '/Admin/SanPham/DeleteProduct',
-            data: { IdProduct },
-            success: function () {
-                location.reload()
+            url: '/Admin/SanPham/fEditProduct',
+            data: { IdProduct:Number(Idsp) },
+            success: function (html) {
+                $('#GridViewProduct').html(html);
             },
             error: function () {
                 console.log("error");
             }
         })
     }
+
+    $(document).ready(function(){
+    const soLuong = '@(SizeSp?.FirstOrDefault()?.soluong)'; //Lấy bản ghi đàu tiên
+        $("#val-SoLuongSP").text(soLuong);
+    })
+
 </script>

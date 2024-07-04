@@ -1,20 +1,17 @@
-﻿@{
+﻿
+@{
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
-    //int Idsp = ViewBag.IdProduct;
-    var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == 19);
+    int Idsp = ViewBag.IdProduct;
+    var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == Idsp);
     var HinhAnhCT = Db.HinhAnhChiTietSp.Where(ha => ha.IdSanPham == sanpham.Id).ToList();
     var SizeSp = Db.SpBySize.Where(sp => sp.idsp == sanpham.Id).ToList();
-    var IdSizeSpFirt = SizeSp.FirstOrDefault().id;
+    Web2.Models.SpBySize SizeSpFirt = SizeSp.FirstOrDefault() != null ? SizeSp.FirstOrDefault() : null;
     var LstSp = Db.SanPham.Where(sp => sp.Masp == sanpham.Masp).ToList();
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoaiSP = Db.LoaiSp.ToList();
     var IdDanhMuc = sanpham.IdDanhMuc;
 }
 
-@{
-    ViewBag.Title = "SanPham";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
 <head>
     <script>
         function ClickEditIMG(inputId) {
@@ -31,25 +28,11 @@
                 imgElement.src = e.target.result;
                 document.getElementById(input.id + '-imageSaveButton').style.display = 'inline-block';
             };
-
             reader.readAsDataURL(file);
         }
     </script>
 </head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var IdSizeSpFirt = '@IdSizeSpFirt'
-        if(IdSizeSpFirt !== '')
-        {
-            var soluong = $('.SanPhamTheoSize_' + IdSizeSpFirt).attr('id')
-            console.log(soluong)
-            $('.SanPhamTheoSize_' + IdSizeSpFirt).addClass('active')
-            $('#val-SoLuongSP').val(soluong)
-        }
-    $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
 
 <style>
     .img-thumbnail-small {
@@ -230,12 +213,16 @@
                         </label>
                         <div class="col-lg-6 List_SpBySize" style="margin-left:15px">
                             <div class="row" id="List_SpBySize">
-                                @foreach (var item in SizeSp)
-                                {
-                                    <div class=" form_control-SizeSp FormSizeSP @(item.soluong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.id" id="@item.soluong" data-id="@item.id" href="javascript:;" onclick="ClickSizeSp(@item.id)">
-                                        @Db.Size.FirstOrDefault(s => s.id == item.idsize).TagSize
-                                    </div>
-                                }
+                                @{if (SizeSp != null && SizeSp.Count > 0)
+                                    {
+                                        foreach (var item in SizeSp)
+                                        {
+                                            <div class=" form_control-SizeSp FormSizeSP @(item.soluong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.soluong" data-id="@item.id" href="javascript:;" onclick="ClickSizeSp(@item.soluong)">
+                                                @Db.Size.FirstOrDefault(s => s.id == item.idsize).TagSize
+                                            </div>
+                                        }
+                                    } 
+                                  }
                                 <div class="form_control-SizeSp FormSizeSP">
                                     <a style="padding-left:5px" data-toggle="modal" data-target="#AddSize_SanPham">
                                         <i class="ti-plus"></i>
@@ -246,10 +233,10 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-SoLuongSP">
-                            Số lượng:
+                            Số lượng:
                         </label>
                         <div class="col-lg-6">
-                            <input class="form_control" style="width: 52px;" id="val-SoLuongSP" value="">
+                            <input class="form_control val-SoLuongSP" style="width: 52px;" id="val-SoLuongSP" value="">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -258,13 +245,9 @@
                         </label>
                         <div class="col-lg-6 ">
                             <div class="row" style="padding-left: 10px;">
-                                @foreach (var item in LstSp)
-                                {
-                                    <div class=" form_control-SizeSp hide-after">
-                                        <span id="val-MauSp" name="val-MauSp">@item.MauSP </span>
-                                    </div>
-                                }
-
+                                <div class=" form_control-SizeSp hide-after">
+                                    <span id="val-MauSp" name="val-MauSp">@sanpham.MauSP </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -441,7 +424,7 @@
             <div class="col-lg-6"><span style="color: red" id="Messenger_error"></span></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn_save_SizeSp">Lưu</button>
+                <button type="button" class="btn btn-primary btn_save_SizeSp">Lưu</button>
             </div>
         </div>
     </div>
@@ -509,13 +492,22 @@
         </div>
     </div>
 </div>
+<script src="/Assest/User/js/jquery.min.js"></script>
+<script src="/Assest/Admin/vendor/global/global.min.js"></script>
+<script src="/Assest/Admin/js/quixnav-init.js"></script>
+<script src="/Assest/Admin/js/custom.min.js"></script>
+<!-- Datatable -->
+<script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
+<script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    $('#btn_save_SizeSp').on('click', function() {
+    $('.btn_save_SizeSp').on('click', function() {
     var selectedSize = $('#val_SizeSP').find(":selected").val();
     console.log(selectedSize);
     var SoLuongSP = $('#AddSoluong').val();
     console.log(SoLuongSP);
-    var idsanpham = @sanpham.Id;
+    var idsanpham = '@sanpham.Id';
     console.log(idsanpham);
     if (selectedSize === "" || SoLuongSP === null) {
         $('#Messenger_error').text("Vui lòng nhập đủ thông tin");
@@ -703,9 +695,6 @@ function DeleteImgDetail(Idsp){
          }
      })
 }
-</script>
-<script>
-
 function ClickEditIMG(id){
     document.getElementById(id).click();
     console.log(id)
@@ -735,13 +724,6 @@ function displaySelectedAddImg(event) {
     reader.readAsDataURL(file);
     }
 }
-</script>
-<script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
-<script>
     function ClickDanhMucPhanLoai(){
         var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
         console.log(selectedDanhMuc);
@@ -765,14 +747,6 @@ $(document).ready(function(){
         }
     });
 }
-function ClickSizeSp(idSize) {
-    var soluong = $('.SanPhamTheoSize_' + idSize).attr('id')
-    $('.FormSizeSP').removeClass('active')
-    $('.SanPhamTheoSize_' + idSize).addClass('active')
-    console.log(soluong)
-    $('#val-SoLuongSP').val(soluong);
-}
-
 function SaveImg(inputId) {
     var formdata = new FormData();
     var fileInput = document.getElementById(inputId);
@@ -839,13 +813,9 @@ function SaveImgDetail(inputId) {
         },
     });
 }
-</script>
-<script>
     function EditProduct(ID){
         let EditSp = [];
-
         var ListEditDacDiemNoiBat = [];
-
         $("#DacDiemNoiBat .form-group").each(function () {
             ListEditDacDiemNoiBat.push({
                 iddd: $(this).find("#val-NameDacDiemNoiBat").data('id'),
@@ -853,19 +823,17 @@ function SaveImgDetail(inputId) {
                 DDNB: $(this).find("#val-DacDiemNoiBat").val()
             });
         });
-
         var IdProduct = ID;
         var DMSp = $('.SelectDanhMuc').find(":selected").val();
         var PlSp = $('.SelctPhanLoai').find(":selected").val();
         var TenSanPham = $('#val-TenSanPham').val();
         var Mota = $('#val-Mota').val();
         var Size = $('.FormSizeSP.active').data('id');
-        var SoLuong = $('#val-SoLuongSP').val();
+        var SoLuong = $('.val-SoLuongSP').val();
         var GiaSP = $('#val-Gia').val();
         var Giamgia = $('#val-GiamGia').val();
         var TinhTrang = $('#val-TinhTrang').val();
         var Brand = $('#val-Brand').val();
-
         EditSp.push({
             Id: IdProduct,
             IdDM: DMSp,
@@ -878,11 +846,8 @@ function SaveImgDetail(inputId) {
             GiamGia: Giamgia,
             TinhTrang: TinhTrang,
             Brand: Brand});
-
         let EditSanPham = JSON.stringify(EditSp);
         let ListEditDDNB = JSON.stringify(ListEditDacDiemNoiBat);
-        console.log(ListEditDDNB);
-
         $.ajax({
             type: 'post',
             url: '/Admin/SanPham/EditProduct',
@@ -929,12 +894,8 @@ function SaveImgDetail(inputId) {
         }
         })
     }
-
-</script>
-<script>
     function DeleteProduct(id){
     var IdProduct = id;
-    console.log(IdProduct)
     $.ajax({
         type: 'post',
         url: '/Admin/SanPham/DeleteProduct',
@@ -949,6 +910,11 @@ function SaveImgDetail(inputId) {
 }
 </script>
 <script>
+    $(document).ready(function(){
+    const soLuong = '@(SizeSp?.FirstOrDefault()?.soluong)'; //Lấy bản ghi đàu tiên
+        $("#val-SoLuongSP").val(soLuong);
+    })
+
     function EditImage(id)
     {
         var IdProduct = id;

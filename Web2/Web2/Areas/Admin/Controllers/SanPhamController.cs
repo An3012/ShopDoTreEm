@@ -49,7 +49,13 @@ namespace Web2.Areas.Admin.Controllers
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
             ViewBag.IdProduct = IdProduct;
-            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
+            return View("~/Areas/Admin/Views/Shared/ProductDetail.cshtml");
+        }
+        public ActionResult fEditProduct(int IdProduct)
+        {
+            var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
+            ViewBag.IdProduct = IdProduct;
+            return View("~/Areas/Admin/Views/Shared/Edit_Product.cshtml");
         }
 
         public ActionResult DetailProductEdit(int IdProduct)
@@ -59,7 +65,7 @@ namespace Web2.Areas.Admin.Controllers
             return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
         }
 
-        public ActionResult DeleteProduct(int IdProduct)
+        public JsonResult DeleteProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
             var SizeSanPhams = DB.SpBySize.Where(sp => sp.idsp == IdProduct);
@@ -69,9 +75,9 @@ namespace Web2.Areas.Admin.Controllers
             }
             DB.SanPham.Remove(sanpham);
             DB.SaveChanges();
-            return RedirectToAction("SanPham");
+            return Json("Xóa sản phẩm thành công!" );
         }
-        
+
         public ActionResult EditProduct(string EditSanPham, string ListEditDDNB)
         {
             List<ListEditProDuct> products = JsonConvert.DeserializeObject<List<ListEditProDuct>>(EditSanPham);
