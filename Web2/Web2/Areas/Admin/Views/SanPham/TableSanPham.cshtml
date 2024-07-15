@@ -1,0 +1,175 @@
+﻿@{
+    Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    var LstDanhMuc = Db.DanhMucSp.ToList();
+    var LstPhanLoai = Db.LoaiSp.ToList();
+    var model = ViewBag.listsp as List<Web2.Models.SanPham>;
+    var LstTinhTrangSp = Web2.Models.ModelDAO.TinhTrangsanPham.TinhTrangList;
+}
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="/Assest/Admin/images/favicon.png">
+    <link href="/Assest/Admin/css/style.css" rel="stylesheet" />
+    <link href="/Assest/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/Assest/Admin/vendor/toastr/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/select2/css/select2.min.css">
+
+</head>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Basic Datatable</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" id="table-responsive">
+            <button class=" pull-right btn btn-info mb-4" data-toggle="modal" data-target="#exampleModalAddProduct" id="">Thêm sản phẩm mới</button>
+            <table id="example" class="display example-advance-3" style="min-width: 845px">
+                <thead>
+                    <tr>
+                        <th style="min-width: 22%;">Tên sản phẩm</th>
+                        <th style="min-width: 22%;">Hình ảnh</th>
+                        <th style="min-width: 10%;">Mã SP</th>
+                        <th style="min-width: 8%;">Màu sắc</th>
+                        <th style="min-width: 10%;">Tình trạng</th>
+                        <th style="min-width: 10%;">Giá</th>
+                        <th style="min-width: 8%;">Giảm giá</th>
+                        <th style="min-width: 10%;">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in model)
+                    {
+                        <tr>
+                            <td>@item.TenSanPham</td>
+                            <td id="td1"><div style="width:160px"><img src="@item.AnhSp" id="@item.Id" style="width:95%" /></div></td>
+                            <td>@item.Masp</td>
+                            <td>@item.MauSP</td>
+                            <td>@LstTinhTrangSp.FirstOrDefault(x => x.Value == item.TinhTrang).title</td>
+                            <td>@string.Format("{0:C3}", item.Gia)</td>
+                            <td style="color:#ca1515">@item.GiamGia %</td>
+                            <td>
+                                <div style="margin: auto;">
+                                    <a href="javascript:;" onclick="ClickProduct(@item.Id)" style="color: #593bdb; font-size: 22px"><i class="fa fa-exclamation-circle"></i></a>
+                                    <a style="color: #7ED321; font-size: 22px" href="javascript:;" onclick="ClickEdit(@item.Id)"><i class="fa fa-pencil"></i></a>
+                                    <a style="color: #FF1616; font-size: 22px" href="javascript:;" onclick="DeleteProduct(@item.Id)"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="min-width: 22%;">Tên sản phẩm</th>
+                        <th style="min-width: 22%;">Hình ảnh</th>
+                        <th style="min-width: 10%;">Mã SP</th>
+                        <th style="min-width: 8%;">Màu sắc</th>
+                        <th style="min-width: 10%;">Tình trạng</th>
+                        <th style="min-width: 10%;">Giá</th>
+                        <th style="min-width: 8%;">Giảm giá</th>
+                        <th style="min-width: 10%;">Chức năng</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/Assest/Admin/vendor/global/global.min.js"></script>
+<script src="/Assest/Admin/js/quixnav-init.js"></script>
+<script src="/Assest/Admin/js/custom.min.js"></script>
+<script src="/Assest/Admin/vendor/select2/js/select2.full.min.js"></script>
+<script src="/Assest/Admin/js/plugins-init/select2-init.js"></script>
+<!-- Datatable -->
+<script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
+<script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
+<script>
+    function ClickEdit(Idsp)
+    {
+        $.ajax({
+            type: 'post',
+            url: '/Admin/SanPham/fEditProduct',
+            data: { IdProduct:Number(Idsp) },
+            success: function (html) {
+                $('#GridViewProduct').html(html);
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+    }
+    function DeleteProduct(id){
+    var IdProduct = id;
+    console.log(IdProduct)
+    $.ajax({
+        type: 'post',
+        url: '/Admin/SanPham/DeleteProduct',
+        data: { IdProduct },
+        success: function (html) {
+            $("#GridViewProduct").html(html);
+             console.log(html)
+            showInfoToastr(response)
+        }
+    })
+}
+</script>
+<script>
+    function Edit_Product(id){
+        var Idproduct = id;
+        var Idproduct = $('.SelectDanhMuc').val()
+        }
+    function ClickProduct(id)
+    {
+        var IdProduct = id;
+        $.ajax({
+            type: 'post',
+            url: '/Admin/SanPham/DetailProduct',
+            data: { IdProduct },
+            success: function (html) {
+                $('#GridViewProduct').html(html);
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+    }
+     function Database() {
+        $.ajax({
+        type: 'post',
+        url: '/Admin/SanPham/SanPham',
+        data: { },
+        success: function () {
+            location.reload()
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+    }
+    function ClickSizeSp(value) {
+        console.log(value)
+        $('.FormSizeSP').removeClass('active')
+        $('.SanPhamTheoSize_' + value).addClass('active')
+        $('.val-SoLuongSP').val(value);
+        $('#val-SoLuongSP').text(value);
+        }
+
+        function showInfoToastr(message) {
+        toastr.info(message, "Thông báo", {
+        positionClass: "toast-top-right",
+        timeOut: 5000,
+        closeButton: true,
+        debug: false,
+        newestOnTop: true,
+        progressBar: true,
+        preventDuplicates: true,
+        showDuration: "300",
+        hideDuration: "1000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut",
+        tapToDismiss: false
+    });
+}
+
+
+</script>

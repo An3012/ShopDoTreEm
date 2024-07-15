@@ -22,17 +22,6 @@
           <Property Name="idPhuongXa" Type="int" />
           <Property Name="HoatDong" Type="bit" />
         </EntityType>
-        <EntityType Name="ChiTietDonHang">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idDonHang" Type="int" />
-          <Property Name="idSanPham" Type="int" />
-          <Property Name="GiaSanPham" Type="int" />
-          <Property Name="SoLuong" Type="int" />
-          <Property Name="NgayTao" Type="datetime" />
-        </EntityType>
         <EntityType Name="DacDiemSP">
           <Key>
             <PropertyRef Name="id" />
@@ -52,27 +41,15 @@
           <Property Name="MotaDM" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnhDanhMuc" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idNguoiMua" Type="int" />
-          <Property Name="TongSoLuongSp" Type="int" />
-          <Property Name="NgayTao" Type="datetime" />
-          <Property Name="ThanhTien" Type="int" />
-          <Property Name="idTinhTrang" Type="int" />
-        </EntityType>
         <EntityType Name="GioHang">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idSp" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idKhachHang" Type="int" />
+          <Property Name="idSanPham" Type="int" />
+          <Property Name="GiaSanPham" Type="int" />
           <Property Name="SoLuong" Type="int" />
-          <Property Name="IdTinhtrang" Type="int" />
-          <Property Name="KieuGiaoHang" Type="int" />
-          <Property Name="KieuThanhToan" Type="int" />
         </EntityType>
         <EntityType Name="HinhAnhChiTietSp">
           <Key>
@@ -98,6 +75,18 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idQuyen" Type="int" />
           <Property Name="idRole" Type="int" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdKhachHang" Type="int" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdSanPham" Type="text" />
+          <Property Name="SoLuongSP" Type="text" />
+          <Property Name="GiaSp" Type="text" />
+          <Property Name="ThoigianTao" Type="datetime" />
         </EntityType>
         <EntityType Name="PhuongXa">
           <Key>
@@ -131,7 +120,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Masp" Type="nchar" MaxLength="10" />
           <Property Name="TenSanPham" Type="nvarchar" MaxLength="100" />
           <Property Name="MotaSp" Type="nvarchar(max)" />
@@ -145,8 +134,10 @@
           <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand" Type="nvarchar" MaxLength="50" />
           <Property Name="MauSP" Type="nvarchar" MaxLength="15" />
-          <Property Name="Size" Type="int" />
-          <Property Name="SoLuong" Type="int" />
+          <Property Name="Sizesp_soLuong" Type="nvarchar(max)" />
+          <Property Name="SoLuong" Type="nvarchar(max)" />
+          <Property Name="AnhChiTiet" Type="nvarchar" MaxLength="1500" />
+          <Property Name="DacDiemNB" Type="nvarchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -242,32 +233,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonHang_DonHang">
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
-          <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonHang">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ChiTietDonHang">
-              <PropertyRef Name="idDonHang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GioHang_SanPham">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="idSp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HinhAnhChiTietSp_SanPham">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="HinhAnhChiTietSp" Type="Self.HinhAnhChiTietSp" Multiplicity="*" />
@@ -358,14 +323,13 @@
         </Association>
         <EntityContainer Name="WebDoTreEmModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DacDiemSP" EntityType="Self.DacDiemSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhMucSp" EntityType="Self.DanhMucSp" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HinhAnhChiTietSp" EntityType="Self.HinhAnhChiTietSp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiSp" EntityType="Self.LoaiSp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhomQuyen" EntityType="Self.NhomQuyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhuongXa" EntityType="Self.PhuongXa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuanHuyen" EntityType="Self.QuanHuyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
@@ -391,14 +355,6 @@
           <AssociationSet Name="FK_Account_TinhThanh" Association="Self.FK_Account_TinhThanh">
             <End Role="TinhThanh" EntitySet="TinhThanh" />
             <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonHang_DonHang" Association="Self.FK_ChiTietDonHang_DonHang">
-            <End Role="DonHang" EntitySet="DonHang" />
-            <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GioHang_SanPham" Association="Self.FK_GioHang_SanPham">
-            <End Role="SanPham" EntitySet="SanPham" />
-            <End Role="GioHang" EntitySet="GioHang" />
           </AssociationSet>
           <AssociationSet Name="FK_HinhAnhChiTietSp_SanPham" Association="Self.FK_HinhAnhChiTietSp_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -435,14 +391,13 @@
       <Schema Namespace="WebDoTreEmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WebDoTreEmEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Account" EntityType="WebDoTreEmModel.Account" />
-          <EntitySet Name="ChiTietDonHang" EntityType="WebDoTreEmModel.ChiTietDonHang" />
           <EntitySet Name="DacDiemSP" EntityType="WebDoTreEmModel.DacDiemSP" />
           <EntitySet Name="DanhMucSp" EntityType="WebDoTreEmModel.DanhMucSp" />
-          <EntitySet Name="DonHang" EntityType="WebDoTreEmModel.DonHang" />
           <EntitySet Name="GioHang" EntityType="WebDoTreEmModel.GioHang" />
           <EntitySet Name="HinhAnhChiTietSp" EntityType="WebDoTreEmModel.HinhAnhChiTietSp" />
           <EntitySet Name="LoaiSp" EntityType="WebDoTreEmModel.LoaiSp" />
           <EntitySet Name="NhomQuyen" EntityType="WebDoTreEmModel.NhomQuyen" />
+          <EntitySet Name="Order" EntityType="WebDoTreEmModel.Order" />
           <EntitySet Name="PhuongXa" EntityType="WebDoTreEmModel.PhuongXa" />
           <EntitySet Name="QuanHuyen" EntityType="WebDoTreEmModel.QuanHuyen" />
           <EntitySet Name="Quyen" EntityType="WebDoTreEmModel.Quyen" />
@@ -473,10 +428,6 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="ThongTinGiaoHang" EntitySet="ThongTinGiaoHang" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonHang_DonHang" Association="WebDoTreEmModel.FK_ChiTietDonHang_DonHang">
-            <End Role="DonHang" EntitySet="DonHang" />
-            <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
-          </AssociationSet>
           <AssociationSet Name="FK_LoaiSp_DanhMucSp" Association="WebDoTreEmModel.FK_LoaiSp_DanhMucSp">
             <End Role="DanhMucSp" EntitySet="DanhMucSp" />
             <End Role="LoaiSp" EntitySet="LoaiSp" />
@@ -484,10 +435,6 @@
           <AssociationSet Name="FK_SanPham_DanhMucSp" Association="WebDoTreEmModel.FK_SanPham_DanhMucSp">
             <End Role="DanhMucSp" EntitySet="DanhMucSp" />
             <End Role="SanPham" EntitySet="SanPham" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GioHang_SanPham" Association="WebDoTreEmModel.FK_GioHang_SanPham">
-            <End Role="SanPham" EntitySet="SanPham" />
-            <End Role="GioHang" EntitySet="GioHang" />
           </AssociationSet>
           <AssociationSet Name="FK_HinhAnhChiTietSp_SanPham" Association="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -528,18 +475,6 @@
           <NavigationProperty Name="TinhThanh" Relationship="WebDoTreEmModel.FK_Account_TinhThanh" FromRole="Account" ToRole="TinhThanh" />
           <NavigationProperty Name="ThongTinGiaoHang" Relationship="WebDoTreEmModel.FK_ThongTinGiaoHang_Account" FromRole="Account" ToRole="ThongTinGiaoHang" />
         </EntityType>
-        <EntityType Name="ChiTietDonHang">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idDonHang" Type="Int32" />
-          <Property Name="idSanPham" Type="Int32" />
-          <Property Name="GiaSanPham" Type="Int32" />
-          <Property Name="SoLuong" Type="Int32" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="DonHang" Relationship="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" FromRole="ChiTietDonHang" ToRole="DonHang" />
-        </EntityType>
         <EntityType Name="DacDiemSP">
           <Key>
             <PropertyRef Name="id" />
@@ -561,29 +496,15 @@
           <NavigationProperty Name="LoaiSp" Relationship="WebDoTreEmModel.FK_LoaiSp_DanhMucSp" FromRole="DanhMucSp" ToRole="LoaiSp" />
           <NavigationProperty Name="SanPham" Relationship="WebDoTreEmModel.FK_SanPham_DanhMucSp" FromRole="DanhMucSp" ToRole="SanPham" />
         </EntityType>
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idNguoiMua" Type="Int32" />
-          <Property Name="TongSoLuongSp" Type="Int32" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <Property Name="ThanhTien" Type="Int32" />
-          <Property Name="idTinhTrang" Type="Int32" />
-          <NavigationProperty Name="ChiTietDonHang" Relationship="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" FromRole="DonHang" ToRole="ChiTietDonHang" />
-        </EntityType>
         <EntityType Name="GioHang">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idSp" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idKhachHang" Type="Int32" />
+          <Property Name="idSanPham" Type="Int32" />
+          <Property Name="GiaSanPham" Type="Int32" />
           <Property Name="SoLuong" Type="Int32" />
-          <Property Name="IdTinhtrang" Type="Int32" />
-          <Property Name="KieuGiaoHang" Type="Int32" />
-          <Property Name="KieuThanhToan" Type="Int32" />
-          <NavigationProperty Name="SanPham" Relationship="WebDoTreEmModel.FK_GioHang_SanPham" FromRole="GioHang" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="HinhAnhChiTietSp">
           <Key>
@@ -614,6 +535,18 @@
           <Property Name="idRole" Type="Int32" />
           <NavigationProperty Name="Quyen" Relationship="WebDoTreEmModel.FK_NhomQuyen_Quyen" FromRole="NhomQuyen" ToRole="Quyen" />
           <NavigationProperty Name="RoleAccount" Relationship="WebDoTreEmModel.FK_NhomQuyen_RoleAccount" FromRole="NhomQuyen" ToRole="RoleAccount" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdKhachHang" Type="Int32" />
+          <Property Name="TinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdSanPham" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SoLuongSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GiaSp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ThoigianTao" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PhuongXa">
           <Key>
@@ -652,7 +585,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Masp" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="TenSanPham" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MotaSp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -666,10 +599,11 @@
           <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MauSP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Size" Type="Int32" />
-          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="Sizesp_soLuong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnhChiTiet" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="DacDiemNB" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DanhMucSp" Relationship="WebDoTreEmModel.FK_SanPham_DanhMucSp" FromRole="SanPham" ToRole="DanhMucSp" />
-          <NavigationProperty Name="GioHang" Relationship="WebDoTreEmModel.FK_GioHang_SanPham" FromRole="SanPham" ToRole="GioHang" />
           <NavigationProperty Name="HinhAnhChiTietSp" Relationship="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham" FromRole="SanPham" ToRole="HinhAnhChiTietSp" />
           <NavigationProperty Name="LoaiSp" Relationship="WebDoTreEmModel.FK_SanPham_LoaiSp" FromRole="SanPham" ToRole="LoaiSp" />
         </EntityType>
@@ -781,18 +715,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonHang_DonHang">
-          <End Type="WebDoTreEmModel.DonHang" Role="DonHang" Multiplicity="0..1" />
-          <End Type="WebDoTreEmModel.ChiTietDonHang" Role="ChiTietDonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonHang">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ChiTietDonHang">
-              <PropertyRef Name="idDonHang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LoaiSp_DanhMucSp">
           <End Type="WebDoTreEmModel.DanhMucSp" Role="DanhMucSp" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -816,20 +738,6 @@
             </Principal>
             <Dependent Role="SanPham">
               <PropertyRef Name="IdDanhMuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GioHang_SanPham">
-          <End Type="WebDoTreEmModel.SanPham" Role="SanPham" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="WebDoTreEmModel.GioHang" Role="GioHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="idSp" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -907,18 +815,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChiTietDonHang">
-            <EntityTypeMapping TypeName="WebDoTreEmModel.ChiTietDonHang">
-              <MappingFragment StoreEntitySet="ChiTietDonHang">
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
-                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
-                <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DacDiemSP">
             <EntityTypeMapping TypeName="WebDoTreEmModel.DacDiemSP">
               <MappingFragment StoreEntitySet="DacDiemSP">
@@ -940,27 +836,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DonHang">
-            <EntityTypeMapping TypeName="WebDoTreEmModel.DonHang">
-              <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="idTinhTrang" ColumnName="idTinhTrang" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-                <ScalarProperty Name="TongSoLuongSp" ColumnName="TongSoLuongSp" />
-                <ScalarProperty Name="idNguoiMua" ColumnName="idNguoiMua" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GioHang">
             <EntityTypeMapping TypeName="WebDoTreEmModel.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
-                <ScalarProperty Name="KieuThanhToan" ColumnName="KieuThanhToan" />
-                <ScalarProperty Name="KieuGiaoHang" ColumnName="KieuGiaoHang" />
-                <ScalarProperty Name="IdTinhtrang" ColumnName="IdTinhtrang" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="idSp" ColumnName="idSp" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
+                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+                <ScalarProperty Name="idKhachHang" ColumnName="idKhachHang" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -989,6 +872,19 @@
                 <ScalarProperty Name="idRole" ColumnName="idRole" />
                 <ScalarProperty Name="idQuyen" ColumnName="idQuyen" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="WebDoTreEmModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ThoigianTao" ColumnName="ThoigianTao" />
+                <ScalarProperty Name="GiaSp" ColumnName="GiaSp" />
+                <ScalarProperty Name="SoLuongSP" ColumnName="SoLuongSP" />
+                <ScalarProperty Name="IdSanPham" ColumnName="IdSanPham" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="IdKhachHang" ColumnName="IdKhachHang" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1027,8 +923,10 @@
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="WebDoTreEmModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="DacDiemNB" ColumnName="DacDiemNB" />
+                <ScalarProperty Name="AnhChiTiet" ColumnName="AnhChiTiet" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Sizesp_soLuong" ColumnName="Sizesp_soLuong" />
                 <ScalarProperty Name="MauSP" ColumnName="MauSP" />
                 <ScalarProperty Name="Brand" ColumnName="Brand" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />

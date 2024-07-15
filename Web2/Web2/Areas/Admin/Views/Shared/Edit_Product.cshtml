@@ -3,933 +3,570 @@
     Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
     int Idsp = ViewBag.IdProduct;
     var sanpham = Db.SanPham.FirstOrDefault(sp => sp.Id == Idsp);
-    var HinhAnhCT = Db.HinhAnhChiTietSp.Where(ha => ha.IdSanPham == sanpham.Id).ToList();
     var SizeSp = Db.SpBySize.Where(sp => sp.idsp == sanpham.Id).ToList();
     Web2.Models.SpBySize SizeSpFirt = SizeSp.FirstOrDefault() != null ? SizeSp.FirstOrDefault() : null;
     var LstSp = Db.SanPham.Where(sp => sp.Masp == sanpham.Masp).ToList();
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoaiSP = Db.LoaiSp.ToList();
     var IdDanhMuc = sanpham.IdDanhMuc;
+    var LstimgDetails = ViewBag.LstimgDetails as List<Web2.Models.ModelDAO.ImgDetail>;
+    var LstSoLuongSPBySize = ViewBag.SoLuongSPBySize as List<Web2.Models.ModelDAO.SoLuongSPBySize>;
+    var LstDDNBbySP = ViewBag.LstDDNBbySP as List<Web2.Models.ModelDAO.DDNB>;
+    var LstSize = Db.Size.ToList();
+    var LstTinhTrangSp = Web2.Models.ModelDAO.TinhTrangsanPham.TinhTrangList;
 }
-
 <head>
+    <link rel="stylesheet" href="/Assest/Admin/vendor/select2/css/select2.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/Assest/Admin/images/favicon.png">
+    <link href="/Assest/Admin/css/style.css" rel="stylesheet" />
+    <link href="/Assest/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/Assest/Admin/vendor/toastr/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/select2/css/select2.min.css">
+    <style>
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-preview {
+            display: inline-block;
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .img-bg {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            padding-bottom: 100%;
+        }
+
+        .image-remove::after {
+            content: "✖";
+            font-size: 14px;
+            color: white;
+        }
+
+        .image-remove {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: center;
+            line-height: 24px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .img-thumbnail-small {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 75%;
+            height: auto;
+        }
+
+        .img-thumbnail {
+            margin-top: 10px;
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 75%;
+            height: auto;
+        }
+
+        .img-thumbnail-nice-scroll {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 75%;
+            height: auto;
+        }
+
+        .nice-scroll {
+            height: 295px;
+            overflow: scroll;
+            margin-top: calc(0.375rem + 1px);
+        }
+
+        .form_control-SizeSp {
+            width: 52px;
+            display: block;
+            height: calc(1.5em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+            margin: 0.15rem 0.25rem;
+            font-size: 0.975rem;
+            font-weight: 450;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #eaeaea;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form_control {
+            width: 100%;
+            display: block;
+            height: calc(1.5em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+            margin: 0.15rem 0.25rem;
+            font-size: 0.975rem;
+            font-weight: 450;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form_control-SizeSp:hover, .form_control-SizeSp:focus, .form_control-SizeSp.active {
+            box-shadow: none;
+            background: #fff;
+            color: #ff5050;
+            position: relative;
+            border: 1px solid #8d9196;
+        }
+
+        .form_control_SizeSp::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 8px;
+            width: 200%;
+            height: 200%;
+            border: 1px solid transparent;
+        }
+
+        .form_control-SizeSp::after {
+            border-bottom: 1px solid #8d9196;
+            border-left: 1px solid #8d9196;
+            transform: rotate(145deg);
+            transform-origin: center;
+        }
+
+        .form_control-SizeSp.hide-after::after {
+            content: none; /* This will hide the ::after pseudo-element */
+        }
+
+        .form-group-a {
+            color: #0e0e0e;
+        }
+    </style>
     <script>
-        function ClickEditIMG(inputId) {
-            document.getElementById(inputId).click();
-        }
+    function add_imgproduct(){
+    document.getElementById("input-fileImgProduct").click();
+}
+    function add_imgproductdetail(){
+    document.getElementById("input-fileImgProductdetail").click();
+}
+    $('#Edit_productForm').submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var Idsp = @Html.Raw(@Idsp);
+        formData.append("Idsp", Idsp);
 
-        function displaySelectedImage(event) {
-            var input = event.target;
-            var file = input.files[0];
-            var reader = new FileReader();
+        $.ajax({
+            url: '@Url.Action("EditProduct", "SanPham")',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(html) {
+                $('#GridViewProduct').html(html);
+                    showInfoToastr("Cập nhật thành công");
+            },
+            error: function(xhr, status, error) {
+                showInfoToastr("Có lỗi xảy ra khi xử lý yêu cầu của bạn.");
+            }
+        });
+    });
 
-            reader.onload = function(e) {
-                var imgElement = document.getElementById(input.id + '-img');
-                imgElement.src = e.target.result;
-                document.getElementById(input.id + '-imageSaveButton').style.display = 'inline-block';
-            };
-            reader.readAsDataURL(file);
-        }
     </script>
-</head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<style>
-    .img-thumbnail-small {
-        padding: .25rem;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-radius: .25rem;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .img-thumbnail {
-        padding: .25rem;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-radius: .25rem;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .img-thumbnail-nice-scroll {
-        padding: .25rem;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-radius: .25rem;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .nice-scroll {
-        height: 295px;
-        overflow: scroll;
-        margin-top: calc(0.375rem + 1px);
-    }
-
-    .form_control-SizeSp {
-        width: 52px;
-        display: block;
-        height: calc(1.5em + 0.75rem + 2px);
-        padding: 0.375rem 0.75rem;
-        margin: 0.15rem 0.25rem;
-        font-size: 0.975rem;
-        font-weight: 450;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #eaeaea;
-        border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .form_control {
-        width: 100%;
-        display: block;
-        height: calc(1.5em + 0.75rem + 2px);
-        padding: 0.375rem 0.75rem;
-        margin: 0.15rem 0.25rem;
-        font-size: 0.975rem;
-        font-weight: 450;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        position: relative;
-        overflow: hidden;
-    }
-
-
-    .form_control-SizeSp:hover, .form_control-SizeSp:focus, .form_control-SizeSp.active {
-        box-shadow: none;
-        background: #fff;
-        color: #ff5050;
-        position: relative;
-        border: 1px solid #8d9196;
-    }
-
-    .form_control_SizeSp::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 8px;
-        width: 200%;
-        height: 200%;
-        border: 1px solid transparent;
-    }
-
-    .form_control-SizeSp::after {
-        border-bottom: 1px solid #8d9196;
-        border-left: 1px solid #8d9196;
-        transform: rotate(145deg);
-        transform-origin: center;
-    }
-
-    .form_control-SizeSp.hide-after::after {
-        content: none; /* This will hide the ::after pseudo-element */
-    }
-
-    .form-group-a {
-        color: #0e0e0e;
-    }
-</style>
-
-<div class="card-body">
-    <div class="form-validation">
-        <form class="form-valide" method="post">
-            <div class="row">
-                <div class="col-xl-6 ">
-                    <div class="form-group  form-group-img AnhProduct">
-                        <div class="row" id="AnhProduct">
-                            <label class="col-lg-5 col-form-label" for="val-img">
-                                <img src="@sanpham.AnhSp" class="img-thumbnail">
-                            </label>
-                            <div class="col-lg-3 nice-scroll">
-                                @foreach (var item in HinhAnhCT)
-                                {
-                                    <img src="@item.FileAnhChiTiet" class="img-thumbnail-nice-scroll">
-                                }
+    </head>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Chỉnh sửa sản phẩm</h4>
+        </div>
+        <div class="card-body">
+            <form class="form-valide" id="Edit_productForm" method="post" enctype="multipart/form-data">
+                <div class="form-validation">
+                    <div class="row">
+                        <div class="col-xl-6 ">
+                            <div class="form-group  form-group-img AnhProduct">
+                                <div class="row text-center" id="AnhProduct">
+                                    <label class="col-lg-6 col-form-label ">
+                                        <span class="col-form-label ">Hình ảnh hiển thị</span>
+                                        <img src="@sanpham.AnhSp" class="img-thumbnail" id="fileImgProduct-img">
+                                        <input type="file" id="input-fileImgProduct" name="fileImage" style="display: none;" onchange="SelectedImage(event)">
+                                    </label>
+                                    <div class="col-lg-6  upload">
+                                        <label class="col-lg-12 col-form-label p-0" style="margin-top: calc(0.375rem + 1px); margin-bottom: calc(0.375rem + 1px) ">Hình ảnh chi tiết</label>
+                                        <input type='file' multiple style="display: none;" name="fileImgProductdetail" id="input-fileImgProductdetail" />
+                                        <div class="upload__img-wrap img-container">
+                                            @{if (LstimgDetails != null && LstimgDetails.Count > 0)
+                                                {
+                                                    foreach (var item in LstimgDetails)
+                                                    {
+                                                        <div class='image-preview'>
+                                                            <div style="background-image: url('/AppData/Image/Product/@item.fileImge')" data-number="@item.Id" data-file="@item.fileImge" class='img-bg'>
+                                                                <div class='image-remove'></div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 p-2 col-form-label"><a class="form-group-a add_imgproduct" onclick="add_imgproduct()" href="javascript:;"> Thay đổi hình ảnh</a></label>
+                                <label class="col-lg-6 p-2 col-form-label"><a class="form-group-a add_imgproduct_Detail" onclick="add_imgproductdetail()" href="javascript:;"> Thêm ảnh Chi tiết</a></label>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Tên sản phẩm:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <input class="form-control" id="val-TenSanPham" name="val_TenSanPham" value="@sanpham.TenSanPham">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Mã sản phẩm:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <input class="form-control" name="val_MaSp" value="@sanpham.Masp">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Danh mục:
+                                </label>
+                                <div class="col-lg-8 p-2 SelectDanhMuc">
+                                    <select class="form-control val-DanhMuc" name="val_DanhMuc" id="val-DanhMuc" href="javascript:;" onclick="ClickDanhMucPhanLoai()">
+                                        <option value="@sanpham.IdDanhMuc">@LstDanhMuc.FirstOrDefault(x => x.id == sanpham.IdDanhMuc).TagDM</option>
+                                        @foreach (var item in LstDanhMuc.Where(x => x.id != sanpham.IdDanhMuc))
+                                        {
+                                            <option value="@item.id">@item.TagDM</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Phân loại:
+                                </label>
+                                <div class="col-lg-8 p-2 SelctPhanLoai">
+                                    <select class="form-control" id="val-PhanLoaiSanPham" name="val_PhanLoaiSanPham">
+                                        @{
+                                            if (sanpham.IdLoai != 0)
+                                            {
+                                                <option value="@sanpham.IdLoai">@LstPhanLoaiSP.FirstOrDefault(x => x.id == sanpham.IdLoai).ChiTiet</option>
+                                                foreach (var item in LstPhanLoaiSP.Where(x => x.id != sanpham.IdLoai && x.IdDM == sanpham.IdDanhMuc))
+                                                {
+                                                    <option value="@item.id">@item.ChiTiet</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in LstPhanLoaiSP.Where(x => x.IdDM == sanpham.IdDanhMuc))
+                                                {
+                                                    <option value="@item.id">@item.ChiTiet</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Mô tả:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <textarea rows="5" class="form-control" id="val-Mota" name="val_Mota">@sanpham.MotaSp</textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-4 col-form-label"><a class="form-group-a" href="javascript:;" data-toggle="modal" data-target="#exampleModalScrollable"> Chỉnh sửa ảnh</a></label>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-TenSanPham">
-                            Tên sản phẩm:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form-control" id="val-TenSanPham" name="val-TenSanPham" value="@sanpham.TenSanPham">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-DanhMuc">
-                            Danh mục:
-                        </label>
-                        <div class="col-lg-6 SelectDanhMuc">
-                            <select class="form-control val-DanhMuc" id="val-DanhMuc" href="javascript:;" onclick="ClickDanhMucPhanLoai()">
-                                <option value="@sanpham.IdDanhMuc">@LstDanhMuc.FirstOrDefault(x => x.id == sanpham.IdDanhMuc).TagDM</option>
-                                @foreach (var item in LstDanhMuc.Where(x => x.id != sanpham.IdDanhMuc))
-                                {
-                                    <option value="@item.id">@item.TagDM</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-PhanLoaiSanPham">
-                            Phân loại:
-                        </label>
-                        <div class="col-lg-6 SelctPhanLoai">
-                            <select class="form-control" id="val-PhanLoaiSanPham" name="val-PhanLoaiSanPham">
-                                <option value="@sanpham.IdLoai">@LstPhanLoaiSP.FirstOrDefault(x => x.id == sanpham.IdLoai).ChiTiet</option>
-                                @foreach (var item in LstPhanLoaiSP.Where(x => x.id != sanpham.IdLoai && x.IdDM == sanpham.IdDanhMuc))
-                                {
-                                    <option value="@item.id">@item.ChiTiet</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-Mota">
-                            Mô tả:
-                        </label>
-                        <div class="col-lg-6">
-                            <textarea rows="5" class="form-control" id="val-Mota" name="val-Mota">@sanpham.MotaSp</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-SizeSp">
-                            Size:
-                        </label>
-                        <div class="col-lg-6 List_SpBySize" style="margin-left:15px">
-                            <div class="row" id="List_SpBySize">
-                                @{if (SizeSp != null && SizeSp.Count > 0)
-                                    {
-                                        foreach (var item in SizeSp)
-                                        {
-                                            <div class=" form_control-SizeSp FormSizeSP @(item.soluong == 0 ? "" : "hide-after") SanPhamTheoSize_@item.soluong" data-id="@item.id" href="javascript:;" onclick="ClickSizeSp(@item.soluong)">
-                                                @Db.Size.FirstOrDefault(s => s.id == item.idsize).TagSize
-                                            </div>
+                        <div class="col-xl-6">
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Size:
+                                </label>
+                                <div class="col-lg-8 p-2 ">
+                                    <select class="multi-select" name="statesSize[]" multiple="multiple" title="Chọn một hoặc size sản phẩm">
+                                        @{
+                                            var SelectedSizeIds = LstSoLuongSPBySize.Select(x => x.IdSize).ToList();
+                                            foreach (var item in LstSize)
+                                            {
+                                                var isSelected = SelectedSizeIds.Contains(item.id) ? "selected" : "";
+                                                <option value="@item.id" @isSelected>@item.TagSize: @item.CanNang</option>
+                                            }
                                         }
-                                    } 
-                                  }
-                                <div class="form_control-SizeSp FormSizeSP">
-                                    <a style="padding-left:5px" data-toggle="modal" data-target="#AddSize_SanPham">
-                                        <i class="ti-plus"></i>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="SoLuongbySizeSp">
+                                <div class="form-group row">
+                                    <div class="col-lg-3 p-2">
+                                        Số lượng:
+                                    </div>
+                                    <div class="col-lg-8 p-2">
+                                        <input placeholder="Số lượng sản phẩm cho từng size..." class=" form-control p-1" title="Số lượng sản phẩm cho từng size" name="val_Soluong" value="@string.Join(";", LstSoLuongSPBySize.Select(x => x.Soluong).ToList());" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Màu:
+                                </label>
+                                <div class="col-lg-8 p-2 ">
+                                    <input class="form-control" id="val-MauSp" name="val_MauSp" value="@sanpham.MauSP" title="Màu sản phẩm">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Giá:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <input class="form-control" id="val-Gia" name="val_Gia" value="@sanpham.Gia" title="Giá sản phẩm ban đầu nhập các số đầu" placeholder="Giá sản phẩm..." />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Giảm giá:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <input class="form-control" id="val-GiamGia" name="val_GiamGia" title="Giảm giá theo %" value="@sanpham.GiamGia" placeholder="Giảm giá..." />
+                                </div>
+                            </div>
+                            <div style="margin-top:6px" class="form-group row">
+                                <label class="col-lg-3 p-2 col-form-label">
+                                    Tình trạng:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <select class="form-control" id="val-PhanLoaiSanPham" name="val_TinhTrang">
+                                        @{
+                                            if (sanpham.TinhTrang != null)
+                                            {
+                                                <option value="@sanpham.TinhTrang">@LstTinhTrangSp.FirstOrDefault(x => x.Value == sanpham.TinhTrang).title</option>
+                                                foreach (var item in LstTinhTrangSp.Where(x => x.Value != sanpham.TinhTrang))
+                                                {
+                                                    <option value="@item.Value">@item.title</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in LstTinhTrangSp)
+                                                {
+                                                    <option value="@item.Value">@item.title</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                                    Brand:
+                                </label>
+                                <div class="col-lg-8 p-2">
+                                    <input class="form-control" id="val-Brand" name="val_Brand" value="@sanpham.Brand" title="Brand của sản phẩm" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label style="margin-top:6px" class="col-lg-3 p-2 ">
+                                    Đặc điểm nổi bật:
+                                </label>
+                                <div class="col-lg-1 p-2 btn-addDDNB">
+                                    <a class="btn btn-outline-dark btn-event " href="javascript:;">
+                                        <span class="align-middle"><i class="ti-plus"></i></span>
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-SoLuongSP">
-                            Số lượng:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form_control val-SoLuongSP" style="width: 52px;" id="val-SoLuongSP" value="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-MauSP">
-                            Màu:
-                        </label>
-                        <div class="col-lg-6 ">
-                            <div class="row" style="padding-left: 10px;">
-                                <div class=" form_control-SizeSp hide-after">
-                                    <span id="val-MauSp" name="val-MauSp">@sanpham.MauSP </span>
-                                </div>
+                            <div id="DacDiemNoiBat" style="margin-bottom:10px">
+                                @{if (LstDDNBbySP != null && LstDDNBbySP.Count > 0)
+                                    {
+                                        foreach (var item in LstDDNBbySP)
+                                        {
+                                            <div class="form-group row">
+                                                <div class="col-lg-3 p-2">
+                                                    <textarea rows="2" name="val_TagDDNB" placeholder="Tag đặc điểm nổi bật..." class="form-control p-1 " title="Tag hiển thị đặc điểm nổi bật" id="val-NameDacDiemNoiBat">@item.TagDDNB</textarea>
+                                                </div>
+                                                <div class="col-lg-7 p-2">
+                                                    <textarea rows="2" name="val_DDNB" placeholder="Đặc điểm nổi bật..." title="Đặc điểm nổi bật" class=" form-control p-1" id="val-DacDiemNoiBat">@item.NDDDNB</textarea>
+                                                </div>
+                                                <div class="col-lg-1 p-2">
+                                                    <a href="javascript:;" class=" fa fa-trash DeletefDDNB" style="font-size: 20px; padding-top: 9px;" data-id="@item.Id"></a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group row">
+                                            <div class="col-lg-3 p-2">
+                                                <textarea rows="2" name="val_TagDDNB" placeholder="Tag đặc điểm nổi bật..." class="form-control p-1 " title="Tag hiển thị đặc điểm nổi bật" id="val-NameDacDiemNoiBat"></textarea>
+                                            </div>
+                                            <div class="col-lg-7 p-2">
+                                                <textarea rows="2" name="val_DDNB" placeholder="Đặc điểm nổi bật..." title="Đặc điểm nổi bật" class=" form-control p-1" id="val-DacDiemNoiBat"></textarea>
+                                            </div>
+                                            <div class="col-lg-1 p-2">
+                                                <a href="javascript:;" class=" fa fa-trash DeletefDDNB" style="font-size: 20px; padding-top: 9px;"></a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-Gia">
-                            Giá:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form-control" id="val-Gia" name="val-Gia" title="Giá sản phẩm ban đầu nhập các số đầu" value=" @sanpham.Gia" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-GiamGia">
-                            Giảm giá:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form-control" id="val-GiamGia" name="val-GiamGia" title="Giảm giá theo %" value="@sanpham.GiamGia" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-TinhTrang">
-                            Tình trạng:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form-control" id="val-TinhTrang" name="val-TinhTrang" value="@sanpham.TinhTrang" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-Brand">
-                            Brand:
-                        </label>
-                        <div class="col-lg-6">
-                            <input class="form-control" id="val-Brand" name="val-Brand" value="@sanpham.Brand" title="Brand của sản phẩm" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label" for="val-DdNb">
-                            Đặc điểm nổi bật:
-                        </label>
-                    </div>
-                    <div id="DacDiemNoiBat" style="margin-bottom:10px">
-                        @foreach (var item in Db.DacDiemSP.Where(x => x.MaSp == sanpham.Masp))
-                        {
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-                                    <a href="javascript:;" onclick="DeleteDDNB(@item.id)" class="fa fa-trash"></a>
-                                </div>
-                                <input class=" col-lg-3 form-control " for="val-DDNB" id="val-NameDacDiemNoiBat" data-id="@item.id" value="@item.NameDacDiem" />
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat" value=" @item.DacDiemSanPham">
-                                </div>
-                            </div>
-                        }
-                        <div class="col-lg-1">
-                            <a data-target="#AddDacDiemNoiBat" data-toggle="modal" class="btn btn-outline-dark btn-event">
-                                <span class="align-middle"><i class="ti-plus"></i></span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
-                    <button type="button" href="javascript:;" onclick="EditProduct(@sanpham.Id)" class="btn btn-success" style="width: 95px;">Cập nhật</button>
-                    <button type="button" href="javascript:;" onclick="DeleteProduct(@sanpham.Id)" class="btn btn-danger" style="width: 95px;">Xóa</button>
-                    <button type="button" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document" id="EditImg-content">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Chỉnh sửa hình ảnh</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="form-group row form-group-img">
-                    <div class="col-lg-5 col-form-label" for="val-img">
-                        @using (Html.BeginForm("EditImage", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data", id = "Uploaded" }))
-                        {
-                            <input type="hidden" name="IdSp" value="@sanpham.Id" />
-                            <span class="col-lg-4 col-form-label">Hình ảnh hiển thị</span>
-                            <img src="@sanpham.AnhSp" class="img-thumbnail" id="@sanpham.Id-img">
-                            <input type="file" id="@sanpham.Id" name="fileImage" style="display: none;" onchange="displaySelectedImage(event)">
-                            <div class=" mb-1 text-center Img-Show" style="padding-top:3px">
-                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Chọn file ảnh" onclick="ClickEditIMG('@sanpham.Id')">
-                                    <i class="ti-clip"></i>
-                                </button>
-                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Xóa ảnh" onclick="DeleteImg('@sanpham.Id')">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Lưu ảnh" id="@sanpham.Id-imageSaveButton" style="display:none" onclick="SaveImg('@sanpham.Id')">
-                                    <i class="ti-bookmark"></i>
-                                </button>
-                            </div>
-                        }
-                    </div>
-
-                    <div class="col-lg-7 exampleModalAddImg" style="margin-top: 7px;">
-                        <span class="col-lg-4 col-form-label">Hình ảnh chi tiết</span>
-                        <div class="row" id="content_exampleModalAddImg">
-                            @foreach (var item in HinhAnhCT)
-                            {
-                                <div class="col-5">
-                                    <input type="hidden" name="IdHinhAnhDetail" value="@item.Id" />
-                                    <input type="file" id="@item.Id" name="fileImage" style="display: none;" onchange="displaySelectedImage(event)" />
-                                    <img src="@item.FileAnhChiTiet" class="img-thumbnail-small" id="@item.Id-img">
-                                    <div class="mb-1 text-center" style="padding-top:3px">
-                                        <button onclick="ClickEditIMG('@item.Id')" type="button" class="btn btn-dark col-3 btn-group" data-toggle="tooltip" title="Chọn file ảnh">
-                                            <i class="ti-clip"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Xóa ảnh" onclick="DeleteImgDetail('@item.Id')">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <button onclick="SaveImgDetail('@item.Id')" id="@item.Id-imageSaveButton" class="btn btn-dark btn-group" style="display:none" data-toggle="tooltip" title="Lưu ảnh">
-                                            <i class="ti-bookmark"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalAddImg">Thêm ảnh chi tiết</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="btnhoanthanh('@sanpham.Id')">Hoàn thành</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="AddSize_SanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Size cho sản phẩm</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <span>Tag Size:</span>
-                    </div>
-                    <div class="col-lg-6">
-                        <select class="form-control" id="val_SizeSP" name="val_SizeSP">
-                            <option value="">Size</option>
-                            @foreach (var item in Db.Size.ToList())
-                            {
-                                <option value="@item.id">@item.TagSize</option>
-                            }
-                        </select>
-                    </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-4">
-                        <span>Số lượng hàng:</span>
-                    </div>
-                    <div class="col-lg-6">
-                        <input class="form-control" id="AddSoluong" value="" placeholder="Số lượng hàng hóa">
+                    <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
+                        <button type="submit" id="myForm" class="btn btn-success" style="width: 95px;">Cập nhật</button>
+                        <button type="reset" class="btn btn-danger" style="width: 95px;">Reset</button>
+                        <button type="button" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6"><span style="color: red" id="Messenger_error"></span></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn_save_SizeSp">Lưu</button>
-            </div>
+            </form>
         </div>
     </div>
-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/Assest/User/js/jquery.min.js"></script>
+    <script src="/Assest/Admin/vendor/global/global.min.js"></script>
+    <script src="/Assest/Admin/js/quixnav-init.js"></script>
+    <script src="/Assest/Admin/js/custom.min.js"></script>
+    <script src="/Assest/Admin/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/Assest/Admin/js/plugins-init/select2-init.js"></script>
+    <!-- Datatable -->
+    <script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
+    <script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<div class="modal fade" id="AddDacDiemNoiBat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm đặc điểm nổi bật</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <span>Tag:</span>
-                    </div>
+    <script>
 
-                    <div class="col-lg-6">
-                        <input class="form-control " for="val-DDNB" id="AddNameDacDiemNoiBat" value="" placeholder="Tag đặc điểm" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <span>Đặc điểm nổi bật:</span>
-                    </div>
-                    <div class="col-lg-6">
-                        <input class="form-control" id="AddDDNB" name="val-DacDiemNoiBat" value="" placeholder="Đặc điểm nổi bật">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-save" data-dismiss="modal" onclick="AddDacDiemNoiBat(@sanpham.Id)">Lưu</button>
-            </div>
-        </div>
-    </div>
-</div>
+$('.btn-addDDNB').on('click', function(){
+var html ='<div class="form-group row">'
+            +'<div class="col-lg-3 p-2">'
+                +'<textarea rows="2" name="val_TagDDNB" placeholder="Tag đặc điểm nổi bật..." class="form-control p-1 " id="val-NameDacDiemNoiBat"></textarea>'
+            +'</div>'
+            +'<div class="col-lg-7 p-2">'
+                +'<textarea rows="2" name="val_DDNB" placeholder="Đặc điểm nổi bật..." class=" form-control p-1" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat"></textarea>'
+            +'</div>'
+            +'<div class="col-lg-1 p-2">'
+                +'<a href="javascript:;" class=" fa fa-trash DeletefDDNB" style="font-size: 20px; padding-top: 9px;"></a>'
+            +'</div>'
+        +'</div>';
+    console.log(html);
+    $('#DacDiemNoiBat').append(html);
+});
 
-<div class="modal fade" id="exampleModalAddImg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm hình ảnh chi tiết</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-                <div class="col-5"><img src="/" class="img-thumbnail-small" id="Add-imgDetail"></div>
-                <div style="margin-top:10px">
-                    <button onclick="ClickEditIMG('Id_addImg')" type="button" class="btn btn-dark btn-group" data-toggle="tooltip" title="Chọn file ảnh">
-                        <i class="ti-clip"></i>
-                    </button>
-                    <input type="file" id="Id_addImg" name="fileImage" style="display: none;" onchange="displaySelectedAddImg(event)" />
+$(document).on('click', '.DeletefDDNB' , function(){
+    $(this).closest('.form-group').remove();
+});
 
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-save" style="display:none" onclick="AddImgDetail(@sanpham.Id)">Lưu</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="/Assest/User/js/jquery.min.js"></script>
-<script src="/Assest/Admin/vendor/global/global.min.js"></script>
-<script src="/Assest/Admin/js/quixnav-init.js"></script>
-<script src="/Assest/Admin/js/custom.min.js"></script>
-<!-- Datatable -->
-<script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
-<script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $('.btn_save_SizeSp').on('click', function() {
-    var selectedSize = $('#val_SizeSP').find(":selected").val();
-    console.log(selectedSize);
-    var SoLuongSP = $('#AddSoluong').val();
-    console.log(SoLuongSP);
-    var idsanpham = '@sanpham.Id';
-    console.log(idsanpham);
-    if (selectedSize === "" || SoLuongSP === null) {
-        $('#Messenger_error').text("Vui lòng nhập đủ thông tin");
-        event.preventDefault();
-    }
-    else{
-        $.ajax({
-            url: '/SanPham/AddSizeBySanPham',
-            type: 'POST',
-            data: {Id: Number(idsanpham), IdS: Number(selectedSize), SoLuongSP},
-            success: function(response){
-                $(".List_SpBySize").load(location.href + " #List_SpBySize")
-                $('#AddSize_SanPham').modal('hide');
-                toastr.info(response, "Thông báo", {
-                    positionClass: "toast-top-right",
-                    timeOut: 5000,
-                    closeButton: true,
-                    debug: false,
-                    newestOnTop: true,
-                    progressBar: true,
-                    preventDuplicates: true,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: false
-                })
-            }
-        })
+function ClickDanhMucPhanLoai(){
+    var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
+    console.log(selectedDanhMuc);
+    $('#val-PhanLoaiSanPham').empty();
+    $.ajax({
+        url: '/Admin/SanPham/GetPhanLoaiByDanhMuc',
+        type: 'Post',
+        data: { danhMucId: selectedDanhMuc },
+        success: function(data) {
+            console.log("Data received:", data);
+        $.each(data, function(index, item) {
+            $('#val-PhanLoaiSanPham').append($('<option>', {
+                value: item.id,
+                text: item.ChiTiet
+            }));
+        });
+    },
+    error: function(xhr, status, error) {
+        console.error('Error fetching Phan Loai:', status, error);
+        console.log('Response Text:', xhr.responseText);
     }
 });
-function DeleteDDNB(id)
-{
-    $.ajax({
-    url: '/SanPham/DeleteDDNB',
-    type: 'POST',
-    data: {Id: Number(id)},
-    success: function(response){
-        $("#DacDiemNoiBat").load(location.href + " #DacDiemNoiBat")
-        toastr.info(response, "Thông báo", {
-            positionClass: "toast-top-right",
-            timeOut: 5000,
-            closeButton: true,
-            debug: false,
-            newestOnTop: true,
-            progressBar: true,
-            preventDuplicates: true,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: false
-        })
-    }
-})
 }
-function AddDacDiemNoiBat(IdSp)
-{
-    var TagDD = $('#AddNameDacDiemNoiBat').val()
-    console.log(TagDD)
-    var DDNB = $('#AddDDNB').val()
-    console.log(DDNB)
-    $.ajax({
-        url: '/SanPham/AddDDNoiBat',
-        type: 'POST',
-        data: {TagDD, DDNB, IdSp: Number(IdSp)},
-        success: function(response){
-            $("#DacDiemNoiBat").load(location.href + " #DacDiemNoiBat")
-            toastr.info(response, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5000,
-                closeButton: true,
-                debug: false,
-                newestOnTop: true,
-                progressBar: true,
-                preventDuplicates: true,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: false
-            })
+
+$(function() {
+  var imgWrap = $(".upload__img-wrap");
+  var imgArray = [];
+  var dataNumber = 0;
+  const maxLength = 5;
+  $("#input-fileImgProductdetail").change(function() {
+    var noOfFiles = this.files.length;
+    var filesArr = Array.prototype.slice.call(this.files);
+    filesArr.forEach(function(file, index) {
+      if (!file.type.match('image.*')) {
+        return;
+      }
+      if (imgArray.length >= maxLength) {
+        return false;
+      }
+      var len = 0;
+      for (var i = 0; i < imgArray.length; i++) {
+        if (imgArray[i] !== undefined) {
+          len++;
         }
-    })
-}
-function AddImgDetail(Idsp){
-    var formdata = new FormData();
-    var fileInput = document.getElementById('Id_addImg');
-    console.log(fileInput.name, fileInput.files[0])
-    formdata.append(fileInput.name, fileInput.files[0]);
-    formdata.append('IdSp', Idsp);
-    $.ajax({
-        url: '/SanPham/AddImgDetail',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            $(".exampleModalAddImg").load(location.href + " #content_exampleModalAddImg")
-            toastr.info(response, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5000,
-                closeButton: true,
-                debug: false,
-                newestOnTop: true,
-                progressBar: true,
-                preventDuplicates: true,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: false
-            });
-        },
+      }
+      if (len >= maxLength) {
+        return false;
+      }
+      imgArray.push(file);
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var html = "<div class='image-preview'><div style='background-image: url(" + e.target.result + ")' data-number='" + dataNumber + "' data-file='" + file.name + "' class='img-bg'><div class='image-remove'></div></div></div>";
+        imgWrap.append(html);
+        dataNumber++;
+      }
+      reader.readAsDataURL(file);
     });
-}
-    function btnhoanthanh(Idsp) {
-    $(".AnhProduct").load(location.href + " #AnhProduct")
-}
-function DeleteImg(Idsp){
-     console.log(Idsp)
-     $.ajax({
-         url: '/SanPham/DeleteImg',
-         type: 'POST',
-         data: {id: Number(Idsp)},
-         success: function(response){
-             $("#EditImg-content").load(location.href + " .modal-content");
-              toastr.info( response, "Thông báo",{
-                    positionClass: "toast-top-right",
-                    timeOut: 5000,
-                    closeButton: true,
-                    debug: false,
-                    newestOnTop: true,
-                    progressBar: true,
-                    preventDuplicates: true,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: false
-              })
-         }
-     })
-}
-function DeleteImgDetail(Idsp){
-     console.log(Idsp)
-     $.ajax({
-         url: '/SanPham/DeleteImgDetail',
-         type: 'POST',
-         data: {id: Number(Idsp)},
-         success: function(response){
-         $("#EditImg-content").load(location.href + " .modal-content");
-              toastr.info( response, "Thông báo",{
-                    positionClass: "toast-top-right",
-                    timeOut: 5000,
-                    closeButton: true,
-                    debug: false,
-                    newestOnTop: true,
-                    progressBar: true,
-                    preventDuplicates: true,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: false
-              })
-         }
-     })
-}
-function ClickEditIMG(id){
-    document.getElementById(id).click();
-    console.log(id)
-}
-function displaySelectedImage(event) {
-    var file = input.files[0];
-    if (file) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        var imgElement = document.getElementById(input.id + '-img');
-        imgElement.src = e.target.result;
-        document.getElementById(input.id+'-imageSaveButton').style.display = 'inline-flex';
+  });
+
+  $('body').on('click', ".image-remove", function(e) {
+    var file = $(this).parent().data("file");
+    for (var i = 0; i < imgArray.length; i++) {
+      if (imgArray[i].name === file) {
+        imgArray.splice(i, 1);
+        break;
+      }
     }
-    reader.readAsDataURL(file);
-    }
-}
-function displaySelectedAddImg(event) {
+    $(this).parent().parent().remove();
+  });
+});
+
+function SelectedImage(event) {
     var input = event.target;
     var file = input.files[0];
-    if (file) {
     var reader = new FileReader();
     reader.onload = function(e) {
-        var imgElement = document.getElementById('Add-imgDetail');
+        var imgElement = document.getElementById('fileImgProduct-img');
         imgElement.src = e.target.result;
-        document.getElementById('btn-save').style.display = 'inline-flex';
-    }
+        console.log(imgElement.src)
+        document.querySelector('.add_imgproduct').textContent = 'Thay đổi hình ảnh';
+    };
     reader.readAsDataURL(file);
-    }
 }
-    function ClickDanhMucPhanLoai(){
-        var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
-        console.log(selectedDanhMuc);
-        $('#val-PhanLoaiSanPham').empty();
-        $.ajax({
-            url: '/Admin/SanPham/GetPhanLoaiByDanhMuc',
-            type: 'Post',
-            data: { danhMucId: selectedDanhMuc },
-            success: function(data) {
-                console.log("Data received:", data);
-            $.each(data, function(index, item) {
-                $('#val-PhanLoaiSanPham').append($('<option>', {
-                    value: item.id,
-                    text: item.ChiTiet
-                }));
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching Phan Loai:', status, error);
-            console.log('Response Text:', xhr.responseText);
-        }
-    });
-}
-function SaveImg(inputId) {
-    var formdata = new FormData();
-    var fileInput = document.getElementById(inputId);
-    console.log(fileInput.name, fileInput.files[0])
-    formdata.append(fileInput.name, fileInput.files[0]);
-    formdata.append('IdSp', document.querySelector('input[name="IdSp"]').value);
-    $.ajax({
-        url: '/SanPham/EditImage',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            toastr.info(response, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5000,
-                closeButton: true,
-                debug: false,
-                newestOnTop: true,
-                progressBar: true,
-                preventDuplicates: true,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: false
-            });
-        },
-    });
-}
-function SaveImgDetail(inputId) {
-    var formdata = new FormData();
-    var fileInput = document.getElementById(inputId);
-    formdata.append(fileInput.name, fileInput.files[0]);
-    formdata.append('IdSp', inputId);
-    console.log(formdata)
-    $.ajax({
-        url: '/SanPham/EditImageDetail',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            toastr.info(response, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5000,
-                closeButton: true,
-                debug: false,
-                newestOnTop: true,
-                progressBar: true,
-                preventDuplicates: true,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: false
-            });
-        },
-    });
-}
-    function EditProduct(ID){
-        let EditSp = [];
-        var ListEditDacDiemNoiBat = [];
-        $("#DacDiemNoiBat .form-group").each(function () {
-            ListEditDacDiemNoiBat.push({
-                iddd: $(this).find("#val-NameDacDiemNoiBat").data('id'),
-                NameDD: $(this).find("#val-NameDacDiemNoiBat").val(),
-                DDNB: $(this).find("#val-DacDiemNoiBat").val()
-            });
-        });
-        var IdProduct = ID;
-        var DMSp = $('.SelectDanhMuc').find(":selected").val();
-        var PlSp = $('.SelctPhanLoai').find(":selected").val();
-        var TenSanPham = $('#val-TenSanPham').val();
-        var Mota = $('#val-Mota').val();
-        var Size = $('.FormSizeSP.active').data('id');
-        var SoLuong = $('.val-SoLuongSP').val();
-        var GiaSP = $('#val-Gia').val();
-        var Giamgia = $('#val-GiamGia').val();
-        var TinhTrang = $('#val-TinhTrang').val();
-        var Brand = $('#val-Brand').val();
-        EditSp.push({
-            Id: IdProduct,
-            IdDM: DMSp,
-            IdLoai: PlSp,
-            TenSanPham: TenSanPham,
-            MotaSp: Mota,
-            IdSize: Size,
-            SoLuongSanPham: SoLuong,
-            Gia: GiaSP,
-            GiamGia: Giamgia,
-            TinhTrang: TinhTrang,
-            Brand: Brand});
-        let EditSanPham = JSON.stringify(EditSp);
-        let ListEditDDNB = JSON.stringify(ListEditDacDiemNoiBat);
-        $.ajax({
-            type: 'post',
-            url: '/Admin/SanPham/EditProduct',
-            data: {EditSanPham, ListEditDDNB},
-            success: function (response) {
-            toastr.info(response.message, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5e3,
-                closeButton: !0,
-                debug: !1,
-                newestOnTop: !0,
-                progressBar: !0,
-                preventDuplicates: !0,
-                onclick: null,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: !1
-            })
-        },
-        error: function (xhr, status, error) {
-            toastr.error("Thất bại", "Thông báo", {
-            positionClass: "toast-top-right",
-            timeOut: 5e3,
-            closeButton: !0,
-            debug: !1,
-            newestOnTop: !0,
-            progressBar: !0,
-            preventDuplicates: !0,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut",
-            tapToDismiss: !1
-        })
-        }
-        })
-    }
-    function DeleteProduct(id){
-    var IdProduct = id;
-    $.ajax({
-        type: 'post',
-        url: '/Admin/SanPham/DeleteProduct',
-        data: { IdProduct },
-        success: function () {
-            location.reload()
-        },
-        error: function () {
-            console.log("error");
-        }
-    })
-}
-</script>
-<script>
-    $(document).ready(function(){
-    const soLuong = '@(SizeSp?.FirstOrDefault()?.soluong)'; //Lấy bản ghi đàu tiên
-        $("#val-SoLuongSP").val(soLuong);
-    })
 
-    function EditImage(id)
-    {
-        var IdProduct = id;
-        console.log(IdProduct)
-        $.ajax({
-            type: 'post',
-            url: '/Admin/SanPham/ImageProduct',
-            data: { IdProduct },
-            success: function () {
-                location.reload()
-            },
-            error: function () {
-                console.log("error");
-            }
-        })
-    }
-
-</script>
+    </script>

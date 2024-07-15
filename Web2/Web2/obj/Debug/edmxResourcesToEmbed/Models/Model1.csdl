@@ -2,14 +2,13 @@
 <Schema Namespace="WebDoTreEmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="WebDoTreEmEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Account" EntityType="WebDoTreEmModel.Account" />
-    <EntitySet Name="ChiTietDonHang" EntityType="WebDoTreEmModel.ChiTietDonHang" />
     <EntitySet Name="DacDiemSP" EntityType="WebDoTreEmModel.DacDiemSP" />
     <EntitySet Name="DanhMucSp" EntityType="WebDoTreEmModel.DanhMucSp" />
-    <EntitySet Name="DonHang" EntityType="WebDoTreEmModel.DonHang" />
     <EntitySet Name="GioHang" EntityType="WebDoTreEmModel.GioHang" />
     <EntitySet Name="HinhAnhChiTietSp" EntityType="WebDoTreEmModel.HinhAnhChiTietSp" />
     <EntitySet Name="LoaiSp" EntityType="WebDoTreEmModel.LoaiSp" />
     <EntitySet Name="NhomQuyen" EntityType="WebDoTreEmModel.NhomQuyen" />
+    <EntitySet Name="Order" EntityType="WebDoTreEmModel.Order" />
     <EntitySet Name="PhuongXa" EntityType="WebDoTreEmModel.PhuongXa" />
     <EntitySet Name="QuanHuyen" EntityType="WebDoTreEmModel.QuanHuyen" />
     <EntitySet Name="Quyen" EntityType="WebDoTreEmModel.Quyen" />
@@ -40,10 +39,6 @@
       <End Role="Account" EntitySet="Account" />
       <End Role="ThongTinGiaoHang" EntitySet="ThongTinGiaoHang" />
     </AssociationSet>
-    <AssociationSet Name="FK_ChiTietDonHang_DonHang" Association="WebDoTreEmModel.FK_ChiTietDonHang_DonHang">
-      <End Role="DonHang" EntitySet="DonHang" />
-      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
-    </AssociationSet>
     <AssociationSet Name="FK_LoaiSp_DanhMucSp" Association="WebDoTreEmModel.FK_LoaiSp_DanhMucSp">
       <End Role="DanhMucSp" EntitySet="DanhMucSp" />
       <End Role="LoaiSp" EntitySet="LoaiSp" />
@@ -51,10 +46,6 @@
     <AssociationSet Name="FK_SanPham_DanhMucSp" Association="WebDoTreEmModel.FK_SanPham_DanhMucSp">
       <End Role="DanhMucSp" EntitySet="DanhMucSp" />
       <End Role="SanPham" EntitySet="SanPham" />
-    </AssociationSet>
-    <AssociationSet Name="FK_GioHang_SanPham" Association="WebDoTreEmModel.FK_GioHang_SanPham">
-      <End Role="SanPham" EntitySet="SanPham" />
-      <End Role="GioHang" EntitySet="GioHang" />
     </AssociationSet>
     <AssociationSet Name="FK_HinhAnhChiTietSp_SanPham" Association="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham">
       <End Role="SanPham" EntitySet="SanPham" />
@@ -95,18 +86,6 @@
     <NavigationProperty Name="TinhThanh" Relationship="WebDoTreEmModel.FK_Account_TinhThanh" FromRole="Account" ToRole="TinhThanh" />
     <NavigationProperty Name="ThongTinGiaoHang" Relationship="WebDoTreEmModel.FK_ThongTinGiaoHang_Account" FromRole="Account" ToRole="ThongTinGiaoHang" />
   </EntityType>
-  <EntityType Name="ChiTietDonHang">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idDonHang" Type="Int32" />
-    <Property Name="idSanPham" Type="Int32" />
-    <Property Name="GiaSanPham" Type="Int32" />
-    <Property Name="SoLuong" Type="Int32" />
-    <Property Name="NgayTao" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="DonHang" Relationship="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" FromRole="ChiTietDonHang" ToRole="DonHang" />
-  </EntityType>
   <EntityType Name="DacDiemSP">
     <Key>
       <PropertyRef Name="id" />
@@ -128,29 +107,15 @@
     <NavigationProperty Name="LoaiSp" Relationship="WebDoTreEmModel.FK_LoaiSp_DanhMucSp" FromRole="DanhMucSp" ToRole="LoaiSp" />
     <NavigationProperty Name="SanPham" Relationship="WebDoTreEmModel.FK_SanPham_DanhMucSp" FromRole="DanhMucSp" ToRole="SanPham" />
   </EntityType>
-  <EntityType Name="DonHang">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idNguoiMua" Type="Int32" />
-    <Property Name="TongSoLuongSp" Type="Int32" />
-    <Property Name="NgayTao" Type="DateTime" Precision="3" />
-    <Property Name="ThanhTien" Type="Int32" />
-    <Property Name="idTinhTrang" Type="Int32" />
-    <NavigationProperty Name="ChiTietDonHang" Relationship="WebDoTreEmModel.FK_ChiTietDonHang_DonHang" FromRole="DonHang" ToRole="ChiTietDonHang" />
-  </EntityType>
   <EntityType Name="GioHang">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idSp" Type="Int32" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idKhachHang" Type="Int32" />
+    <Property Name="idSanPham" Type="Int32" />
+    <Property Name="GiaSanPham" Type="Int32" />
     <Property Name="SoLuong" Type="Int32" />
-    <Property Name="IdTinhtrang" Type="Int32" />
-    <Property Name="KieuGiaoHang" Type="Int32" />
-    <Property Name="KieuThanhToan" Type="Int32" />
-    <NavigationProperty Name="SanPham" Relationship="WebDoTreEmModel.FK_GioHang_SanPham" FromRole="GioHang" ToRole="SanPham" />
   </EntityType>
   <EntityType Name="HinhAnhChiTietSp">
     <Key>
@@ -181,6 +146,18 @@
     <Property Name="idRole" Type="Int32" />
     <NavigationProperty Name="Quyen" Relationship="WebDoTreEmModel.FK_NhomQuyen_Quyen" FromRole="NhomQuyen" ToRole="Quyen" />
     <NavigationProperty Name="RoleAccount" Relationship="WebDoTreEmModel.FK_NhomQuyen_RoleAccount" FromRole="NhomQuyen" ToRole="RoleAccount" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdKhachHang" Type="Int32" />
+    <Property Name="TinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IdSanPham" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SoLuongSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GiaSp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ThoigianTao" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="PhuongXa">
     <Key>
@@ -219,7 +196,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Masp" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="TenSanPham" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="MotaSp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -233,10 +210,11 @@
     <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MauSP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-    <Property Name="Size" Type="Int32" />
-    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="Sizesp_soLuong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnhChiTiet" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="DacDiemNB" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DanhMucSp" Relationship="WebDoTreEmModel.FK_SanPham_DanhMucSp" FromRole="SanPham" ToRole="DanhMucSp" />
-    <NavigationProperty Name="GioHang" Relationship="WebDoTreEmModel.FK_GioHang_SanPham" FromRole="SanPham" ToRole="GioHang" />
     <NavigationProperty Name="HinhAnhChiTietSp" Relationship="WebDoTreEmModel.FK_HinhAnhChiTietSp_SanPham" FromRole="SanPham" ToRole="HinhAnhChiTietSp" />
     <NavigationProperty Name="LoaiSp" Relationship="WebDoTreEmModel.FK_SanPham_LoaiSp" FromRole="SanPham" ToRole="LoaiSp" />
   </EntityType>
@@ -348,18 +326,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ChiTietDonHang_DonHang">
-    <End Type="WebDoTreEmModel.DonHang" Role="DonHang" Multiplicity="0..1" />
-    <End Type="WebDoTreEmModel.ChiTietDonHang" Role="ChiTietDonHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DonHang">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="ChiTietDonHang">
-        <PropertyRef Name="idDonHang" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_LoaiSp_DanhMucSp">
     <End Type="WebDoTreEmModel.DanhMucSp" Role="DanhMucSp" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -383,20 +349,6 @@
       </Principal>
       <Dependent Role="SanPham">
         <PropertyRef Name="IdDanhMuc" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_GioHang_SanPham">
-    <End Type="WebDoTreEmModel.SanPham" Role="SanPham" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="WebDoTreEmModel.GioHang" Role="GioHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SanPham">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="GioHang">
-        <PropertyRef Name="idSp" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

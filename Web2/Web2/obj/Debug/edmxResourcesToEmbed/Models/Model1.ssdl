@@ -17,17 +17,6 @@
     <Property Name="idPhuongXa" Type="int" />
     <Property Name="HoatDong" Type="bit" />
   </EntityType>
-  <EntityType Name="ChiTietDonHang">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idDonHang" Type="int" />
-    <Property Name="idSanPham" Type="int" />
-    <Property Name="GiaSanPham" Type="int" />
-    <Property Name="SoLuong" Type="int" />
-    <Property Name="NgayTao" Type="datetime" />
-  </EntityType>
   <EntityType Name="DacDiemSP">
     <Key>
       <PropertyRef Name="id" />
@@ -47,27 +36,15 @@
     <Property Name="MotaDM" Type="nvarchar" MaxLength="50" />
     <Property Name="HinhAnhDanhMuc" Type="nvarchar" MaxLength="100" />
   </EntityType>
-  <EntityType Name="DonHang">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idNguoiMua" Type="int" />
-    <Property Name="TongSoLuongSp" Type="int" />
-    <Property Name="NgayTao" Type="datetime" />
-    <Property Name="ThanhTien" Type="int" />
-    <Property Name="idTinhTrang" Type="int" />
-  </EntityType>
   <EntityType Name="GioHang">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idSp" Type="int" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idKhachHang" Type="int" />
+    <Property Name="idSanPham" Type="int" />
+    <Property Name="GiaSanPham" Type="int" />
     <Property Name="SoLuong" Type="int" />
-    <Property Name="IdTinhtrang" Type="int" />
-    <Property Name="KieuGiaoHang" Type="int" />
-    <Property Name="KieuThanhToan" Type="int" />
   </EntityType>
   <EntityType Name="HinhAnhChiTietSp">
     <Key>
@@ -93,6 +70,18 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idQuyen" Type="int" />
     <Property Name="idRole" Type="int" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdKhachHang" Type="int" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="100" />
+    <Property Name="IdSanPham" Type="text" />
+    <Property Name="SoLuongSP" Type="text" />
+    <Property Name="GiaSp" Type="text" />
+    <Property Name="ThoigianTao" Type="datetime" />
   </EntityType>
   <EntityType Name="PhuongXa">
     <Key>
@@ -126,7 +115,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Masp" Type="nchar" MaxLength="10" />
     <Property Name="TenSanPham" Type="nvarchar" MaxLength="100" />
     <Property Name="MotaSp" Type="nvarchar(max)" />
@@ -140,8 +129,10 @@
     <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
     <Property Name="Brand" Type="nvarchar" MaxLength="50" />
     <Property Name="MauSP" Type="nvarchar" MaxLength="15" />
-    <Property Name="Size" Type="int" />
-    <Property Name="SoLuong" Type="int" />
+    <Property Name="Sizesp_soLuong" Type="nvarchar(max)" />
+    <Property Name="SoLuong" Type="nvarchar(max)" />
+    <Property Name="AnhChiTiet" Type="nvarchar" MaxLength="1500" />
+    <Property Name="DacDiemNB" Type="nvarchar" MaxLength="1500" />
   </EntityType>
   <EntityType Name="Size">
     <Key>
@@ -237,32 +228,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ChiTietDonHang_DonHang">
-    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
-    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DonHang">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="ChiTietDonHang">
-        <PropertyRef Name="idDonHang" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_GioHang_SanPham">
-    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SanPham">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="GioHang">
-        <PropertyRef Name="idSp" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_HinhAnhChiTietSp_SanPham">
     <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
     <End Role="HinhAnhChiTietSp" Type="Self.HinhAnhChiTietSp" Multiplicity="*" />
@@ -353,14 +318,13 @@
   </Association>
   <EntityContainer Name="WebDoTreEmModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DacDiemSP" EntityType="Self.DacDiemSP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DanhMucSp" EntityType="Self.DanhMucSp" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HinhAnhChiTietSp" EntityType="Self.HinhAnhChiTietSp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoaiSp" EntityType="Self.LoaiSp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhomQuyen" EntityType="Self.NhomQuyen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhuongXa" EntityType="Self.PhuongXa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuanHuyen" EntityType="Self.QuanHuyen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
@@ -386,14 +350,6 @@
     <AssociationSet Name="FK_Account_TinhThanh" Association="Self.FK_Account_TinhThanh">
       <End Role="TinhThanh" EntitySet="TinhThanh" />
       <End Role="Account" EntitySet="Account" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ChiTietDonHang_DonHang" Association="Self.FK_ChiTietDonHang_DonHang">
-      <End Role="DonHang" EntitySet="DonHang" />
-      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
-    </AssociationSet>
-    <AssociationSet Name="FK_GioHang_SanPham" Association="Self.FK_GioHang_SanPham">
-      <End Role="SanPham" EntitySet="SanPham" />
-      <End Role="GioHang" EntitySet="GioHang" />
     </AssociationSet>
     <AssociationSet Name="FK_HinhAnhChiTietSp_SanPham" Association="Self.FK_HinhAnhChiTietSp_SanPham">
       <End Role="SanPham" EntitySet="SanPham" />

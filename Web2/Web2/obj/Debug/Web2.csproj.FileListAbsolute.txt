@@ -141,7 +141,6 @@ G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\roslyn\VBCSCompiler.exe
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\roslyn\VBCSCompiler.exe.config
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Antlr3.Runtime.dll
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\EntityFramework.dll
-G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\EntityFramework.SqlServer.dll
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Microsoft.Identity.Client.dll
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Microsoft.Web.Infrastructure.dll
@@ -247,3 +246,14 @@ G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Microsoft.Extensions.ObjectPool.xml
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Microsoft.Extensions.Options.xml
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\System.Diagnostics.DiagnosticSource.xml
 G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\System.Threading.Tasks.Extensions.xml
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\EntityFramework.xml
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\grpc_csharp_ext.x86.dll
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\grpc_csharp_ext.x64.dll
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\libgrpc_csharp_ext.x64.so
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\libgrpc_csharp_ext.x64.dylib
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.Api.dll
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.dll
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.pdb
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.xml
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.Api.pdb
+G:\ShopDoTreEm\ShopDoTreEm\Web2\Web2\bin\Grpc.Core.Api.xml

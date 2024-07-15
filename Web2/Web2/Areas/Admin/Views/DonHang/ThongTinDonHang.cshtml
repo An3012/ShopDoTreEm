@@ -1,0 +1,165 @@
+﻿@{
+    Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    var DonHang = ViewBag.DonHang as Web2.Models.Order;
+    var ListSanPhamByOrder = ViewBag.danhSachSanPhamByIdOrDer as List<Web2.Areas.Admin.Controllers.DonHangController.SanPhamByOrder>;
+    int TongSoSanPham = ListSanPhamByOrder != null ? ListSanPhamByOrder.Sum(item => item.SoLuong) : 0;
+    int TongTienDonHang = ListSanPhamByOrder != null ? ListSanPhamByOrder.Sum(item => item.SoLuong * item.GiaSanpham) : 0;
+    var KhachHang = Db.Account.FirstOrDefault(x => x.id == DonHang.IdKhachHang);
+}
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Thông tin đơn hàng</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body ">
+    <div class="profile-news mt-4 pb-3">
+        @if (ListSanPhamByOrder != null && ListSanPhamByOrder.Count > 0)
+        {
+            foreach (var item in ListSanPhamByOrder)
+            {
+                var Spbysize = Db.SpBySize.Find(item.idSPbySize);
+                <div class="media pt-3 pb-3">
+                    <img style="width:18%" src="@Db.SanPham.FirstOrDefault(x=>x.Id == Spbysize.idsp).AnhSp" alt="image" class="mr-3">
+
+                    <div class="media-body profile-personal-info">
+                        <div class="row mb-1">
+                            <h4 class="mb-1 f-w-800 col-3">@Db.SanPham.FirstOrDefault(x => x.Id == Spbysize.idsp).TenSanPham</h4>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-5">
+                                <h5 class="f-w-500" style="color:black">
+                                    Số lượng <span class="pull-right">:</span>
+                                </h5>
+                            </div>
+                            <div class="col-7">
+                                <span>@item.SoLuong</span>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-5">
+                                <h5 class="f-w-500" style="color:black">
+                                    Màu sản phẩm <span class="pull-right">:</span>
+                                </h5>
+                            </div>
+                            <div class="col-7">
+                                <span>@Db.SanPham.FirstOrDefault(x => x.Id == Spbysize.idsp).MauSP</span>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-5">
+                                <h5 class="f-w-500" style="color:black">
+                                    Size <span class="pull-right">:</span>
+                                </h5>
+                            </div>
+                            <div class="col-7">
+                                <span>@Db.Size.FirstOrDefault(x => x.id == Spbysize.idsize).TagSize</span>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-5">
+                                <h5 class="f-w-500" style="color:black">
+                                    Giá <span class="pull-right">:</span>
+                                </h5>
+                            </div>
+                            <div class="col-7">
+                                <span>@string.Format("{0:C3}", item.GiaSanpham)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+            <div class="mb-2" style="border-bottom: 1px solid black"></div>
+            <div class="col-12 row p-sm-1">
+                @{
+                    <div class="col-8 p-sm-1">
+                        <div class="profile-personal-info">
+                            <div class="row mb-3">
+                                <div class="col-3 ">
+                                    <span class="f-w-500">
+                                        Khách Hàng <span class="pull-right">:</span>
+                                    </span>
+                                </div>
+                                <div class="col-4 p-0 f-w-500">
+                                    <span>@KhachHang.HoVaTen</span>
+                                </div>
+                                <div class="col-1 p-0 ">
+                                    <span class="f-w-500">
+                                        SĐT <span class="pull-right">:</span>
+                                    </span>
+                                </div>
+                                <div class="col-3 f-w-500">
+                                    <span>@KhachHang.SoDienThoai</span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-3">
+                                    <span class="f-w-500">
+                                        Địa chỉ<span class="pull-right">:</span>
+                                    </span>
+                                </div>
+                                <div class="col-9 p-0 f-w-500">
+                                    <span>@KhachHang.DiaChi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="cart__total__procced col-4 p-0">
+                    <div class="row">
+                        <div class="f-w-600 col-7 mb-3">Tình trạng<span class="pull-right">:</span></div>
+                        <span>@DonHang.TinhTrang</span>
+                    </div>
+                    <div class="row">
+                        <div class="f-w-600 col-7 mb-3">Số sản phẩm<span class="pull-right">:</span></div>
+                        <span>@TongSoSanPham</span>
+                    </div>
+                    <div class="row">
+                        <div class="f-w-600 col-7">Thành tiền<span class="pull-right">:</span></div>
+                        <span>@string.Format("{0:C3}", TongTienDonHang)</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="col-lg-6"><span style="color: red" id="Messenger_error"></span></div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+    <button type="button" class="btn btn-primary btn_Duyet_DonHang" data-id="@DonHang.Id">Duyệt</button>
+</div>
+<script>
+    $('.btn_Duyet_DonHang').on('click', function(){
+        const idOrder = $(this).data('id');
+        $.ajax({
+                url: '/DonHang/DuyetDonHang',
+                type: 'POST',
+                data: {idOrder: Number(idOrder)},
+                success: function(html){
+                    $('#exampleModalDetailDonHang').modal('hide');
+                    $('#modal-backdrop fade').modal('hide');
+                    $('#example').html(html);
+                    toastr.info("Đơn hàng đã được duyệt", "Thông báo", {
+                        positionClass: "toast-top-right",
+                        timeOut: 5000,
+                        closeButton: true,
+                        debug: false,
+                        newestOnTop: true,
+                        progressBar: true,
+                        preventDuplicates: true,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        tapToDismiss: false
+                    })
+                }
+            })
+        })
+</script>

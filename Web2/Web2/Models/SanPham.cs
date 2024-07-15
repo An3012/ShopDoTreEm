@@ -22,8 +22,6 @@ public partial class SanPham
     public SanPham()
     {
 
-        this.GioHang = new HashSet<GioHang>();
-
         this.HinhAnhChiTietSp = new HashSet<HinhAnhChiTietSp>();
 
     }
@@ -57,17 +55,17 @@ public partial class SanPham
 
     public string MauSP { get; set; }
 
-    public Nullable<int> Size { get; set; }
+    public string Sizesp_soLuong { get; set; }
 
-    public Nullable<int> SoLuong { get; set; }
+    public string SoLuong { get; set; }
+
+    public string AnhChiTiet { get; set; }
+
+    public string DacDiemNB { get; set; }
 
 
 
     public virtual DanhMucSp DanhMucSp { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<GioHang> GioHang { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

@@ -2285,7 +2285,7 @@ pre {
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #eaeaea;
+    border: 1px solid #777171;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -20037,7 +20037,7 @@ svg text {
 
 .form-control {
     background: #fff;
-    border: 1px solid #eaeaea;
+    border: 1px solid #777171;
     color: #454545;
 }
 

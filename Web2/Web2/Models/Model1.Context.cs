@@ -34,13 +34,9 @@ public partial class WebDoTreEmEntities2 : DbContext
 
     public virtual DbSet<Account> Account { get; set; }
 
-    public virtual DbSet<ChiTietDonHang> ChiTietDonHang { get; set; }
-
     public virtual DbSet<DacDiemSP> DacDiemSP { get; set; }
 
     public virtual DbSet<DanhMucSp> DanhMucSp { get; set; }
-
-    public virtual DbSet<DonHang> DonHang { get; set; }
 
     public virtual DbSet<GioHang> GioHang { get; set; }
 
@@ -49,6 +45,8 @@ public partial class WebDoTreEmEntities2 : DbContext
     public virtual DbSet<LoaiSp> LoaiSp { get; set; }
 
     public virtual DbSet<NhomQuyen> NhomQuyen { get; set; }
+
+    public virtual DbSet<Order> Order { get; set; }
 
     public virtual DbSet<PhuongXa> PhuongXa { get; set; }
 

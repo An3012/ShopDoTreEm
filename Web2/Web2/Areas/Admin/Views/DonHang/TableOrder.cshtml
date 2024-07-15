@@ -1,0 +1,44 @@
+﻿@{
+    Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    var ListOrder = ViewBag.ListOrder as List<Web2.Models.Order>;
+    var ListSanPhamByOrder = ViewBag.ListSanPhamByOrder as List<Web2.Areas.Admin.Controllers.DonHangController.SanPhamByOrder>;
+}
+<table id="example" class="display example-advance-3" style="min-width: 845px">
+    <thead>
+        <tr>
+            <th style="min-width: 20%;">Khách hàng</th>
+            <th style="min-width: 15%;">Số sản phẩm</th>
+            <th style="min-width: 15%;">Tình trạng</th>
+            <th style="min-width: 25%;">Thời gian</th>
+            <th style="min-width: 10%;">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in ListOrder)
+            {
+                <tr>
+                    <td id="">@Db.Account.Find(item.IdKhachHang).HoVaTen</td>
+                    <td>@ListSanPhamByOrder.Where(x => x.IdOrder == item.Id).Count()</td>
+                    <td>@item.TinhTrang</td>
+                    <td>@*@item.*@ThoigianTao</td>
+                    <td>
+                        <div>
+                            <button href="javascript:void()" class="btn btn-primary" onclick="detailOrder(@item.Id)"><i class=" fa fa-exclamation-circle"></i> </button>
+                            <button href="javascript:void()" class="btn btn-danger" data-id="@item.Id"><i class="fa fa-close"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Khách hàng</th>
+            <th>Số sản phẩm</th>
+            <th>Tình trạng</th>
+            <th>Thời gian</th>
+            <th>Chức năng</th>
+        </tr>
+    </tfoot>
+</table>

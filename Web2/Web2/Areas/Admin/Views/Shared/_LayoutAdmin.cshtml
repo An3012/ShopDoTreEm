@@ -2,8 +2,7 @@
     var user = (Web2.Models.Account)System.Web.HttpContext.Current.Session["user"] ?? null;
 }
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +14,7 @@
     <link href="/Assest/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/Assest/Admin/vendor/toastr/css/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/Assest/Admin/vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="/Assest/Admin/vendor/select2/css/select2.min.css">
 
     <style>
         .ul_backgroud {
@@ -22,15 +22,9 @@
         }
     </style>
 </head>
-<body>
-    @*<div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>*@
-    <div id="an">
+<body id="body_Admin">
+
+    <div id="main-wrapper">
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
@@ -153,19 +147,19 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">WEB</li>
+                    <li class="nav-label first">WEB</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon icon-app-store"></i><span class="nav-text">Sản phẩm</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Sản phẩm</a></li>
+                            <li> <a href="~/Admin/SanPham/SanPham">Sản phẩm</a></li>
+                            <li> <a href="~/Admin/SanPham/SanPhamMoi">Sản phẩm mới</a></li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">Danh mục sản phẩm</a>
                                 <ul class="ul_backgroud" aria-expanded="false">
                                     <li><a href="./email-compose.html">Quản lý bài viết</a></li>
                                     <li><a href="./email-inbox.html">Quản lý sản phầm</a></li>
-                                    <li><a href="./email-read.html">Giỏ hàng</a></li>
                                 </ul>
                             </li>
                             <li><a href="./app-calender.html">Phân loại sản phẩm</a></li>
@@ -183,7 +177,7 @@
                     </li>
                     <li class="nav-label">Response</li>
                     <li>
-                        <a href="javascript:void()" aria-expanded="false">
+                        <a>
                             <i class="ti-shopping-cart"></i><span class="nav-text">Giỏ hàng</span>
                         </a>
                     </li>
@@ -217,12 +211,7 @@
                     </div>
                 </div>
                 <div id="GridViewProduct">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Basic Datatable</h4>
-                        </div>
-                        @RenderBody()
-                    </div>
+                    @RenderBody()
                 </div>
             </div>
         </div>
@@ -236,12 +225,13 @@
     <script src="/Assest/Admin/vendor/global/global.min.js"></script>
     <script src="/Assest/Admin/js/quixnav-init.js"></script>
     <script src="/Assest/Admin/js/custom.min.js"></script>
+    <script src="/Assest/Admin/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/Assest/Admin/js/plugins-init/select2-init.js"></script>
     <!-- Datatable -->
     <script src="/Assest/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/Assest/Admin/js/plugins-init/datatables.init.js"></script>
     <script src="/Assest/Admin/vendor/toastr/js/toastr.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script>
     function Edit_Product(id){
         var Idproduct = id;
@@ -281,8 +271,29 @@
         $('.SanPhamTheoSize_' + value).addClass('active')
         $('.val-SoLuongSP').val(value);
         $('#val-SoLuongSP').text(value);
-    }
+        }
 
+        function showInfoToastr(message) {
+        toastr.info(message, "Thông báo", {
+        positionClass: "toast-top-right",
+        timeOut: 5000,
+        closeButton: true,
+        debug: false,
+        newestOnTop: true,
+        progressBar: true,
+        preventDuplicates: true,
+        showDuration: "300",
+        hideDuration: "1000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut",
+        tapToDismiss: false
+    });
+}
+
+        
     </script>
 </body>
 

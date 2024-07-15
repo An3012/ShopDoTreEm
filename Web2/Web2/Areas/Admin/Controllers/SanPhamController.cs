@@ -20,6 +20,7 @@ namespace Web2.Areas.Admin.Controllers
     {
         // GET: Admin/SanPham
         WebDoTreEmEntities2 DB = new WebDoTreEmEntities2();
+        ModelDAO ModelDAO = new ModelDAO();
         public JsonResult GetPhanLoaiByDanhMuc(int danhMucId)
         {
             try
@@ -32,9 +33,7 @@ namespace Web2.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine("Error: " + ex.Message);
-                // Return an appropriate error response
                 return Json(new { success = false, message = ex.Message });
             }
         }
@@ -42,7 +41,7 @@ namespace Web2.Areas.Admin.Controllers
         {
             var listsp = DB.SanPham.ToList();
             ViewBag.listsp = listsp;
-            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
+            return View();
         }
 
         public ActionResult DetailProduct(int IdProduct)
@@ -54,18 +53,140 @@ namespace Web2.Areas.Admin.Controllers
         public ActionResult fEditProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
+            List<ModelDAO.ImgDetail> imgDetails = JsonConvert.DeserializeObject<List<ModelDAO.ImgDetail>>(sanpham.AnhChiTiet ?? "");
+            List<ModelDAO.SoLuongSPBySize> SoLuongSPBySize = JsonConvert.DeserializeObject<List<ModelDAO.SoLuongSPBySize>>(sanpham.Sizesp_soLuong ?? "");
+            List<ModelDAO.DDNB> DDNB = JsonConvert.DeserializeObject<List<ModelDAO.DDNB>>(sanpham.DacDiemNB ?? "");
             ViewBag.IdProduct = IdProduct;
+            ViewBag.LstimgDetails = imgDetails;
+            ViewBag.SoLuongSPBySize = SoLuongSPBySize;
+            ViewBag.LstDDNBbySP = DDNB;
+
             return View("~/Areas/Admin/Views/Shared/Edit_Product.cshtml");
         }
 
-        public ActionResult DetailProductEdit(int IdProduct)
+        [HttpPost]
+        public ActionResult EditProduct(int Idsp, HttpPostedFileBase fileImage, IEnumerable<HttpPostedFileBase> fileImgProductdetail, string val_TenSanPham, string val_MaSp, int val_DanhMuc, int? val_PhanLoaiSanPham, string val_Mota, IEnumerable<int> statesSize, string val_Soluong, string val_MauSp, int? val_Gia, int? val_GiamGia, string val_TinhTrang, string val_Brand, IEnumerable<string> val_TagDDNB, IEnumerable<string> val_DDNB)
         {
-            var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
-            ViewBag.IdProduct = IdProduct;
-            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
+            try
+            {
+                var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == Idsp);
+                if (sanpham == null)
+                {
+                    return HttpNotFound(); 
+                }
+
+                sanpham.TenSanPham = val_TenSanPham;
+                sanpham.IdDanhMuc = val_DanhMuc;
+                sanpham.IdLoai = val_PhanLoaiSanPham ?? 0;
+                sanpham.MotaSp = val_Mota;
+                sanpham.MauSP = val_MauSp;
+                sanpham.Gia = val_Gia ?? 0;
+                sanpham.GiamGia = val_GiamGia ?? 0;
+                sanpham.TinhTrang = val_TinhTrang;
+                sanpham.Brand = val_Brand;
+
+                if (fileImage != null && fileImage.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(fileImage.FileName);
+                    var savePath = "/AppData/Image/Product/" + fileName;
+                    var physicalPath = Server.MapPath(savePath);
+
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        fileImage.SaveAs(physicalPath);
+                    }
+                    sanpham.AnhSp = savePath;
+                }
+
+                List<ModelDAO.ImgDetail> LstEditimgDetails = new List<ModelDAO.ImgDetail>();
+                if (fileImgProductdetail != null && fileImgProductdetail.Any())
+                {
+                    int nextId = 1;
+                    if (sanpham.AnhChiTiet != null)
+                    {
+                        LstEditimgDetails = JsonConvert.DeserializeObject<List<ModelDAO.ImgDetail>>(sanpham.AnhChiTiet ?? "");
+
+                        if (LstEditimgDetails.Any())
+                        {
+                            nextId = LstEditimgDetails.Max(x => x.Id) + 1;
+                        }
+                        foreach (var item in fileImgProductdetail)
+                        {
+                            if (item != null && item.ContentLength > 0)
+                            {
+                                var fileName = Path.GetFileName(item.FileName);
+                                var savePath = "/AppData/Image/Product/" + fileName;
+                                var physicalPath = Server.MapPath(savePath);
+
+                                if (!System.IO.File.Exists(physicalPath))
+                                {
+                                    item.SaveAs(physicalPath);
+                                }
+                                LstEditimgDetails.Add(new ModelDAO.ImgDetail { Id = nextId++, fileImge = fileName });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in fileImgProductdetail)
+                        {
+                            if (item != null && item.ContentLength > 0)
+                            {
+                                var fileName = Path.GetFileName(item.FileName);
+                                var savePath = "/AppData/Image/Product/" + fileName;
+                                var physicalPath = Server.MapPath(savePath);
+
+                                if (!System.IO.File.Exists(physicalPath))
+                                {
+                                    item.SaveAs(physicalPath);
+                                }
+                                LstEditimgDetails.Add(new ModelDAO.ImgDetail { Id = nextId++, fileImge = fileName });
+                            }
+                        }
+                    }
+                    sanpham.AnhChiTiet = JsonConvert.SerializeObject(LstEditimgDetails);
+                }
+
+                List<ModelDAO.DDNB> DDNBs = new List<ModelDAO.DDNB>();
+                if (val_TagDDNB != null && val_DDNB != null)
+                {
+                    var tagDDNBs = val_TagDDNB.ToList();
+                    var ndDDNBs = val_DDNB.ToList();
+
+                    for (int i = 0; i < Math.Min(tagDDNBs.Count, ndDDNBs.Count); i++)
+                    {
+                        DDNBs.Add(new ModelDAO.DDNB { Id = i, TagDDNB = tagDDNBs[i], NDDDNB = ndDDNBs[i] });
+                    }
+
+                    sanpham.DacDiemNB = JsonConvert.SerializeObject(DDNBs);
+                }
+                List<ModelDAO.SoLuongSPBySize> SanphamNewySizes = new List<ModelDAO.SoLuongSPBySize>();
+                if (statesSize != null && statesSize.Any())
+                {
+                    var sizes = statesSize.ToList();
+                    var quantities = val_Soluong.ToList();
+
+                    for (int i = 0; i < Math.Min(sizes.Count, quantities.Count); i++)
+                    {
+                        SanphamNewySizes.Add(new ModelDAO.SoLuongSPBySize { Id = i, IdSize = sizes[i], Soluong = quantities[i] });
+                    }
+
+                    sanpham.Sizesp_soLuong = JsonConvert.SerializeObject(SanphamNewySizes);
+                }
+
+                DB.SaveChanges();
+                var listsp = DB.SanPham.ToList();
+                ViewBag.listsp = listsp;
+                return View("~/Areas/Admin/Views/SanPham/TableSanPham.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return View("~/Areas/Admin/Views/SanPham/Edit_Product.cshtml");
+            }
         }
 
-        public JsonResult DeleteProduct(int IdProduct)
+        public ActionResult DeleteProduct(int IdProduct)
         {
             var sanpham = DB.SanPham.FirstOrDefault(sp => sp.Id == IdProduct);
             var SizeSanPhams = DB.SpBySize.Where(sp => sp.idsp == IdProduct);
@@ -75,316 +196,133 @@ namespace Web2.Areas.Admin.Controllers
             }
             DB.SanPham.Remove(sanpham);
             DB.SaveChanges();
-            return Json("Xóa sản phẩm thành công!" );
+            var listsp = DB.SanPham.ToList();
+            ViewBag.listsp = listsp;
+            return View("~/Areas/Admin/Views/SanPham/TableSanPham.cshtml");
         }
 
-        public ActionResult EditProduct(string EditSanPham, string ListEditDDNB)
-        {
-            List<ListEditProDuct> products = JsonConvert.DeserializeObject<List<ListEditProDuct>>(EditSanPham);
-            List<ListEditDacDiemNB> listEditDDNB = JsonConvert.DeserializeObject<List<ListEditDacDiemNB>>(ListEditDDNB);
-            foreach(var item in listEditDDNB)
-            {
-                var DDNBEdit = DB.DacDiemSP.FirstOrDefault(x => x.id == item.iddd);
-                if(DDNBEdit != null)
-                {
-                    DDNBEdit.DacDiemSanPham = item.DDNB;
-                    DDNBEdit.NameDacDiem = item.NameDD;
-                }    
-                DB.SaveChanges();
-            }    
-            foreach (var item in products)
-            {
-                var SanPhamUpdate = DB.SanPham.FirstOrDefault(x => x.Id == item.Id);
-                if (SanPhamUpdate != null)
-                {
-                    SanPhamUpdate.IdDanhMuc = item.IdDM;
-                    SanPhamUpdate.IdLoai = item.IdLoai;
-                    SanPhamUpdate.TenSanPham = item.TenSanPham;
-                    SanPhamUpdate.MotaSp = item.MotaSp;
-                    SanPhamUpdate.Gia = item.Gia;
-                    SanPhamUpdate.GiamGia = item.GiamGia;
-                    SanPhamUpdate.TinhTrang = item.TinhTrang;
-                    SanPhamUpdate.Brand = item.Brand;
+        public ActionResult SanPhamMoi() { return View(); }
 
-                    var SanPham_SizeUpdate = DB.SpBySize.FirstOrDefault(x => x.id == item.IdSize);
-                    if (SanPham_SizeUpdate != null)
+        [HttpPost]
+        public ActionResult SanPhamMoi(HttpPostedFileBase fileImage, IEnumerable<HttpPostedFileBase> fileImgProductdetail, string val_TenSanPham, string val_MaSp, int val_DanhMuc, int? val_PhanLoaiSanPham, string val_Mota, IEnumerable<int> statesSize, string val_Soluong, string val_MauSp, int? val_Gia, int? val_GiamGia, string val_TinhTrang, string val_Brand, IEnumerable<string> val_TagDDNB, IEnumerable<string> val_DDNB)
+        {
+            ViewBag.error = "";
+            SanPham SPNew = new SanPham();
+            SPNew.TenSanPham = val_TenSanPham;
+            SPNew.Masp = val_MaSp;
+            SPNew.IdDanhMuc = val_DanhMuc;
+            DB.SanPham.Add(SPNew);
+            SPNew.IdLoai = val_PhanLoaiSanPham ?? 0;
+            SPNew.MotaSp = val_Mota;
+            SPNew.MauSP = val_MauSp;
+            SPNew.Gia = val_Gia ?? 0;
+            SPNew.GiamGia = val_GiamGia ?? 0;
+            SPNew.TinhTrang = val_TinhTrang;
+            SPNew.Brand = val_Brand;
+
+            var urlfile = "/AppData/Image/Product/";
+            var urlServer = Server.MapPath(urlfile);
+
+            if (fileImage != null && fileImage.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(fileImage.FileName);
+                var savePath = urlfile + fileName;
+                string urlFile = urlServer + fileName;
+
+                if (System.IO.File.Exists(urlFile) == true)
+                {
+                    savePath = urlfile + Path.GetFileName(urlFile);
+                    SPNew.AnhSp = savePath;
+                }
+                else
+                {
+                    fileImage.SaveAs(urlFile);
+                    SPNew.AnhSp = savePath;
+                }
+            }
+            List<ModelDAO.ImgDetail> LstEditimgDetails = new List<ModelDAO.ImgDetail>();
+            if (fileImgProductdetail != null && fileImgProductdetail.Count() > 0)
+            {
+                int i = 0;
+                foreach (var item in fileImgProductdetail)
+                {
+                    ModelDAO.ImgDetail imgDetail = new ModelDAO.ImgDetail();
+                    imgDetail.Id = i;
+                    var savePathImgDetail = item.FileName;
+                    if (item.ContentLength == 0)
                     {
-                        var sql = "UPDATE SpBySize SET SoLuong = @soluong WHERE id = @id";
-                        DB.Database.ExecuteSqlCommand(sql, new SqlParameter("@soluong", item.SoLuongSanPham), new SqlParameter("@id", item.IdSize));
+                        ViewBag.error = "Tập tin không có nội dung";
                     }
                     else
                     {
-                        return Json(new { success = false, message = "Cập nhật thất bại" });
+                        string urlFileImgDetail = urlServer + item.FileName;
+                        if (System.IO.File.Exists(urlFileImgDetail) == true)
+                        {
+                            savePathImgDetail = Path.GetFileName(urlFileImgDetail);
+                            imgDetail.fileImge = savePathImgDetail;
+                        }
+                        else
+                        {
+                            item.SaveAs(urlFileImgDetail);
+                            imgDetail.fileImge = savePathImgDetail;
+                        }
                     }
+                    LstEditimgDetails.Add(imgDetail);
+                    i++;
                 }
-                else
+                string Anhchitiet = "";
+                if (LstEditimgDetails != null && LstEditimgDetails.Count() > 0)
                 {
-                    return Json(new { success = false, message = "Cập nhật thất bại" });
+                    Anhchitiet = JsonConvert.SerializeObject(LstEditimgDetails);
                 }
+                SPNew.AnhChiTiet = Anhchitiet;
             }
+
+            List<ModelDAO.DDNB> DDNBs = new List<ModelDAO.DDNB>();
+            if (val_TagDDNB != null && val_TagDDNB.Count() > 0)
+            {
+                for (int x = 0; x < val_DDNB.Count(); x++)
+                {
+                    var TagDDNBs = val_TagDDNB.ToList();
+                    var NDDDNBs = val_DDNB.ToList();
+                    ModelDAO.DDNB ddnb = new ModelDAO.DDNB();
+                    ddnb.Id = x;
+                    ddnb.TagDDNB = TagDDNBs[x];
+                    ddnb.NDDDNB = NDDDNBs[x];
+                    DDNBs.Add(ddnb);
+                }
+                string dacdiemnoibat = "";
+                if (DDNBs != null && DDNBs.Count() > 0)
+                {
+                    dacdiemnoibat = JsonConvert.SerializeObject(DDNBs);
+                }
+                SPNew.DacDiemNB = dacdiemnoibat;
+            }
+
+            List<ModelDAO.SoLuongSPBySize> SanphamNewySizes = new List<ModelDAO.SoLuongSPBySize>();
+            if (statesSize != null && statesSize.Count() > 0)
+            {
+                for (int x = 0; x < statesSize.Count(); x++)
+                {
+                    var sizes = statesSize.ToList();
+                    var solg = val_Soluong.ToList();
+                    ModelDAO.SoLuongSPBySize spbys = new ModelDAO.SoLuongSPBySize();
+                    spbys.Id = x;
+                    spbys.IdSize = sizes[x];
+                    spbys.Soluong = solg[x];
+                    SanphamNewySizes.Add(spbys);
+                }
+                string Spbysize = "";
+                if (SanphamNewySizes != null && SanphamNewySizes.Count() > 0)
+                {
+                    Spbysize = JsonConvert.SerializeObject(SanphamNewySizes);
+                }
+                SPNew.Sizesp_soLuong = Spbysize;
+            }
+
             DB.SaveChanges();
-            return Json(new { success = true, message = "Cập nhật thành công!" });
-        }
-
-        public class ImgEdit
-        {
-            public HttpPostedFileBase fileImage { get; set; }
-            public int IdSp { get; set; }
-
-        }
-
-        public JsonResult EditImage(ImgEdit formdata)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                int idSP = formdata.IdSp;
-                HttpPostedFileBase file = formdata.fileImage;
-                if (file == null || file.ContentLength == 0)
-                {
-                    return Json("Lỗi: Không có tập tin được tải lên");
-                }
-                var sanphamupdate = DB.SanPham.FirstOrDefault(sp => sp.Id == idSP);
-                var fileName = Path.GetFileName(file.FileName);
-                var urlfile = "/AppData/Image/Product/";
-                var urlServer = Server.MapPath(urlfile);
-                var savePath = urlfile + fileName;
-                string urlFile = urlServer + fileName;
-
-                if (System.IO.File.Exists(urlFile) == true)
-                {
-                    savePath = urlfile + Path.GetFileName(urlFile);
-                    sanphamupdate.AnhSp = savePath;
-                    DB.SaveChanges();
-                }
-                else
-                {
-                    file.SaveAs(urlFile);
-                    sanphamupdate.AnhSp = savePath;
-                    DB.SaveChanges();
-                }
-                uploadResults.Add($"Cập nhật hình ảnh thành công: {fileName}");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Lỗi cập nhật: {ex.Message}");
-            }
-
-            return Json(uploadResults);
-        }
-        public JsonResult EditImageDetail(ImgEdit formdata)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                int idSP = formdata.IdSp;
-                HttpPostedFileBase file = formdata.fileImage;
-                if (file == null || file.ContentLength == 0)
-                {
-                    return Json("Lỗi: Không có tập tin được tải lên");
-                }
-                var sanphamupdate = DB.HinhAnhChiTietSp.FirstOrDefault(sp => sp.Id == idSP);
-                var fileName = Path.GetFileName(file.FileName);
-                var urlfile = "/AppData/Image/Product/";
-                var urlServer = Server.MapPath(urlfile);
-                var savePath = urlfile + fileName;
-                string urlFile = urlServer + fileName;
-
-                if (System.IO.File.Exists(urlFile) == true)
-                {
-                    savePath = urlfile + Path.GetFileName(urlFile);
-                    sanphamupdate.FileAnhChiTiet = savePath;
-                    DB.SaveChanges();
-                }
-                else
-                {
-                    file.SaveAs(urlFile);
-                    sanphamupdate.FileAnhChiTiet = savePath;
-                    DB.SaveChanges();
-                }
-                uploadResults.Add($"Cập nhật hình ảnh thành công: {fileName}");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Lỗi cập nhật: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-
-        public JsonResult DeleteImg(int id)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                int idSP = id;
-                var sanpham = DB.SanPham.Find(id);
-                sanpham.AnhSp = "";
-                DB.SaveChanges();
-                uploadResults.Add($"Xóa hình ảnh thành công!");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-
-        public JsonResult DeleteImgDetail(int id)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                int idSP = id;
-                var hinhAnhCT = DB.HinhAnhChiTietSp.Find(id);
-
-                DB.HinhAnhChiTietSp.Remove(hinhAnhCT);
-                DB.SaveChanges();
-                uploadResults.Add($"Xóa hình ảnh thành công!");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-
-        public JsonResult AddImgDetail(ImgEdit formdata)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                int idSP = formdata.IdSp;
-                HttpPostedFileBase file = formdata.fileImage;
-                if (file == null || file.ContentLength == 0)
-                {
-                    return Json("Lỗi: Không có tập tin được tải lên");
-                }
-                var fileName = Path.GetFileName(file.FileName);
-                var urlfile = "/AppData/Image/Product/";
-                var urlServer = Server.MapPath(urlfile);
-                var savePath = urlfile + fileName;
-                string urlFile = urlServer + fileName;
-
-                if (System.IO.File.Exists(urlFile) == true)
-                {
-                    savePath = urlfile + Path.GetFileName(urlFile);
-                    var AddImgSanPham = new HinhAnhChiTietSp
-                    {
-                        IdSanPham = idSP,
-                        FileAnhChiTiet = savePath
-                    };
-                    DB.HinhAnhChiTietSp.Add(AddImgSanPham);
-                }
-                else
-                {
-                    file.SaveAs(urlFile);
-                    var AddImgSanPham = new HinhAnhChiTietSp
-                    {
-                        IdSanPham = idSP,
-                        FileAnhChiTiet = savePath
-                    };
-                    DB.HinhAnhChiTietSp.Add(AddImgSanPham);
-                }
-                DB.SaveChanges();
-                uploadResults.Add($"Thêm hình ảnh chi tiết thành công!");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-
-        public JsonResult AddDDNoiBat(string TagDD, string DDNB, int IdSp)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                DacDiemSP dacDiemSP = new DacDiemSP();
-                dacDiemSP.MaSp = DB.SanPham.Find(IdSp).Masp;
-                dacDiemSP.NameDacDiem = TagDD;
-                dacDiemSP.DacDiemSanPham = DDNB;
-                DB.DacDiemSP.Add(dacDiemSP);
-                DB.SaveChanges();
-                uploadResults.Add($"Thêm đặc điểm nổi bật thành công!");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-        public JsonResult DeleteDDNB(int Id)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                DacDiemSP dacDiemSP = new DacDiemSP();
-                dacDiemSP = DB.DacDiemSP.Find(Id);
-                DB.DacDiemSP.Remove(dacDiemSP);
-                DB.SaveChanges();
-                uploadResults.Add($"Xóa đặc điểm nổi bật thành công!");
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-            }
-            return Json(uploadResults);
-        }
-        public JsonResult AddSizeBySanPham(int Id, int IdS, int SoLuongSP)
-        {
-            var uploadResults = new List<string>();
-            try
-            {
-                var SizeBySp = DB.SpBySize.FirstOrDefault(x => x.idsp == Id && x.idsize == IdS);
-                if (SizeBySp != null)
-                {
-                    SizeBySp.soluong += SoLuongSP;
-                    uploadResults.Add("Cập nhật số lượng size cho sản phẩm thành công!");
-                }
-                else
-                {
-                    SizeBySp = new SpBySize
-                    {
-                        idsp = Id,
-                        idsize = IdS,
-                        soluong = SoLuongSP
-                    };
-                    DB.SpBySize.Add(SizeBySp);
-                    uploadResults.Add("Thêm size cho sản phẩm thành công!");
-                }
-                DB.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                uploadResults.Add($"Đã xảy ra lỗi: {ex.Message}");
-                return Json(uploadResults);
-            }
-            return Json(uploadResults);
-        }
-
-        public class ListEditProDuct
-        {
-            public int Id { get; set; }
-            public int IdDM { get; set; }
-            public int IdLoai { get; set; }
-            public string TenSanPham { get; set; }
-            public string MotaSp { get; set; }
-            public int IdSize { get; set; }
-            public int SoLuongSanPham { get; set; }
-            public int Gia { get; set; }
-            public int GiamGia { get; set; }
-            public string TinhTrang { get; set; }
-            public string Brand { get; set; }
-
-        }
-
-        public class ListEditDacDiemNB
-        {
-            public int iddd { get; set; }
-            public string NameDD { get; set; }
-            public string DDNB { get; set; }
+            return View("~/Areas/Admin/Views/SanPham/SanPham.cshtml");
         }
     }
-    
+
 }

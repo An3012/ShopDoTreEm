@@ -18,21 +18,15 @@ using System;
 public partial class GioHang
 {
 
-    public int id { get; set; }
+    public int Id { get; set; }
 
-    public Nullable<int> idSp { get; set; }
+    public Nullable<int> idKhachHang { get; set; }
+
+    public Nullable<int> idSanPham { get; set; }
+
+    public Nullable<int> GiaSanPham { get; set; }
 
     public Nullable<int> SoLuong { get; set; }
-
-    public Nullable<int> IdTinhtrang { get; set; }
-
-    public Nullable<int> KieuGiaoHang { get; set; }
-
-    public Nullable<int> KieuThanhToan { get; set; }
-
-
-
-    public virtual SanPham SanPham { get; set; }
 
 }
 

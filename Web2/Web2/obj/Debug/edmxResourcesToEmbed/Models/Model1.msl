@@ -19,18 +19,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ChiTietDonHang">
-      <EntityTypeMapping TypeName="WebDoTreEmModel.ChiTietDonHang">
-        <MappingFragment StoreEntitySet="ChiTietDonHang">
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
-          <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
-          <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DacDiemSP">
       <EntityTypeMapping TypeName="WebDoTreEmModel.DacDiemSP">
         <MappingFragment StoreEntitySet="DacDiemSP">
@@ -52,27 +40,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DonHang">
-      <EntityTypeMapping TypeName="WebDoTreEmModel.DonHang">
-        <MappingFragment StoreEntitySet="DonHang">
-          <ScalarProperty Name="idTinhTrang" ColumnName="idTinhTrang" />
-          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-          <ScalarProperty Name="TongSoLuongSp" ColumnName="TongSoLuongSp" />
-          <ScalarProperty Name="idNguoiMua" ColumnName="idNguoiMua" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="GioHang">
       <EntityTypeMapping TypeName="WebDoTreEmModel.GioHang">
         <MappingFragment StoreEntitySet="GioHang">
-          <ScalarProperty Name="KieuThanhToan" ColumnName="KieuThanhToan" />
-          <ScalarProperty Name="KieuGiaoHang" ColumnName="KieuGiaoHang" />
-          <ScalarProperty Name="IdTinhtrang" ColumnName="IdTinhtrang" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="idSp" ColumnName="idSp" />
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="GiaSanPham" ColumnName="GiaSanPham" />
+          <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+          <ScalarProperty Name="idKhachHang" ColumnName="idKhachHang" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -101,6 +76,19 @@
           <ScalarProperty Name="idRole" ColumnName="idRole" />
           <ScalarProperty Name="idQuyen" ColumnName="idQuyen" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="WebDoTreEmModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="ThoigianTao" ColumnName="ThoigianTao" />
+          <ScalarProperty Name="GiaSp" ColumnName="GiaSp" />
+          <ScalarProperty Name="SoLuongSP" ColumnName="SoLuongSP" />
+          <ScalarProperty Name="IdSanPham" ColumnName="IdSanPham" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="IdKhachHang" ColumnName="IdKhachHang" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -139,8 +127,10 @@
     <EntitySetMapping Name="SanPham">
       <EntityTypeMapping TypeName="WebDoTreEmModel.SanPham">
         <MappingFragment StoreEntitySet="SanPham">
+          <ScalarProperty Name="DacDiemNB" ColumnName="DacDiemNB" />
+          <ScalarProperty Name="AnhChiTiet" ColumnName="AnhChiTiet" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Sizesp_soLuong" ColumnName="Sizesp_soLuong" />
           <ScalarProperty Name="MauSP" ColumnName="MauSP" />
           <ScalarProperty Name="Brand" ColumnName="Brand" />
           <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />

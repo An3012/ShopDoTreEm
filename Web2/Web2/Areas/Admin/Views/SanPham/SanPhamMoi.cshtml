@@ -1,0 +1,359 @@
+﻿
+@{
+    ViewBag.Title = "SanPhamMoi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Web2.Models.WebDoTreEmEntities2 Db = new Web2.Models.WebDoTreEmEntities2();
+    var LstDanhMuc = Db.DanhMucSp.ToList();
+    var LstPhanLoai = Db.LoaiSp.ToList();
+    var LstSize = Db.Size.ToList();
+}
+<style>
+    .image-container {
+        margin-top: 20px;
+    }
+
+    .image-preview {
+        display: inline-block;
+        margin: 10px;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .img-bg {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        padding-bottom: 100%;
+    }
+
+    .image-remove::after {
+        content: "✖";
+        font-size: 14px;
+        color: white;
+    }
+
+    .image-remove {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: center;
+        line-height: 24px;
+        z-index: 1;
+        cursor: pointer;
+    }
+</style>
+<script>
+    function add_imgproduct(){
+    document.getElementById("input-fileImgProduct").click();
+}
+    function add_imgproductdetail(){
+    document.getElementById("input-fileImgProductdetail").click();
+}
+</script>
+<form method="post" enctype = "multipart/form-data">
+    <div class="form-validation">
+        <div class="row">
+            <div class="col-xl-6 ">
+                <div class="form-group  form-group-img AnhProduct">
+                    <div class="row" id="AnhProduct">
+                        <label class="col-lg-6 col-form-label">
+                            <span class="col-form-label">Hình ảnh hiển thị</span>
+                            <img src="" class="img-thumbnail" id="fileImgProduct-img">
+                            <input type="file" id="input-fileImgProduct" name="fileImage" style="display: none;" onchange="SelectedImage(event)">
+                        </label>
+                        <div class="col-lg-6  upload">
+                            <label class="col-lg-12 col-form-label p-0" style="margin-top: calc(0.375rem + 1px); margin-bottom: calc(0.375rem + 1px) ">Hình ảnh chi tiết</label>
+                            <input type='file' multiple style="display: none;" name="fileImgProductdetail" id="input-fileImgProductdetail" />
+                            <div class="upload__img-wrap img-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-6 p-2 col-form-label"><a class="form-group-a add_imgproduct" onclick="add_imgproduct()" href="javascript:;"> Thêm ảnh sản phẩm</a></label>
+                    <label class="col-lg-6 p-2 col-form-label"><a class="form-group-a add_imgproduct_Detail" onclick="add_imgproductdetail()" href="javascript:;"> Thêm ảnh Chi tiết</a></label>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Tên sản phẩm:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <input class="form-control" id="val-TenSanPham" name="val_TenSanPham" placeholder="Tên sản phẩm...">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Mã sản phẩm:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <input class="form-control" id="val-TenSanPham" name="val_MaSp" placeholder="Mã sản phẩm...">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Danh mục:
+                    </label>
+                    <div class="col-lg-8 p-2 SelectDanhMuc">
+                        <select class="form-control val-DanhMuc" name="val_DanhMuc" id="val-DanhMuc" href="javascript:;" onclick="ClickDanhMucPhanLoai()">
+                            <option value="">--Chọn danh mục sản phẩm--</option>
+                            @foreach (var item in LstDanhMuc)
+                            {
+                                <option value="@item.id">@item.TagDM</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Phân loại:
+                    </label>
+                    <div class="col-lg-8 p-2 SelctPhanLoai">
+                        <select class="form-control" id="val-PhanLoaiSanPham" name="val_PhanLoaiSanPham">
+                            <option value="">--Chọn phân loại sản phẩm--</option>
+                            @foreach (var item in LstPhanLoai)
+                            {
+                                <option value="@item.id">@item.ChiTiet</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Mô tả:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <textarea rows="5" class="form-control" id="val-Mota" name="val_Mota" placeholder="Mô tả sản phẩm..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Size:
+                    </label>
+                    <div class="col-lg-8 p-2 ">
+                        <select class="multi-select" name="statesSize[]" multiple="multiple" title="Chọn một hoặc size sản phẩm">
+                            @foreach (var item in LstSize)
+                            {
+                                <option value="@item.id">@item.TagSize: @item.CanNang</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div id="SoLuongbySizeSp">
+                    <div class="form-group row">
+                        <div class="col-lg-3 p-2">
+                            Số lượng:
+                        </div>
+                        <div class="col-lg-8 p-2">
+                            <input placeholder="Số lượng sản phẩm cho từng size..." class=" form-control p-1" title="Số lượng sản phẩm cho từng size" name="val_Soluong" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Màu:
+                    </label>
+                    <div class="col-lg-8 p-2 ">
+                        <input class="form-control" id="val-MauSp" name="val_MauSp" placeholder="Màu sản phẩm..." title="Màu sản phẩm">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Giá:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <input class="form-control" id="val-Gia" name="val_Gia" title="Giá sản phẩm ban đầu nhập các số đầu" placeholder="Giá sản phẩm..." />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Giảm giá:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <input class="form-control" id="val-GiamGia" name="val_GiamGia" title="Giảm giá theo %" placeholder="Giảm giá..." />
+                    </div>
+                </div>
+                <div style="margin-top:6px" class="form-group row">
+                    <label class="col-lg-3 p-2 col-form-label">
+                        Tình trạng:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <select class="form-control" id="val-PhanLoaiSanPham" name="val_TinhTrang">
+                            <option value="Còn Hàng">Còn Hàng</option>
+                            <option value="Mới">Mới</option>
+                            <option value="Sale">Sale</option>
+                            <option value="Hot Search">Hot Search</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 col-form-label">
+                        Brand:
+                    </label>
+                    <div class="col-lg-8 p-2">
+                        <input class="form-control" id="val-Brand" name="val_Brand" placeholder="Brand sản phẩm" title="Brand của sản phẩm" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label style="margin-top:6px" class="col-lg-3 p-2 ">
+                        Đặc điểm nổi bật:
+                    </label>
+                    <div class="col-lg-1 p-2 btn-addDDNB">
+                        <a class="btn btn-outline-dark btn-event " href="javascript:;">
+                            <span class="align-middle"><i class="ti-plus"></i></span>
+                        </a>
+                    </div>
+                </div>
+                <div id="DacDiemNoiBat" style="margin-bottom:10px">
+                    <div class="form-group row">
+                        <div class="col-lg-3 p-2">
+                            <textarea rows="2" name="val_TagDDNB" placeholder="Tag đặc điểm nổi bật..." class="form-control p-1 " title="Tag hiển thị đặc điểm nổi bật" id="val-NameDacDiemNoiBat"></textarea>
+                        </div>
+                        <div class="col-lg-7 p-2">
+                            <textarea rows="2" name="val_DDNB" placeholder="Đặc điểm nổi bật..." title="Đặc điểm nổi bật" class=" form-control p-1" id="val-DacDiemNoiBat"></textarea>
+                        </div>
+                        <div class="col-lg-1 p-2">
+                            <a href="javascript:;" class=" fa fa-trash DeleteDDNB" style="font-size: 20px; padding-top: 9px;"></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-8 ml-auto" style="padding-left: 28px;">
+            <button type="submit" class="btn btn-success" style="width: 95px;">Lưu</button>
+            <button type="reset" class="btn btn-danger" style="width: 95px;">Reset</button>
+            <button type="button" href="javascript:;" onclick="Database()" class="btn btn-primary" style="width: 95px;">Trở lại</button>
+        </div>
+    </div>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+
+$('.btn-addDDNB').on('click', function(){
+var html ='<div class="form-group row">'
+            +'<div class="col-lg-3 p-2">'
+                +'<textarea rows="2" name="val_TagDDNB" placeholder="Tag đặc điểm nổi bật..." class="form-control p-1 " id="val-NameDacDiemNoiBat"></textarea>'
+            +'</div>'
+            +'<div class="col-lg-7 p-2">'
+                +'<textarea rows="2" name="val_DDNB" placeholder="Đặc điểm nổi bật..." class=" form-control p-1" id="val-DacDiemNoiBat" name="val-DacDiemNoiBat"></textarea>'
+            +'</div>'
+            +'<div class="col-lg-1 p-2">'
+                +'<a href="javascript:;" class=" fa fa-trash DeleteDDNB" style="font-size: 20px; padding-top: 9px;"></a>'
+            +'</div>'
+        +'</div>';
+    console.log(html);
+    $('#DacDiemNoiBat').append(html);
+});
+
+$(document).on('click', '.DeleteDDNB' , function(){
+    $(this).closest('.form-group').remove();
+});
+
+    function ClickDanhMucPhanLoai(){
+        var selectedDanhMuc = $('.val-DanhMuc').find(":selected").val();
+        console.log(selectedDanhMuc);
+        $('#val-PhanLoaiSanPham').empty();
+        $.ajax({
+            url: '/Admin/SanPham/GetPhanLoaiByDanhMuc',
+            type: 'Post',
+            data: { danhMucId: selectedDanhMuc },
+            success: function(data) {
+                console.log("Data received:", data);
+            $.each(data, function(index, item) {
+                $('#val-PhanLoaiSanPham').append($('<option>', {
+                    value: item.id,
+                    text: item.ChiTiet
+                }));
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching Phan Loai:', status, error);
+            console.log('Response Text:', xhr.responseText);
+        }
+    });
+}
+$(function() {
+  var imgWrap = $(".upload__img-wrap");
+  var imgArray = [];
+  var dataNumber = 0;
+  const maxLength = 5; // Set the maximum number of images to 5
+  $("#input-fileImgProductdetail").change(function() {
+    var noOfFiles = this.files.length;
+    var filesArr = Array.prototype.slice.call(this.files);
+    filesArr.forEach(function(file, index) {
+      if (!file.type.match('image.*')) {
+        return;
+      }
+      if (imgArray.length >= maxLength) {
+        return false;
+      }
+      var len = 0;
+      for (var i = 0; i < imgArray.length; i++) {
+        if (imgArray[i] !== undefined) {
+          len++;
+        }
+      }
+      if (len >= maxLength) {
+        return false;
+      }
+      imgArray.push(file);
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var html = "<div class='image-preview'><div style='background-image: url(" + e.target.result + ")' data-number='" + dataNumber + "' data-file='" + file.name + "' class='img-bg'><div class='image-remove'></div></div></div>";
+        imgWrap.append(html);
+        dataNumber++;
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+
+  $('body').on('click', ".image-remove", function(e) {
+    var file = $(this).parent().data("file");
+    for (var i = 0; i < imgArray.length; i++) {
+      if (imgArray[i].name === file) {
+        imgArray.splice(i, 1);
+        break;
+      }
+    }
+    $(this).parent().parent().remove();
+  });
+});
+
+    function SelectedImage(event) {
+        var input = event.target;
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var imgElement = document.getElementById('fileImgProduct-img');
+            imgElement.src = e.target.result;
+            console.log(imgElement.src)
+            document.querySelector('.add_imgproduct').textContent = 'Thay đổi hình ảnh';
+        };
+        reader.readAsDataURL(file);
+    }
+    function displaySelectedImage(event) {
+    var input = event.target;
+    var file = input.files[0];
+    if (file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var imgElement = document.getElementById('Add-imgDetail');
+        imgElement.src = e.target.result;
+        document.getElementById('btn-save').style.display = 'inline-flex';
+    }
+    reader.readAsDataURL(file);
+    }
+}
+    </script>

@@ -3,61 +3,74 @@
     var LstDanhMuc = Db.DanhMucSp.ToList();
     var LstPhanLoai = Db.LoaiSp.ToList();
     var model = ViewBag.listsp as List<Web2.Models.SanPham>;
+    var LstTinhTrangSp = Web2.Models.ModelDAO.TinhTrangsanPham.TinhTrangList;
 }
 
 @{
     ViewBag.Title = "SanPham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="card-body" >
-    <div class="table-responsive" id="table-responsive" >
-        <table id="example" class="display example_table" style="min-width: 845px">
-            <thead>
-                <tr>
-                    <th style="min-width: 22%;">Tên sản phẩm</th>
-                    <th style="min-width: 22%;">Hình ảnh</th>
-                    <th style="min-width: 10%;">Mã SP</th>
-                    <th style="min-width: 8%;">Màu sắc</th>
-                    <th style="min-width: 10%;">Tình trạng</th>
-                    <th style="min-width: 10%;">Giá</th>
-                    <th style="min-width: 8%;">Giảm giá</th>
-                    <th style="min-width: 10%;">Chức năng</th>
-                </tr>
-            </thead>
-            <tbody id="tableproduct">
-                @foreach (var item in model)
-                {
+<style>
+    .form-group-a {
+        color: #6c757d;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Basic Datatable</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" id="table-responsive">
+            <button class=" pull-right btn btn-info mb-4" data-toggle="modal" data-target="#exampleModalAddProduct" id="">Thêm sản phẩm mới</button>
+            <table id="example" class="display example-advance-3" style="min-width: 845px">
+                <thead>
                     <tr>
-                        <td>@item.TenSanPham</td>
-                        <td id="td1"><div style="width:160px"><img src="@item.AnhSp" id="@item.Id" style="width:95%" /></div></td>
-                        <td>@item.Masp</td>
-                        <td>@item.MauSP</td>
-                        <td>@item.TinhTrang</td>
-                        <td>@string.Format("{0:C3}", item.Gia)</td>
-                        <td style="color:#ca1515">@item.GiamGia %</td>
-                        <td>
-                            <div style="margin: auto;">
-                                <a href="javascript:;" onclick="ClickProduct(@item.Id)" style="color: #593bdb; font-size: 22px"><i class="fa fa-exclamation-circle"></i></a>
-                                <a style="color: #7ED321; font-size: 22px" href="javascript:;" onclick="ClickEdit(@item.Id)"><i class="mdi mdi-file-document-box"></i></a>
-                                <a style="color: #FF1616; font-size: 22px" href="javascript:;" onclick="DeleteProduct(@item.Id)"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>
+                        <th style="min-width: 22%;">Tên sản phẩm</th>
+                        <th style="min-width: 22%;">Hình ảnh</th>
+                        <th style="min-width: 10%;">Mã SP</th>
+                        <th style="min-width: 8%;">Màu sắc</th>
+                        <th style="min-width: 10%;">Tình trạng</th>
+                        <th style="min-width: 10%;">Giá</th>
+                        <th style="min-width: 8%;">Giảm giá</th>
+                        <th style="min-width: 10%;">Chức năng</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var item in model)
+                    {
+                        <tr>
+                            <td>@item.TenSanPham</td>
+                            <td id="td1"><div style="width:160px"><img src="@item.AnhSp" id="@item.Id" style="width:95%" /></div></td>
+                            <td>@item.Masp</td>
+                            <td>@item.MauSP</td>
+                            <td>@LstTinhTrangSp.FirstOrDefault(x => x.Value == item.TinhTrang).title</td>
+                            <td>@string.Format("{0:C3}", item.Gia)</td>
+                            <td style="color:#ca1515">@item.GiamGia %</td>
+                            <td>
+                                <div style="margin: auto;">
+                                    <a href="javascript:;" onclick="ClickProduct(@item.Id)" style="color: #593bdb; font-size: 22px"><i class="fa fa-exclamation-circle"></i></a>
+                                    <a style="color: #7ED321; font-size: 22px" href="javascript:;" onclick="ClickEdit(@item.Id)"><i class="fa fa-pencil"></i></a>
+                                    <a style="color: #FF1616; font-size: 22px" href="javascript:;" onclick="DeleteProduct(@item.Id)"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
-            <tfoot>
-                <tr>
-                    <th style="min-width: 22%;">Tên sản phẩm</th>
-                    <th style="min-width: 22%;">Hình ảnh</th>
-                    <th style="min-width: 10%;">Mã SP</th>
-                    <th style="min-width: 8%;">Màu sắc</th>
-                    <th style="min-width: 10%;">Tình trạng</th>
-                    <th style="min-width: 10%;">Giá</th>
-                    <th style="min-width: 8%;">Giảm giá</th>
-                    <th style="min-width: 10%;">Chức năng</th>
-                </tr>
-            </tfoot>
-        </table>
+                <tfoot>
+                    <tr>
+                        <th style="min-width: 22%;">Tên sản phẩm</th>
+                        <th style="min-width: 22%;">Hình ảnh</th>
+                        <th style="min-width: 10%;">Mã SP</th>
+                        <th style="min-width: 8%;">Màu sắc</th>
+                        <th style="min-width: 10%;">Tình trạng</th>
+                        <th style="min-width: 10%;">Giá</th>
+                        <th style="min-width: 8%;">Giảm giá</th>
+                        <th style="min-width: 10%;">Chức năng</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 <script>
@@ -82,25 +95,13 @@
         type: 'post',
         url: '/Admin/SanPham/DeleteProduct',
         data: { IdProduct },
-        success: function (response) {
-                toastr.info(response, "Thông báo", {
-                positionClass: "toast-top-right",
-                timeOut: 5000,
-                closeButton: true,
-                debug: false,
-                newestOnTop: true,
-                progressBar: true,
-                preventDuplicates: true,
-                showDuration: "300",
-                hideDuration: "1000",
-                extendedTimeOut: "1000",
-                showEasing: "swing",
-                hideEasing: "linear",
-                showMethod: "fadeIn",
-                hideMethod: "fadeOut",
-                tapToDismiss: false
-            })
-        }
+        success: function (html) {
+           $("#GridViewProduct").html(html);
+           showInfoToastr("Xóa sản phẩm thành công!");
+        },
+        error: function (xhr, status, error) {
+            showInfoToastr("Có lỗi xảy ra khi xóa sản phẩm!");
+    }
     })
 }
 </script>
